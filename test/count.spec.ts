@@ -13,7 +13,7 @@ describe('SubCount', () => {
         expect(s).to.have.been.called.with({newCount: 1, prevCount: 0});
         expect(s).to.have.been.called.once;
     });
-    describe('unsubscribeAll', () => {
+    describe('cancelAll', () => {
         it('must notify about zero clients', () => {
             const received: ICountChange[] = [];
             const a = new SubCount<string>({sync: true});
@@ -24,7 +24,7 @@ describe('SubCount', () => {
             const sub2 = a.subscribe(() => 456);
             expect(sub1.live).to.be.true;
             expect(sub2.live).to.be.true;
-            a.unsubscribeAll();
+            a.cancelAll();
             expect(sub1.live).to.be.false;
             expect(sub2.live).to.be.false;
             expect(received).to.eql([

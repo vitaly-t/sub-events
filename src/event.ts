@@ -158,9 +158,9 @@ export class SubEvent<T = any> {
     }
 
     /**
-     * Un-subscribes all clients.
+     * Cancels all subscriptions for the event.
      */
-    public unsubscribeAll(): void {
+    public cancelAll(): void {
         this._subs.forEach(sub => sub.cancel());
         this._subs.length = 0;
     }

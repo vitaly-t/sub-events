@@ -55,15 +55,15 @@ export class SubCount<T = any> extends SubEvent<T> {
     }
 
     /**
-     * Un-subscribes all clients.
+     * Cancels all subscriptions.
      *
      * It overrides base implementation to trigger event [[onCount]]
      * when there is at least one subscribed client.
      */
-    public unsubscribeAll(): void {
+    public cancelAll(): void {
         const prevCount = this.count;
         if (prevCount) {
-            super.unsubscribeAll();
+            super.cancelAll();
             this._notify({newCount: 0, prevCount});
         }
     }

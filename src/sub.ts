@@ -1,6 +1,6 @@
 /**
  * @class
- * Represents result of subscribing to an observable object, and a safe way to unsubscribe.
+ * Represents an event subscription, and a safe way to cancel it.
  */
 export class Subscription {
     private _unsub: () => void;
@@ -11,7 +11,6 @@ export class Subscription {
     constructor(unsub: () => void, sub: { cancel: () => void }) {
         this._unsub = unsub;
         sub.cancel = () => {
-            // Observable cancels this subscription:
             this._unsub = null;
         };
     }
@@ -33,10 +32,10 @@ export class Subscription {
      * - `true` - subscription has been successfully cancelled
      * - `false` - nothing happened, as subscription wasn't live
      */
-    public unsubscribe(): boolean {
+    public cancel(): boolean {
         if (this._unsub) {
             this._unsub();
-            this._unsub = null; // to protect from repeated calls
+            this._unsub = null;
             return true;
         }
         return false;

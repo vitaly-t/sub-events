@@ -19,16 +19,16 @@ describe('SubEvent', () => {
         expect(a.count).to.equal(1);
         const sub2 = a.subscribe(() => 2);
         expect(a.count).to.equal(2);
-        sub1.unsubscribe();
+        sub1.cancel();
         expect(a.count).to.equal(1);
-        sub2.unsubscribe();
+        sub2.cancel();
         expect(a.count).to.equal(0);
     });
     it('must track subscription live status', () => {
         const a = new SubEvent();
         const sub = a.subscribe(() => 1);
         expect(sub.live).to.be.true;
-        sub.unsubscribe();
+        sub.cancel();
         expect(sub.live).to.be.false;
     });
 
@@ -76,7 +76,7 @@ describe('SubEvent', () => {
             });
         });
     });
-    describe('unsubscribeAll', () => {
+    describe('cancelAll', () => {
         it('must cancel all current subscriptions', () => {
             const received: string[] = [];
             const a = new SubEvent<string>();
@@ -84,7 +84,7 @@ describe('SubEvent', () => {
                 received.push(value);
             });
             a.emitSync('first');
-            a.unsubscribeAll();
+            a.cancelAll();
             a.emitSync('second');
             expect(received).to.eql(['first']);
             expect(sub.live).to.be.false;
