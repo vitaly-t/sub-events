@@ -4,6 +4,9 @@
 
 Subscribable events in TypeScript.
 
+**THIS PROJECT IS UNDER DEVELOPMENT**
+
+<!--
 ## Preamble
 
 It was originally written to overcome [RXJS] complexities of monitoring subscriptions, see [this issue](https://stackoverflow.com/questions/56195932/how-to-monitor-number-of-rxjs-subscriptions). 
@@ -97,6 +100,8 @@ fromEvent(document, 'click').subscribe((e: Event) => {
 ```
 
 See also: [API generated from code](https://vitaly-t.github.io/subcount).
+
+-->
 
 [RXJS]:https://github.com/reactivex/rxjs
 [Observable]:https://vitaly-t.github.io/subcount/classes/observable.html
