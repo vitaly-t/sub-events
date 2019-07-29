@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "./dist",
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "target": "es5"
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "typedocOptions": {
+    "name": "SUBCOUNT",
+    "excludeExternals": true,
+    "excludePrivate": true,
+    "excludeNotExported": true,
+    "disableOutputCheck": true,
+    "mode": "file",
+    "out": "docs",
+    "theme": "minimal"
+  }
+}
