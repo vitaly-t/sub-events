@@ -11,6 +11,10 @@ export interface IEventOptions {
      * Default is 0, meaning `no limit applies`.
      */
     max?: number;
+
+    // TODO: Need to implement these properly
+    onSubscribe?: (sub: SubEvent) => void;
+    onCancel?: (sub: SubEvent) => void;
 }
 
 /**
@@ -42,11 +46,7 @@ export interface ISubscriber<T> {
  */
 export class SubEvent<T = any> {
 
-    /**
-     * Maximum number of subscribers that can receive data.
-     * 0 = `no limit applies`.
-     */
-    readonly max: number;
+    readonly options: IEventOptions;
 
     /**
      * Internal list of subscribers.
@@ -60,7 +60,7 @@ export class SubEvent<T = any> {
      * Configuration Options.
      */
     constructor(options?: IEventOptions) {
-        this.max = options && options.max > 0 ? options.max : 0;
+        this.options = options;
     }
 
     /**
@@ -218,7 +218,8 @@ export class SubEvent<T = any> {
      * maximum limit when it is set with the [[max]] option.
      */
     protected _getRecipients(): ISubscriber<T>[] {
-        const end = this.max ? this.max : this._subs.length;
+        const max = this.options && this.options.max;
+        const end = max > 0 ? max : this._subs.length;
         return this._subs.slice(0, end);
     }
 
