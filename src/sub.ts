@@ -3,26 +3,26 @@
  * Represents an event subscription, and a safe way to cancel it.
  */
 export class Subscription {
-    private _unsub: () => void;
+    private _cancel: () => void;
 
     /**
      * @hidden
      */
-    constructor(unsub: () => void, sub: { cancel: () => void }) {
-        this._unsub = unsub;
+    constructor(cancel: () => void, sub: { cancel: () => void }) {
+        this._cancel = cancel;
         sub.cancel = () => {
-            this._unsub = null;
+            this._cancel = null;
         };
     }
 
     /**
      * Indicates whether the subscription is live / active.
      *
-     * It can be useful for subscribers when [[unsubscribe]] or [[unsubscribeAll]]
+     * It can be useful for subscribers when [[cancel]] or [[cancelAll]]
      * are used without their knowledge.
      */
     public get live(): boolean {
-        return !!this._unsub;
+        return !!this._cancel;
     }
 
     /**
@@ -33,9 +33,9 @@ export class Subscription {
      * - `false` - nothing happened, as subscription wasn't live
      */
     public cancel(): boolean {
-        if (this._unsub) {
-            this._unsub();
-            this._unsub = null;
+        if (this._cancel) {
+            this._cancel();
+            this._cancel = null;
             return true;
         }
         return false;

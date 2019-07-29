@@ -75,7 +75,7 @@ export class SubEvent<T = any> {
     public subscribe(cb: SubFunction<T>): Subscription {
         const sub: ISubscriber<T> = {cb, cancel: null};
         this._subs.push(sub);
-        return new Subscription(this._createUnsub(sub), sub);
+        return new Subscription(this._createCancel(sub), sub);
     }
 
     /**
@@ -115,12 +115,17 @@ export class SubEvent<T = any> {
      * @param onError
      * Callback for handling errors from subscribers.
      *
+     * @param cb
+     * Optional callback function to be notified when the last recipient has received the data.
+     * The function takes one parameter - total number of clients that received the data.
+     * Note that asynchronous subscribers may still be processing the data at this point.
+     *
      * @returns
      * Number of clients that will be receiving the data.
      */
-    public emitSafe(data: T, onError: (err: any) => void): number {
+    public emitSafe(data: T, onError: (err: any) => void, cb?: (count: number) => void): number {
         const r = this._getRecipients();
-        r.forEach(sub => SubEvent._nextCall(() => {
+        r.forEach((sub, index) => SubEvent._nextCall(() => {
             try {
                 const res = sub.cb(data);
                 if (res && typeof res.catch === 'function') {
@@ -128,6 +133,10 @@ export class SubEvent<T = any> {
                 }
             } catch (e) {
                 onError(e);
+            } finally {
+                if (index === r.length - 1 && typeof cb === 'function') {
+                    cb(r.length); // finished sending
+                }
             }
         }));
         return r.length;
@@ -147,6 +156,38 @@ export class SubEvent<T = any> {
     public emitSync(data: T): number {
         const r = this._getRecipients();
         r.forEach(sub => sub.cb(data));
+        return r.length;
+    }
+
+    /**
+     * Safe synchronous data broadcast to all subscribers.
+     *
+     * Errors from subscription callbacks are passed into the callback function,
+     * which handles both synchronous and asynchronous subscription functions.
+     *
+     * @param data
+     * Data to be sent, according to the type template.
+     *
+     * @param onError
+     * Callback for handling errors from subscribers.
+     *
+     * @returns
+     * Number of clients that have received the data.
+     *
+     * Note that asynchronous subscribers may still be processing the data.
+     */
+    public emitSyncSafe(data: T, onError: (err: any) => void): number {
+        const r = this._getRecipients();
+        r.forEach(sub => {
+            try {
+                const res = sub.cb(data);
+                if (res && typeof res.catch === 'function') {
+                    res.catch(onError);
+                }
+            } catch (e) {
+                onError(e);
+            }
+        });
         return r.length;
     }
 
@@ -185,19 +226,19 @@ export class SubEvent<T = any> {
      * @returns
      * Function that implements the [[unsubscribe]] request.
      */
-    protected _createUnsub(sub: ISubscriber<T>): () => void {
+    protected _createCancel(sub: ISubscriber<T>): () => void {
         return () => {
-            this._removeSub(sub);
+            this._cancelSub(sub);
         };
     }
 
     /**
-     * Removes an existing subscriber from the list.
+     * Cancels an existing subscription.
      *
      * @param sub
      * Subscriber to be removed, which must be on the list.
      */
-    protected _removeSub(sub: ISubscriber<T>) {
+    protected _cancelSub(sub: ISubscriber<T>) {
         const idx = this._subs.indexOf(sub);
         this._subs[idx].cancel();
         this._subs.splice(idx, 1);

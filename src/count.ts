@@ -70,13 +70,13 @@ export class SubCount<T = any> extends SubEvent<T> {
 
     /**
      * Overrides base implementation to trigger event [[onCount]] during
-     * `subscribe` and `unsubscribe` calls.
+     * `subscribe` and `cancel` calls.
      */
-    protected _createUnsub(sub: ISubscriber<T>): () => void {
+    protected _createCancel(sub: ISubscriber<T>): () => void {
         const s = this._subs;
         this._notify({newCount: s.length, prevCount: s.length - 1});
         return () => {
-            this._removeSub(sub);
+            this._cancelSub(sub);
             this._notify({newCount: s.length, prevCount: s.length + 1});
         };
     }
