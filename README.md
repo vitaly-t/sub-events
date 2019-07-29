@@ -98,7 +98,7 @@ See also: [API generated from code](https://vitaly-t.github.io/sub-events).
 
 ## TODO
 
-* Follow up the new [./src/extras.ts](./src/event.ts) file.
+* Follow up the new [./src/extras.ts](./src/extras.ts) file.
 
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
 [SubEventCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html
