@@ -12,6 +12,7 @@
     "doc": "./node_modules/.bin/typedoc",
     "lint": "./node_modules/.bin/tslint --fix ./src/**/*.ts ./test/**/*.ts",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "travis": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test"
   },
   "files": [
