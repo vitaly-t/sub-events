@@ -38,7 +38,7 @@ export interface ISubscriber<T> {
 
 /**
  * @class
- * Implements subscribing to events and triggering them.
+ * Implements subscribing to and triggering an event.
  */
 export class SubEvent<T = any> {
 
@@ -64,13 +64,13 @@ export class SubEvent<T = any> {
     }
 
     /**
-     * Subscribes to receive all data events.
+     * Subscribes for the event.
      *
      * @param cb
      * Event notification callback function.
      *
      * @returns
-     * Object for un-subscribing safely.
+     * Object for cancelling the subscription safely.
      */
     public subscribe(cb: SubFunction<T>): Subscription {
         const sub: ISubscriber<T> = {cb, cancel: null};

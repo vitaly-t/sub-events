@@ -3,82 +3,74 @@
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master)
 
-Events subscription in TypeScript.
+Easy event subscription, implemented in TypeScript.
 
-**THIS PROJECT IS UNDER ACTIVE DEVELOPMENT**
+Supports all versions of Node.js and web browsers.
 
-<!--
-## Preamble
+## Install
 
-It was originally written to overcome [RXJS] complexities of monitoring subscriptions, see [this issue](https://stackoverflow.com/questions/56195932/how-to-monitor-number-of-rxjs-subscriptions). 
-
-However, it is now a powerful event-handling engine by itself, supporting all browsers and Node.js versions.  
+```
+npm i sub-events
+```
 
 ## Usage
 
-Install this module via `npm i subcount`.
-
-### Simple Observable
-
-Class [Observable] works very much like in [RXJS]: 
+* On the event's provider side:
 
 ```ts
-import {Observable} from 'subcount';
+import {SubEvent} from 'sub-events';
 
-// declare observable with any type:
-const a: Observable<string> = new Observable();
+// creating with the event's data type: 
+const e: SubEvent<string> = new SubEvent();
 
-// subscribe for data:
-const sub = a.subscribe((data: string) => {
+// trigerring the event when needed:
+e.emit('hello');
+```
+
+* On the event's consumer side:
+
+```ts
+// subscribing to the event:
+const sub = e.subscribe((data: string) => {
   // data = 'hello'
 });
 
-a.next('hello'); // send data
-
-sub.unsubscribe(); // unsubscribe
+// cancel the subscription when no longer needed:
+sub.cancel();
 ```
 
-And if you need to wait for `next` to finish, you can use method `nextSync` instead.
+### Observing Subscriptions
 
-### Counted Observable
-
-Class [CountedObservable] extends [Observable] with `onCount`, to monitor the subscriptions counter:
+Class [SubCount] extends [SubEvent] with `onCount`, to monitor the subscriptions counter:
 
 ```ts
-import {CountedObservable, ISubCounts} from 'subcount';
+import {SubCount, ICountChange} from 'sub-events';
 
-// declare observable with any type:
-const a: CountedObservable<string> = new CountedObservable();
+// creating with the event's data type:
+const e: SubCount<string> = new SubCount();
+```
 
-// monitor the subscriptions counter:
-const countSub = a.onCount.subscribe((info: ISubCounts) => {
+Any side can monitor the number of subscriptions:
+
+```ts
+const monSub = e.onCount.subscribe((info: ICountChange) => {
+    // number of subscribers has changed;
     // info = {newCount, prevCount} 
 });
 
-// subscribe for data:
-const sub = a.subscribe((data: string) => {
-  // data = 'hello'
-});
+// cancel monitoring when no longer needed: 
+monSub.cancel();
+``` 
 
-// send data:
-a.next('hello');
+### Browser
 
-// unsubscribe:
-sub.unsubscribe();
-countSub.unsubscribe();
-```
-
-If you need `onCount` sent synchronously, use `new CountedObservable({sync: true})`. 
-
-## Browser
-
-Including `./subcount/dist` in your HTML will give you access to all types under `subcount` namespace:
+Including `./sub-events/dist` in your HTML will give you access to all types under `subEvents` namespace:
 
 ```html
-<script src="./subcount/dist"></script>
+<script src="./sub-events/dist"></script>
 <script>
-    const a = new subcount.Observable();
-    a.subscribe(data => {
+    const e = new subEvents.SubEvent();
+    e.subscribe(data => {
         // data received
     });
 </script>
@@ -89,21 +81,18 @@ And when using it directly in TypeScript, you can compile and bundle it any way 
 **Example:**
 
 ```ts
-function fromEvent(from: Node, event: string): Observable<Event> {
-    const obs = new Observable<Event>();
-    from.addEventListener(event, e => obs.next(e));
-    return obs;
+function fromEvent(source: Node, event: string): SubEvent<Event> {
+    const sub = new SubEvent<Event>();
+    source.addEventListener(event, e => sub.emit(e));
+    return sub;
 }
 
 fromEvent(document, 'click').subscribe((e: Event) => {
-    // handle the event
+    // handle click events from the document
 });
 ```
 
-See also: [API generated from code](https://vitaly-t.github.io/subcount).
+See also: [API generated from code](https://vitaly-t.github.io/sub-events).
 
--->
-
-[RXJS]:https://github.com/reactivex/rxjs
-[Observable]:https://vitaly-t.github.io/subcount/classes/observable.html
-[CountedObservable]:https://vitaly-t.github.io/subcount/classes/countedobservable.html
+[SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
+[SubCount]:https://vitaly-t.github.io/sub-events/classes/subcount.html
