@@ -199,7 +199,7 @@ export class SubEvent<T = any> {
     }
 
     /**
-     * Cancels all subscriptions for the event.
+     * Cancels all event subscriptions.
      *
      * @returns
      * Number of subscriptions cancelled.

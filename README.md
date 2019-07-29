@@ -41,7 +41,7 @@ const sub = e.subscribe((data: string) => {
 sub.cancel();
 ```
 
-### Observing Subscriptions
+#### Observing Subscriptions
 
 Class [SubEventCount] extends [SubEvent] with event `onCount` to observe the number of subscriptions:
 
@@ -64,7 +64,7 @@ const monSub = e.onCount.subscribe((info: ISubCountChange) => {
 monSub.cancel();
 ``` 
 
-### Browser
+#### Browser
 
 Including `./sub-events/dist` in your HTML will give you access to all types under `subEvents` namespace:
 

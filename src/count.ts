@@ -55,10 +55,10 @@ export class SubEventCount<T = any> extends SubEvent<T> {
     }
 
     /**
-     * Cancels all subscriptions.
+     * Cancels all event subscriptions.
      *
-     * It overrides the base implementation, to trigger event [[onCount]]
-     * when there is at least one subscribed client.
+     * It overrides the base implementation to trigger event [[onCount]]
+     * when there is at least one live subscription.
      *
      * @returns
      * Number of subscriptions cancelled.
