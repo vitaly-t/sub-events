@@ -1,6 +1,9 @@
 import {SubEvent} from './event';
 import {SubEventCount} from './count';
 
+/**
+ * One-to-one event subscription mapping.
+ */
 export function fromEvent(source: Node, event: string): SubEvent<Event> {
     let handler: (e: Event) => void;
     const onSubscribe = (s: SubEvent) => {
@@ -17,16 +20,16 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
  * Suitable mostly for global event handlers, because we never cancel
  * the onCount subscription that we create.
  */
-export function shareFromEvent(source: Node, event: string): SubEvent<Event> {
+export function fromSharedEvent(source: Node, event: string): SubEvent<Event> {
     const sub: SubEventCount<Event> = new SubEventCount();
     let handler = (e: Event) => sub.emitSync(e);
     sub.onCount.subscribe(info => {
-        const ended = info.newCount === 0; // all subscriptions cancelled
-        const started = info.prevCount === 0; // freshly started
-        if (started) {
+        const start = info.prevCount === 0; // fresh start
+        const stop = info.newCount === 0; // no subscriptions left
+        if (start) {
             source.addEventListener(event, handler, false);
         } else {
-            if (ended) {
+            if (stop) {
                 source.removeEventListener(event, handler, false);
             }
         }
