@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
 
-Subscribable events in TypeScript.
+Events subscription in TypeScript.
 
 **THIS PROJECT IS UNDER DEVELOPMENT**
 

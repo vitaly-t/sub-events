@@ -1,7 +1,7 @@
 {
   "name": "sub-events",
   "version": "0.0.1",
-  "description": "Subscribable events in TypeScript",
+  "description": "Events subscription in TypeScript.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/vitaly-t/sub-events",

@@ -16,7 +16,7 @@
     "node_modules"
   ],
   "typedocOptions": {
-    "name": "SUBCOUNT",
+    "name": "SUB-EVENTS",
     "excludeExternals": true,
     "excludePrivate": true,
     "excludeNotExported": true,
