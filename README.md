@@ -43,7 +43,7 @@ sub.cancel();
 
 ### Observing Subscriptions
 
-Class [SubCount] extends [SubEvent] with event `onCount`, to monitor the subscriptions counter:
+Class [SubEventCount] extends [SubEvent] with event `onCount` to observe the number of subscriptions:
 
 ```ts
 import {SubEventCount, ISubCountChange} from 'sub-events';
@@ -97,4 +97,4 @@ fromEvent(document, 'click').subscribe((e: Event) => {
 See also: [API generated from code](https://vitaly-t.github.io/sub-events).
 
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
-[SubCount]:https://vitaly-t.github.io/sub-events/classes/subcount.html
+[SubEventCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html
