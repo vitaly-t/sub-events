@@ -8,21 +8,21 @@ describe('SubEvent', () => {
         const s = chai.spy(cb);
         a.subscribe(s);
         a.emit(123, (count: number) => {
-            expect(count).to.be.equal(1);
+            expect(count).to.be.eq(1);
             expect(s).to.have.been.called.with(123);
         });
     });
     it('must track subscription count', () => {
         const a = new SubEvent();
-        expect(a.count).to.equal(0);
+        expect(a.count).to.eq(0);
         const sub1 = a.subscribe(() => 1);
-        expect(a.count).to.equal(1);
+        expect(a.count).to.eq(1);
         const sub2 = a.subscribe(() => 2);
-        expect(a.count).to.equal(2);
+        expect(a.count).to.eq(2);
         sub1.cancel();
-        expect(a.count).to.equal(1);
+        expect(a.count).to.eq(1);
         sub2.cancel();
-        expect(a.count).to.equal(0);
+        expect(a.count).to.eq(0);
     });
     it('must track subscription live status', () => {
         const a = new SubEvent();
@@ -40,9 +40,9 @@ describe('SubEvent', () => {
         const s2 = chai.spy(cb2);
         a.subscribe(s1);
         a.subscribe(s2);
-        expect(a.count).to.equal(2);
+        expect(a.count).to.eq(2);
         a.emit(123, (count: number) => {
-            expect(count).to.be.equal(1);
+            expect(count).to.be.eq(1);
             expect(s1).to.have.been.called.with(123);
             expect(s2).to.not.have.been.called;
         });
