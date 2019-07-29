@@ -1,9 +1,9 @@
 import {expect, chai} from './';
-import {Observable} from '../src';
+import {SubEvent} from '../src';
 
 describe('Observable', () => {
     it('must invoke subscription functions', () => {
-        const a = new Observable<number>();
+        const a = new SubEvent<number>();
         const cb = () => 1;
         const s = chai.spy(cb);
         a.subscribe(s);
@@ -13,7 +13,7 @@ describe('Observable', () => {
         });
     });
     it('must track subscription count', () => {
-        const a = new Observable();
+        const a = new SubEvent();
         expect(a.count).to.equal(0);
         const sub1 = a.subscribe(() => 1);
         expect(a.count).to.equal(1);
@@ -25,7 +25,7 @@ describe('Observable', () => {
         expect(a.count).to.equal(0);
     });
     it('must track subscription live status', () => {
-        const a = new Observable();
+        const a = new SubEvent();
         const sub = a.subscribe(() => 1);
         expect(sub.live).to.be.true;
         sub.unsubscribe();
@@ -33,7 +33,7 @@ describe('Observable', () => {
     });
 
     it('must limit notifications according to the max option', () => {
-        const a = new Observable<number>({max: 1});
+        const a = new SubEvent<number>({max: 1});
         const cb1 = () => 1;
         const cb2 = () => 2;
         const s1 = chai.spy(cb1);
@@ -50,7 +50,7 @@ describe('Observable', () => {
     describe('nextSafe', () => {
         const err = new Error('Ops!');
         it('must handle errors from synchronous subscribers', done => {
-            const a = new Observable();
+            const a = new SubEvent();
             a.subscribe(() => {
                 throw err;
             });
@@ -63,7 +63,7 @@ describe('Observable', () => {
             });
         });
         it('must handle errors from asynchronous subscribers', done => {
-            const a = new Observable();
+            const a = new SubEvent();
             a.subscribe(async () => {
                 throw err;
             });
@@ -79,7 +79,7 @@ describe('Observable', () => {
     describe('unsubscribeAll', () => {
         it('must cancel all current subscriptions', () => {
             const received: string[] = [];
-            const a = new Observable<string>();
+            const a = new SubEvent<string>();
             const sub = a.subscribe(value => {
                 received.push(value);
             });

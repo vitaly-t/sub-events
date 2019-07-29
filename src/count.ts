@@ -1,11 +1,11 @@
-import {IObservableOptions, ISubscriber, Observable} from './observable';
+import {IEventOptions, ISubscriber, SubEvent} from './event';
 
 /**
- * @interface ISubCounts
+ * @interface ICountChange
  * @description
  * Represents a change in the number of subscribers, as used with [[onCount]] event.
  */
-export interface ISubCounts {
+export interface ICountChange {
     /**
      * New number of subscribers.
      */
@@ -18,11 +18,11 @@ export interface ISubCounts {
 }
 
 /**
- * @interface ICountedOptions
+ * @interface ICountOptions
  * @description
- * Constructor options for the [[CountedObservable]] class.
+ * Constructor options for the [[SubCount]] class.
  */
-export interface ICountedOptions extends IObservableOptions {
+export interface ICountOptions extends IEventOptions {
     /**
      * Makes [[onCount]] calls synchronous. Default is `false`.
      */
@@ -31,22 +31,22 @@ export interface ICountedOptions extends IObservableOptions {
 
 /**
  * @class
- * Extends [[Observable]] with [[onCount]] event to monitor subscriptions count.
+ * Extends [[SubEvent]] with [[onCount]] event to monitor subscriptions count.
  */
-export class CountedObservable<T = any> extends Observable<T> {
+export class SubCount<T = any> extends SubEvent<T> {
     protected _notify: (data: any) => number;
 
     /**
      * Notifies of any change in the number of subscribers.
      * @event
      */
-    readonly onCount: Observable<ISubCounts> = new Observable();
+    readonly onCount: SubEvent<ICountChange> = new SubEvent();
 
     /**
      * @param options
      * Configuration Options.
      */
-    constructor(options?: ICountedOptions) {
+    constructor(options?: ICountOptions) {
         super(options);
         const c = this.onCount;
         this._notify = (options && options.sync ? c.nextSync : c.next).bind(c);

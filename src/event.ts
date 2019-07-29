@@ -1,11 +1,11 @@
-import {Subscription} from './subscription';
+import {Subscription} from './sub';
 
 /**
- * @interface IObservableOptions
+ * @interface IEventOptions
  * @description
- * Constructor options for the [[Observable]] class.
+ * Constructor options for the [[SubEvent]] class.
  */
-export interface IObservableOptions {
+export interface IEventOptions {
     /**
      * Maximum number of subscribers that can receive data.
      * Default is 0, meaning `no limit applies`.
@@ -40,7 +40,7 @@ export interface ISubscriber<T> {
  * @class
  * Implements subscribing to events and triggering them.
  */
-export class Observable<T = any> {
+export class SubEvent<T = any> {
 
     /**
      * Maximum number of subscribers that can receive data.
@@ -57,7 +57,7 @@ export class Observable<T = any> {
      * @param options
      * Configuration Options.
      */
-    constructor(options?: IObservableOptions) {
+    constructor(options?: IEventOptions) {
         this.max = options && options.max > 0 ? options.max : 0;
     }
 
@@ -92,7 +92,7 @@ export class Observable<T = any> {
      */
     public next(data: T, cb?: (count: number) => void): number {
         const r = this._getRecipients();
-        r.forEach((sub, index) => Observable._nextCall(() => {
+        r.forEach((sub, index) => SubEvent._nextCall(() => {
             sub.cb(data);
             if (index === r.length - 1 && typeof cb === 'function') {
                 cb(r.length); // finished sending
@@ -118,7 +118,7 @@ export class Observable<T = any> {
      */
     public nextSafe(data: T, onError: (err: any) => void): number {
         const r = this._getRecipients();
-        r.forEach(sub => Observable._nextCall(() => {
+        r.forEach(sub => SubEvent._nextCall(() => {
             try {
                 const res = sub.cb(data);
                 if (res && typeof res.catch === 'function') {
