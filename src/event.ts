@@ -14,6 +14,7 @@ export interface IEventOptions {
 
     // TODO: Need to implement these properly
     onSubscribe?: (sub: SubEvent) => void;
+    // Current problem: onCancel must pass on the
     onCancel?: (sub: SubEvent) => void;
 }
 
@@ -60,7 +61,7 @@ export class SubEvent<T = any> {
      * Configuration Options.
      */
     constructor(options?: IEventOptions) {
-        this.options = options;
+        this.options = options || {};
     }
 
     /**
@@ -73,6 +74,10 @@ export class SubEvent<T = any> {
      * Object for cancelling the subscription safely.
      */
     public subscribe(cb: SubFunction<T>): Subscription {
+        /*
+        if (typeof this.options.onSubscribe === 'function') {
+            this.options.onSubscribe.call(this, this);
+        }*/
         const sub: ISubscriber<T> = {cb, cancel: null};
         this._subs.push(sub);
         return new Subscription(this._createCancel(sub), sub);
@@ -206,7 +211,9 @@ export class SubEvent<T = any> {
      */
     public cancelAll(): number {
         const n = this._subs.length;
-        this._subs.forEach(sub => sub.cancel());
+        this._subs.forEach(sub => {
+            sub.cancel();
+        });
         this._subs.length = 0;
         return n;
     }
@@ -218,8 +225,7 @@ export class SubEvent<T = any> {
      * maximum limit when it is set with the [[max]] option.
      */
     protected _getRecipients(): ISubscriber<T>[] {
-        const max = this.options && this.options.max;
-        const end = max > 0 ? max : this._subs.length;
+        const end = this.options.max > 0 ? this.options.max : this._subs.length;
         return this._subs.slice(0, end);
     }
 
@@ -248,6 +254,10 @@ export class SubEvent<T = any> {
         const idx = this._subs.indexOf(sub);
         this._subs[idx].cancel();
         this._subs.splice(idx, 1);
+        /*
+        if (typeof this.options.onCancel === 'function') {
+            this.options.onCancel.call(this, this);
+        }*/
     }
 
     /**

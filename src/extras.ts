@@ -11,6 +11,7 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
         source.addEventListener(event, handler, false);
     };
     const onCancel = (s: SubEvent) => {
+        // Problem: handler here will be the wrong one!
         source.removeEventListener(event, handler, false);
     };
     return new SubEvent<Event>({onSubscribe, onCancel});
