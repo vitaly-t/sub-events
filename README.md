@@ -5,7 +5,7 @@
 
 Events subscription in TypeScript.
 
-**THIS PROJECT IS UNDER DEVELOPMENT**
+**THIS PROJECT IS UNDER ACTIVE DEVELOPMENT**
 
 <!--
 ## Preamble
