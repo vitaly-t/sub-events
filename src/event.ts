@@ -20,7 +20,7 @@ export interface IEventOptions {
 export type SubFunction<T> = (data: T) => any;
 
 /**
- * Subscriber details.
+ * Internal structure for each subscriber.
  * @hidden
  */
 export interface ISubscriber<T> {
@@ -54,6 +54,8 @@ export class SubEvent<T = any> {
     protected _subs: ISubscriber<T>[] = [];
 
     /**
+     * @constructor
+     *
      * @param options
      * Configuration Options.
      */
@@ -65,10 +67,10 @@ export class SubEvent<T = any> {
      * Subscribes to receive all data events.
      *
      * @param cb
-     * Data notification callback function.
+     * Event notification callback function.
      *
      * @returns
-     * Object for unsubscribing safely.
+     * Object for un-subscribing safely.
      */
     public subscribe(cb: SubFunction<T>): Subscription {
         const sub: ISubscriber<T> = {cb, cancel: null};
@@ -90,7 +92,7 @@ export class SubEvent<T = any> {
      * @returns
      * Number of clients that will be receiving the data.
      */
-    public next(data: T, cb?: (count: number) => void): number {
+    public emit(data: T, cb?: (count: number) => void): number {
         const r = this._getRecipients();
         r.forEach((sub, index) => SubEvent._nextCall(() => {
             sub.cb(data);
@@ -116,7 +118,7 @@ export class SubEvent<T = any> {
      * @returns
      * Number of clients that will be receiving the data.
      */
-    public nextSafe(data: T, onError: (err: any) => void): number {
+    public emitSafe(data: T, onError: (err: any) => void): number {
         const r = this._getRecipients();
         r.forEach(sub => SubEvent._nextCall(() => {
             try {
@@ -142,7 +144,7 @@ export class SubEvent<T = any> {
      *
      * Note that asynchronous subscribers may still be processing the data.
      */
-    public nextSync(data: T): number {
+    public emitSync(data: T): number {
         const r = this._getRecipients();
         r.forEach(sub => sub.cb(data));
         return r.length;
@@ -156,7 +158,7 @@ export class SubEvent<T = any> {
     }
 
     /**
-     * Unsubscribes all clients.
+     * Un-subscribes all clients.
      */
     public unsubscribeAll(): void {
         this._subs.forEach(sub => sub.cancel());

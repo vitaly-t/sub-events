@@ -27,7 +27,7 @@ export class Subscription {
     }
 
     /**
-     * Unsubscribes from the observable.
+     * Cancels the live subscription.
      *
      * @returns
      * - `true` - subscription has been successfully cancelled

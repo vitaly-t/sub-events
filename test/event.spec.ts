@@ -1,13 +1,13 @@
 import {expect, chai} from './';
 import {SubEvent} from '../src';
 
-describe('Observable', () => {
+describe('SubEvent', () => {
     it('must invoke subscription functions', () => {
         const a = new SubEvent<number>();
         const cb = () => 1;
         const s = chai.spy(cb);
         a.subscribe(s);
-        a.next(123, (count: number) => {
+        a.emit(123, (count: number) => {
             expect(count).to.be.equal(1);
             expect(s).to.have.been.called.with(123);
         });
@@ -41,13 +41,13 @@ describe('Observable', () => {
         a.subscribe(s1);
         a.subscribe(s2);
         expect(a.count).to.equal(2);
-        a.next(123, (count: number) => {
+        a.emit(123, (count: number) => {
             expect(count).to.be.equal(1);
             expect(s1).to.have.been.called.with(123);
             expect(s2).to.not.have.been.called;
         });
     });
-    describe('nextSafe', () => {
+    describe('emitSafe', () => {
         const err = new Error('Ops!');
         it('must handle errors from synchronous subscribers', done => {
             const a = new SubEvent();
@@ -56,7 +56,7 @@ describe('Observable', () => {
             });
             const handler = () => 1;
             const s = chai.spy(handler);
-            a.nextSafe(123, s);
+            a.emitSafe(123, s);
             setTimeout(() => {
                 expect(s).to.have.been.called.with(err);
                 done();
@@ -69,7 +69,7 @@ describe('Observable', () => {
             });
             const handler = () => 1;
             const s = chai.spy(handler);
-            a.nextSafe(123, s);
+            a.emitSafe(123, s);
             setTimeout(() => {
                 expect(s).to.have.been.called.with(err);
                 done();
@@ -83,9 +83,9 @@ describe('Observable', () => {
             const sub = a.subscribe(value => {
                 received.push(value);
             });
-            a.nextSync('first');
+            a.emitSync('first');
             a.unsubscribeAll();
-            a.nextSync('second');
+            a.emitSync('second');
             expect(received).to.eql(['first']);
             expect(sub.live).to.be.false;
         });

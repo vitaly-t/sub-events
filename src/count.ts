@@ -43,17 +43,19 @@ export class SubCount<T = any> extends SubEvent<T> {
     readonly onCount: SubEvent<ICountChange> = new SubEvent();
 
     /**
+     * @constructor
+     *
      * @param options
      * Configuration Options.
      */
     constructor(options?: ICountOptions) {
         super(options);
         const c = this.onCount;
-        this._notify = (options && options.sync ? c.nextSync : c.next).bind(c);
+        this._notify = (options && options.sync ? c.emitSync : c.emit).bind(c);
     }
 
     /**
-     * Unsubscribes all clients.
+     * Un-subscribes all clients.
      *
      * It overrides base implementation to trigger event [[onCount]]
      * when there is at least one subscribed client.
