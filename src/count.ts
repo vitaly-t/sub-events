@@ -1,11 +1,11 @@
 import {IEventOptions, ISubscriber, SubEvent} from './event';
 
 /**
- * @interface ICountChange
+ * @interface ISubCountChange
  * @description
  * Represents a change in the number of subscribers, as used with [[onCount]] event.
  */
-export interface ICountChange {
+export interface ISubCountChange {
     /**
      * New number of subscribers.
      */
@@ -31,16 +31,16 @@ export interface ICountOptions extends IEventOptions {
 
 /**
  * @class
- * Extends [[SubEvent]] with [[onCount]] event to observe the number of subscriptions.
+ * Extends [[SubEvent]] with event [[onCount]] to observe the number of subscriptions.
  */
-export class SubCount<T = any> extends SubEvent<T> {
-    protected _notify: (data: ICountChange) => void;
+export class SubEventCount<T = any> extends SubEvent<T> {
+    protected _notify: (data: ISubCountChange) => void;
 
     /**
      * @event onCount
      * Notifies of any change in the number of subscribers.
      */
-    readonly onCount: SubEvent<ICountChange> = new SubEvent();
+    readonly onCount: SubEvent<ISubCountChange> = new SubEvent();
 
     /**
      * @constructor

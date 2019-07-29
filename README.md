@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master)
 
+**THIS PROJECT IS UNDER ACTIVE DEVELOPMENT**
+
 Easy event subscription, implemented in TypeScript.
 
 Supports all versions of Node.js and web browsers.
@@ -41,24 +43,24 @@ sub.cancel();
 
 ### Observing Subscriptions
 
-Class [SubCount] extends [SubEvent] with `onCount`, to monitor the subscriptions counter:
+Class [SubCount] extends [SubEvent] with event `onCount`, to monitor the subscriptions counter:
 
 ```ts
-import {SubCount, ICountChange} from 'sub-events';
+import {SubEventCount, ISubCountChange} from 'sub-events';
 
 // creating with the event's data type:
-const e: SubCount<string> = new SubCount();
+const e: SubEventCount<string> = new SubEventCount();
 ```
 
 Any side can monitor the number of subscriptions:
 
 ```ts
-const monSub = e.onCount.subscribe((info: ICountChange) => {
+const monSub = e.onCount.subscribe((info: ISubCountChange) => {
     // number of subscribers has changed;
     // info = {newCount, prevCount} 
 });
 
-// cancel monitoring when no longer needed: 
+// cancel the monitoring when no longer needed: 
 monSub.cancel();
 ``` 
 
