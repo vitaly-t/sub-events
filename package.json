@@ -6,8 +6,7 @@
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/vitaly-t/sub-events",
   "scripts": {
-    "all": "npm test && npm run lint && npm run build",
-    "build": "tsc && npm run browserify",
+    "all": "tsc && npm test && npm run lint && npm run browserify",
     "browserify": "browserify dist/src/index.js -s subEvents -o dist/index.js",
     "doc": "./node_modules/.bin/typedoc",
     "lint": "./node_modules/.bin/tslint --fix ./src/**/*.ts ./test/**/*.ts",
