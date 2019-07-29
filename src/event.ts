@@ -84,20 +84,20 @@ export class SubEvent<T = any> {
      * @param data
      * Data to be sent, according to the type template.
      *
-     * @param cb
+     * @param onFinished
      * Optional callback function to be notified when the last recipient has received the data.
-     * The function takes one parameter - total number of clients that received the data.
+     * The function takes one parameter - total number of clients that have received the data.
      * Note that asynchronous subscribers may still be processing the data at this point.
      *
      * @returns
      * Number of clients that will be receiving the data.
      */
-    public emit(data: T, cb?: (count: number) => void): number {
+    public emit(data: T, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
         r.forEach((sub, index) => SubEvent._nextCall(() => {
             sub.cb(data);
-            if (index === r.length - 1 && typeof cb === 'function') {
-                cb(r.length); // finished sending
+            if (index === r.length - 1 && typeof onFinished === 'function') {
+                onFinished(r.length); // finished sending
             }
         }));
         return r.length;
@@ -113,17 +113,17 @@ export class SubEvent<T = any> {
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for handling errors from subscribers.
+     * Callback for handling errors from the event subscribers.
      *
-     * @param cb
+     * @param onFinished
      * Optional callback function to be notified when the last recipient has received the data.
-     * The function takes one parameter - total number of clients that received the data.
+     * The function takes one parameter - total number of clients that have received the data.
      * Note that asynchronous subscribers may still be processing the data at this point.
      *
      * @returns
      * Number of clients that will be receiving the data.
      */
-    public emitSafe(data: T, onError: (err: any) => void, cb?: (count: number) => void): number {
+    public emitSafe(data: T, onError: (err: any) => void, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
         r.forEach((sub, index) => SubEvent._nextCall(() => {
             try {
@@ -134,8 +134,8 @@ export class SubEvent<T = any> {
             } catch (e) {
                 onError(e);
             } finally {
-                if (index === r.length - 1 && typeof cb === 'function') {
-                    cb(r.length); // finished sending
+                if (index === r.length - 1 && typeof onFinished === 'function') {
+                    onFinished(r.length); // finished sending
                 }
             }
         }));
@@ -200,10 +200,15 @@ export class SubEvent<T = any> {
 
     /**
      * Cancels all subscriptions for the event.
+     *
+     * @returns
+     * Number of subscriptions cancelled.
      */
-    public cancelAll(): void {
+    public cancelAll(): number {
+        const n = this._subs.length;
         this._subs.forEach(sub => sub.cancel());
         this._subs.length = 0;
+        return n;
     }
 
     /**
