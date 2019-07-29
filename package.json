@@ -11,7 +11,8 @@
     "browserify": "browserify dist/src/index.js -s sub-events -o dist/index.js",
     "doc": "./node_modules/.bin/typedoc",
     "lint": "./node_modules/.bin/tslint --fix ./src/**/*.ts ./test/**/*.ts",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts"
+    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "coverage": "nyc npm test"
   },
   "files": [
     "dist/src",
@@ -47,6 +48,7 @@
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
     "mocha": "6.2.0",
+    "nyc": "^14.1.1",
     "ts-node": "8.3.0",
     "tslint": "5.18.0",
     "typedoc": "0.15.0",
