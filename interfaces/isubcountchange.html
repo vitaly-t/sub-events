@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IEventOptions | SUB-EVENTS</title>
+	<title>ISubCountChange | SUB-EVENTS</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2387,16 +2387,19 @@ img {
 		<li class=" tsd-kind-interface">
 			<a href="icountoptions.html" class="tsd-kind-icon">ICount<wbr>Options</a>
 		</li>
-		<li class="current tsd-kind-interface">
+		<li class=" tsd-kind-interface">
 			<a href="ieventoptions.html" class="tsd-kind-icon">IEvent<wbr>Options</a>
+		</li>
+		<li class="current tsd-kind-interface">
+			<a href="isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
 			<ul>
 				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="ieventoptions.html#max" class="tsd-kind-icon">max</a>
+					<a href="isubcountchange.html#newcount" class="tsd-kind-icon">new<wbr>Count</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="isubcountchange.html#prevcount" class="tsd-kind-icon">prev<wbr>Count</a>
 				</li>
 			</ul>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
 		</li>
 	</ul>
 </nav>
@@ -2406,10 +2409,10 @@ img {
 			<div class="tsd-comment tsd-typography">
 				<dl class="tsd-comment-tags">
 					<dt>interface</dt>
-					<dd><p>IEventOptions</p>
+					<dd><p>ISubCountChange</p>
 					</dd>
 					<dt>description</dt>
-					<dd><p>Constructor options for the <a href="../classes/subevent.html">SubEvent</a> class.</p>
+					<dd><p>Represents a change in the number of subscribers, as used with <a href="../classes/subeventcount.html#oncount">onCount</a> event.</p>
 					</dd>
 				</dl>
 			</div>
@@ -2418,12 +2421,7 @@ img {
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">IEventOptions</span>
-					<ul class="tsd-hierarchy">
-						<li>
-							<a href="icountoptions.html" class="tsd-signature-type">ICountOptions</a>
-						</li>
-					</ul>
+					<span class="target">ISubCountChange</span>
 				</li>
 			</ul>
 		</section>
@@ -2434,7 +2432,8 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ieventoptions.html#max" class="tsd-kind-icon">max</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="isubcountchange.html#newcount" class="tsd-kind-icon">new<wbr>Count</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="isubcountchange.html#prevcount" class="tsd-kind-icon">prev<wbr>Count</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2443,18 +2442,32 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="max" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> max</h3>
-				<div class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<a name="newcount" class="tsd-anchor"></a>
+				<h3>new<wbr>Count</h3>
+				<div class="tsd-signature tsd-kind-icon">new<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f121c21/src/event.ts#L13">src/event.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f121c21/src/count.ts#L12">src/count.ts:12</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Maximum number of subscribers that can receive data.
-						Default is 0, meaning <code>no limit applies</code>.</p>
+						<p>New number of subscribers.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="prevcount" class="tsd-anchor"></a>
+				<h3>prev<wbr>Count</h3>
+				<div class="tsd-signature tsd-kind-icon">prev<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f121c21/src/count.ts#L17">src/count.ts:17</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Previous number of subscribers.</p>
 					</div>
 				</div>
 			</section>

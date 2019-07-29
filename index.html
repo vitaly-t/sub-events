@@ -2376,22 +2376,22 @@ img {
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="classes/subcount.html" class="tsd-kind-icon">Sub<wbr>Count</a>
+			<a href="classes/subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="classes/subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
+			<a href="classes/subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a>
 		</li>
 		<li class=" tsd-kind-class">
 			<a href="classes/subscription.html" class="tsd-kind-icon">Subscription</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="interfaces/icountchange.html" class="tsd-kind-icon">ICount<wbr>Change</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/icountoptions.html" class="tsd-kind-icon">ICount<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/ieventoptions.html" class="tsd-kind-icon">IEvent<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="interfaces/isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
 		</li>
 	</ul>
 </nav>
@@ -2403,104 +2403,75 @@ img {
 			</a>
 			<p><a href="https://travis-ci.org/vitaly-t/sub-events"><img src="https://travis-ci.org/vitaly-t/sub-events.svg?branch=master" alt="Build Status"></a>
 			<a href="https://coveralls.io/r/vitaly-t/sub-events?branch=master"><img src="https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master" alt="Coverage Status"></a></p>
-			<p>Events subscription in TypeScript.</p>
 			<p><strong>THIS PROJECT IS UNDER ACTIVE DEVELOPMENT</strong></p>
-			<!--
-## Preamble
+			<p>Easy event subscription, implemented in TypeScript.</p>
+			<p>Supports all versions of Node.js and web browsers.</p>
+			<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+				<h2>Install</h2>
+			</a>
+			<pre><code>npm <span class="hljs-built_in">i</span> sub-<span class="hljs-keyword">events</span></code></pre>
+			<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+				<h2>Usage</h2>
+			</a>
+			<ul>
+				<li>On the event&#39;s provider side:</li>
+			</ul>
+			<pre><code class="language-ts"><span class="hljs-keyword">import</span> {SubEvent} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
 
-It was originally written to overcome [RXJS] complexities of monitoring subscriptions, see [this issue](https://stackoverflow.com/questions/56195932/how-to-monitor-number-of-rxjs-subscriptions). 
+<span class="hljs-comment">// creating with the event's data type: </span>
+<span class="hljs-keyword">const</span> e: SubEvent&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEvent();
 
-However, it is now a powerful event-handling engine by itself, supporting all browsers and Node.js versions.  
-
-## Usage
-
-Install this module via `npm i subcount`.
-
-### Simple Observable
-
-Class [Observable] works very much like in [RXJS]: 
-
-```ts
-import {Observable} from 'subcount';
-
-// declare observable with any type:
-const a: Observable<string> = new Observable();
-
-// subscribe for data:
-const sub = a.subscribe((data: string) => {
-  // data = 'hello'
+<span class="hljs-comment">// trigerring the event when needed:</span>
+e.emit(<span class="hljs-string">'hello'</span>);</code></pre>
+			<ul>
+				<li>On the event&#39;s consumer side:</li>
+			</ul>
+			<pre><code class="language-ts"><span class="hljs-comment">// subscribing to the event:</span>
+<span class="hljs-keyword">const</span> sub = e.subscribe(<span class="hljs-function">(<span class="hljs-params">data: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+  <span class="hljs-comment">// data = 'hello'</span>
 });
 
-a.next('hello'); // send data
+<span class="hljs-comment">// cancel the subscription when no longer needed:</span>
+sub.cancel();</code></pre>
+			<a href="#observing-subscriptions" id="observing-subscriptions" style="color: inherit; text-decoration: none;">
+				<h3>Observing Subscriptions</h3>
+			</a>
+			<p>Class <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a> extends <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a> with event <code>onCount</code> to observe the number of subscriptions:</p>
+			<pre><code class="language-ts"><span class="hljs-keyword">import</span> {SubEventCount, ISubCountChange} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
 
-sub.unsubscribe(); // unsubscribe
-```
-
-And if you need to wait for `next` to finish, you can use method `nextSync` instead.
-
-### Counted Observable
-
-Class [CountedObservable] extends [Observable] with `onCount`, to monitor the subscriptions counter:
-
-```ts
-import {CountedObservable, ISubCounts} from 'subcount';
-
-// declare observable with any type:
-const a: CountedObservable<string> = new CountedObservable();
-
-// monitor the subscriptions counter:
-const countSub = a.onCount.subscribe((info: ISubCounts) => {
-    // info = {newCount, prevCount} 
+<span class="hljs-comment">// creating with the event's data type:</span>
+<span class="hljs-keyword">const</span> e: SubEventCount&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEventCount();</code></pre>
+			<p>Any side can monitor the number of subscriptions:</p>
+			<pre><code class="language-ts"><span class="hljs-keyword">const</span> monSub = e.onCount.subscribe(<span class="hljs-function">(<span class="hljs-params">info: ISubCountChange</span>) =&gt;</span> {
+    <span class="hljs-comment">// number of subscribers has changed;</span>
+    <span class="hljs-comment">// info = {newCount, prevCount} </span>
 });
 
-// subscribe for data:
-const sub = a.subscribe((data: string) => {
-  // data = 'hello'
-});
-
-// send data:
-a.next('hello');
-
-// unsubscribe:
-sub.unsubscribe();
-countSub.unsubscribe();
-```
-
-If you need `onCount` sent synchronously, use `new CountedObservable({sync: true})`. 
-
-## Browser
-
-Including `./subcount/dist` in your HTML will give you access to all types under `subcount` namespace:
-
-```html
-<script src="./subcount/dist"></script>
-<script>
-    const a = new subcount.Observable();
-    a.subscribe(data => {
-        // data received
+<span class="hljs-comment">// cancel the monitoring when no longer needed: </span>
+monSub.cancel();</code></pre>
+			<a href="#browser" id="browser" style="color: inherit; text-decoration: none;">
+				<h3>Browser</h3>
+			</a>
+			<p>Including <code>./sub-events/dist</code> in your HTML will give you access to all types under <code>subEvents</code> namespace:</p>
+			<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./sub-events/dist"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> subEvents.SubEvent();
+    e.subscribe(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+        <span class="hljs-comment">// data received</span>
     });
-</script>
-``` 
-
-And when using it directly in TypeScript, you can compile and bundle it any way you want.
-
-**Example:**
-
-```ts
-function fromEvent(from: Node, event: string): Observable<Event> {
-    const obs = new Observable<Event>();
-    from.addEventListener(event, e => obs.next(e));
-    return obs;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+			<p>And when using it directly in TypeScript, you can compile and bundle it any way you want.</p>
+			<p><strong>Example:</strong></p>
+			<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fromEvent</span>(<span class="hljs-params">source: Node, event: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">SubEvent</span>&lt;<span class="hljs-title">Event</span>&gt; </span>{
+    <span class="hljs-keyword">const</span> sub = <span class="hljs-keyword">new</span> SubEvent&lt;Event&gt;();
+    source.addEventListener(event, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> sub.emit(e));
+    <span class="hljs-keyword">return</span> sub;
 }
 
-fromEvent(document, 'click').subscribe((e: Event) => {
-    // handle the event
-});
-```
-
-See also: [API generated from code](https://vitaly-t.github.io/subcount).
-
--->
+fromEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string">'click'</span>).subscribe(<span class="hljs-function">(<span class="hljs-params">e: Event</span>) =&gt;</span> {
+    <span class="hljs-comment">// handle click events from the document</span>
+});</code></pre>
+			<p>See also: <a href="https://vitaly-t.github.io/sub-events">API generated from code</a>.</p>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2510,17 +2481,17 @@ See also: [API generated from code](https://vitaly-t.github.io/subcount).
 					<section class="tsd-index-section ">
 						<h3>Classes</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/subcount.html" class="tsd-kind-icon">Sub<wbr>Count</a></li>
 							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a></li>
 							<li class="tsd-kind-class"><a href="classes/subscription.html" class="tsd-kind-icon">Subscription</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Interfaces</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-interface"><a href="interfaces/icountchange.html" class="tsd-kind-icon">ICount<wbr>Change</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/icountoptions.html" class="tsd-kind-icon">ICount<wbr>Options</a></li>
 							<li class="tsd-kind-interface"><a href="interfaces/ieventoptions.html" class="tsd-kind-icon">IEvent<wbr>Options</a></li>
+							<li class="tsd-kind-interface"><a href="interfaces/isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a></li>
 						</ul>
 					</section>
 				</div>
