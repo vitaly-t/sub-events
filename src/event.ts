@@ -134,7 +134,7 @@ export class SubEvent<T = any> {
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for handling errors from the event subscribers.
+     * Callback for catching all unhandled errors from the event subscribers.
      *
      * @param onFinished
      * Optional callback function to be notified when the last recipient has received the data.
@@ -190,7 +190,7 @@ export class SubEvent<T = any> {
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for handling errors from subscribers.
+     * Callback for catching all unhandled errors from the event subscribers.
      *
      * @returns
      * Number of clients that have received the data.
