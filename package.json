@@ -1,13 +1,13 @@
 {
   "name": "sub-events",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Events subscription in TypeScript.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/vitaly-t/sub-events",
   "scripts": {
-    "all": "tsc && npm test && npm run lint && npm run browserify",
-    "browserify": "browserify dist/src/index.js -s subEvents -o dist/index.js",
+    "all": "npm test && npm run lint && npm run build",
+    "build": "tsc && browserify dist/src/index.js -s subEvents -o dist/index.js",
     "doc": "./node_modules/.bin/typedoc",
     "lint": "./node_modules/.bin/tslint --fix ./src/**/*.ts ./test/**/*.ts",
     "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
