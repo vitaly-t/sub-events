@@ -31,7 +31,7 @@ export interface ICountOptions<T> extends IEventOptions<T> {
 
 /**
  * @class
- * Extends [[SubEvent]] with event [[onCount]] to observe the number of live subscriptions.
+ * Extends [[SubEvent]] with event [[onCount]], to observe the number of live subscriptions.
  */
 export class SubEventCount<T = any> extends SubEvent<T> {
 

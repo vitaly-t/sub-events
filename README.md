@@ -41,7 +41,7 @@ sub.cancel();
 
 ### Observing Subscriptions
 
-Class [SubEventCount] extends [SubEvent] with event [onCount] to observe the number of subscriptions:
+Class [SubEventCount] extends [SubEvent] with event [onCount], to observe the number of live subscriptions:
 
 ```ts
 import {SubEventCount, ISubCountChange} from 'sub-events';
