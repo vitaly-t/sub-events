@@ -54,7 +54,7 @@ Any side can monitor the number of subscriptions:
 
 ```ts
 const monSub = e.onCount.subscribe((info: ISubCountChange) => {
-    // number of subscribers has changed;
+    // number of subscriptions has changed;
     // info = {newCount, prevCount} 
 });
 
@@ -80,7 +80,7 @@ And when using it directly in TypeScript, you can compile and bundle it any way 
 
 **Example:**
 
-Simplified event wrapping. See [extras] for a more complete example.
+Simplified event wrapping example. See [extras] for a more complete example.
 
 ```ts
 function fromEvent(source: Node, event: string): SubEvent<Event> {
