@@ -15,7 +15,7 @@ npm i sub-events
 
 ## Usage
 
-* On the event's provider side:
+* On the provider side:
 
 ```ts
 import {SubEvent} from 'sub-events';
@@ -27,7 +27,7 @@ const e: SubEvent<string> = new SubEvent();
 e.emit('hello');
 ```
 
-* On the event's consumer side:
+* On the consumer side:
 
 ```ts
 // subscribing to the event:
@@ -39,9 +39,9 @@ const sub = e.subscribe((data: string) => {
 sub.cancel();
 ```
 
-#### Observing Subscriptions
+### Observing Subscriptions
 
-Class [SubEventCount] extends [SubEvent] with event `onCount` to observe the number of subscriptions:
+Class [SubEventCount] extends [SubEvent] with event [onCount] to observe the number of subscriptions:
 
 ```ts
 import {SubEventCount, ISubCountChange} from 'sub-events';
@@ -62,7 +62,7 @@ const monSub = e.onCount.subscribe((info: ISubCountChange) => {
 monSub.cancel();
 ``` 
 
-#### Browser
+### Browser
 
 Including `./sub-events/dist` in your HTML will give you access to all types under `subEvents` namespace:
 
@@ -96,6 +96,7 @@ fromEvent(document, 'click').subscribe((e: Event) => {
 
 See also: [code-generated API](https://vitaly-t.github.io/sub-events).
 
+[onCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount
 [extras]:https://github.com/vitaly-t/sub-events/blob/master/src/extras.ts
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
 [SubEventCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html

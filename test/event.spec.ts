@@ -31,7 +31,6 @@ describe('SubEvent', () => {
         sub.cancel();
         expect(sub.live).to.be.false;
     });
-
     it('must limit notifications according to the max option', () => {
         const a = new SubEvent<number>({max: 1});
         const cb1 = () => 1;
