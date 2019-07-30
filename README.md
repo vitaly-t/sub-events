@@ -67,7 +67,7 @@ monSub.cancel();
 Including `./sub-events/dist` in your HTML will give you access to all types under `subEvents` namespace:
 
 ```html
-<script src="./sub-events/dist"></script>
+<script src="./node_modules/sub-events/dist"></script>
 <script>
     const e = new subEvents.SubEvent();
     e.subscribe(data => {

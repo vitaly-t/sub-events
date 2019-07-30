@@ -7,7 +7,7 @@
   "homepage": "https://github.com/vitaly-t/sub-events",
   "scripts": {
     "all": "npm test && npm run lint && npm run build",
-    "build": "tsc && browserify dist/src/index.js -s subEvents -o dist/index.js",
+    "build": "tsc && browserify dist/src/all.js -s subEvents -o dist/index.js",
     "doc": "./node_modules/.bin/typedoc",
     "lint": "./node_modules/.bin/tslint --fix ./src/**/*.ts ./test/**/*.ts",
     "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
