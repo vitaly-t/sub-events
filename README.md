@@ -78,25 +78,12 @@ Including `./sub-events/dist` in your HTML will give you access to all types und
 
 And when using it directly in TypeScript, you can compile and bundle it any way you want.
 
-**Example:**
+**See Also:**
 
-Simplified event wrapping example. See [extras] for a more complete example.
-
-```ts
-function fromEvent(source: Node, event: string): SubEvent<Event> {
-    const sub = new SubEvent<Event>();
-    source.addEventListener(event, e => sub.emit(e));
-    return sub;
-}
-
-fromEvent(document, 'click').subscribe((e: Event) => {
-    // handle click events from the document
-});
-```
-
-See also: [code-generated API](https://vitaly-t.github.io/sub-events).
+* [Extras] for a practical example.
+* [API Documentation](https://vitaly-t.github.io/sub-events).
 
 [onCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount
-[extras]:https://github.com/vitaly-t/sub-events/blob/master/src/extras.ts
+[Extras]:https://github.com/vitaly-t/sub-events/wiki/Extras
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
 [SubEventCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html
