@@ -1,3 +1,6 @@
 {
-  "readme": "README.md"
+  "readme": "README.md",
+  "exclude": [
+    "./src/extras.ts"
+  ]
 }

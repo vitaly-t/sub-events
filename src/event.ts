@@ -17,7 +17,7 @@ export interface ISubContext<T, D = any> {
 /**
  * @interface IEventOptions
  * @description
- * Constructor options for the [[SubEvent]] class.
+ * Constructor options for [[SubEvent]] class.
  */
 export interface IEventOptions<T> {
     /**

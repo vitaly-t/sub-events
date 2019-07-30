@@ -20,7 +20,7 @@ export interface ISubCountChange {
 /**
  * @interface ICountOptions
  * @description
- * Constructor options for the [[SubCount]] class.
+ * Constructor options for [[SubEventCount]] class.
  */
 export interface ICountOptions<T> extends IEventOptions<T> {
     /**

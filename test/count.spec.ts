@@ -1,7 +1,7 @@
 import {expect, chai} from './';
 import {SubEventCount, ISubCountChange} from '../src';
 
-describe('SubCount', () => {
+describe('SubEventCount', () => {
     it('must notify about the count', () => {
         const a = new SubEventCount<string>({sync: true});
         const cb = (data: ISubCountChange) => {
