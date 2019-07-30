@@ -2416,7 +2416,7 @@ img {
 				<h2>Usage</h2>
 			</a>
 			<ul>
-				<li>On the event&#39;s provider side:</li>
+				<li>On the provider side:</li>
 			</ul>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> {SubEvent} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
 
@@ -2426,7 +2426,7 @@ img {
 <span class="hljs-comment">// trigerring the event when needed:</span>
 e.emit(<span class="hljs-string">'hello'</span>);</code></pre>
 			<ul>
-				<li>On the event&#39;s consumer side:</li>
+				<li>On the consumer side:</li>
 			</ul>
 			<pre><code class="language-ts"><span class="hljs-comment">// subscribing to the event:</span>
 <span class="hljs-keyword">const</span> sub = e.subscribe(<span class="hljs-function">(<span class="hljs-params">data: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
@@ -2436,9 +2436,9 @@ e.emit(<span class="hljs-string">'hello'</span>);</code></pre>
 <span class="hljs-comment">// cancel the subscription when no longer needed:</span>
 sub.cancel();</code></pre>
 			<a href="#observing-subscriptions" id="observing-subscriptions" style="color: inherit; text-decoration: none;">
-				<h4>Observing Subscriptions</h4>
+				<h3>Observing Subscriptions</h3>
 			</a>
-			<p>Class <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a> extends <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a> with event <code>onCount</code> to observe the number of subscriptions:</p>
+			<p>Class <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a> extends <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a> with event <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a> to observe the number of subscriptions:</p>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> {SubEventCount, ISubCountChange} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
 
 <span class="hljs-comment">// creating with the event's data type:</span>
@@ -2452,7 +2452,7 @@ sub.cancel();</code></pre>
 <span class="hljs-comment">// cancel the monitoring when no longer needed: </span>
 monSub.cancel();</code></pre>
 			<a href="#browser" id="browser" style="color: inherit; text-decoration: none;">
-				<h4>Browser</h4>
+				<h3>Browser</h3>
 			</a>
 			<p>Including <code>./sub-events/dist</code> in your HTML will give you access to all types under <code>subEvents</code> namespace:</p>
 			<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./sub-events/dist"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
