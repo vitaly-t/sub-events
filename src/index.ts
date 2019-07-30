@@ -1,3 +1,3 @@
 export {Subscription} from './sub';
-export {SubEvent, IEventOptions, ISubscriber, SubFunction} from './event';
+export {SubEvent, ISubContext, IEventOptions} from './event';
 export {SubEventCount, ICountOptions, ISubCountChange} from './count';

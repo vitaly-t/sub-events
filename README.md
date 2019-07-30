@@ -82,6 +82,8 @@ And when using it directly in TypeScript, you can compile and bundle it any way 
 
 **Example:**
 
+Simplified event wrapping. See [extras] for a more complete example.
+
 ```ts
 function fromEvent(source: Node, event: string): SubEvent<Event> {
     const sub = new SubEvent<Event>();
@@ -94,11 +96,8 @@ fromEvent(document, 'click').subscribe((e: Event) => {
 });
 ```
 
-See also: [API generated from code](https://vitaly-t.github.io/sub-events).
+See also: [code-generated API](https://vitaly-t.github.io/sub-events).
 
-## TODO
-
-* Follow up the new [./src/extras.ts](./src/extras.ts) file.
-
+[extras]:./src/extras.ts
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
 [SubEventCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html

@@ -22,7 +22,7 @@ export interface ISubCountChange {
  * @description
  * Constructor options for the [[SubCount]] class.
  */
-export interface ICountOptions extends IEventOptions {
+export interface ICountOptions<T> extends IEventOptions<T> {
     /**
      * Makes [[onCount]] calls synchronous. Default is `false`.
      */
@@ -48,7 +48,7 @@ export class SubEventCount<T = any> extends SubEvent<T> {
      * @param options
      * Configuration Options.
      */
-    constructor(options?: ICountOptions) {
+    constructor(options?: ICountOptions<T>) {
         super(options);
         const c = this.onCount;
         this._notify = (options && options.sync ? c.emitSync : c.emit).bind(c);

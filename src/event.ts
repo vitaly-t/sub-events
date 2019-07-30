@@ -1,21 +1,40 @@
 import {Subscription} from './sub';
 
 /**
+ * Subscription Context Interface.
+ */
+export interface ISubContext<T, D = any> {
+    readonly event: SubEvent<T>;
+    readonly cb: SubFunction<T>;
+
+    /**
+     * Data of any/specified type to let the event wrapper propagate
+     * any context it needs through the subscribe->cancel lifecycle.
+     */
+    data?: D;
+}
+
+/**
  * @interface IEventOptions
  * @description
  * Constructor options for the [[SubEvent]] class.
  */
-export interface IEventOptions {
+export interface IEventOptions<T> {
     /**
      * Maximum number of subscribers that can receive data.
      * Default is 0, meaning `no limit applies`.
      */
     max?: number;
 
-    // TODO: Need to implement these properly
-    onSubscribe?: (sub: SubEvent) => void;
-    // Current problem: onCancel must pass on the
-    onCancel?: (sub: SubEvent) => void;
+    /**
+     * Subscription notification.
+     */
+    onSubscribe?: (ctx: ISubContext<T>) => void;
+
+    /**
+     * Subscription-cancel notification.
+     */
+    onCancel?: (ctx: ISubContext<T>) => void;
 }
 
 /**
@@ -28,13 +47,7 @@ export type SubFunction<T> = (data: T) => any;
  * Internal structure for each subscriber.
  * @hidden
  */
-export interface ISubscriber<T> {
-
-    /**
-     * Subscription callback function.
-     */
-    cb: SubFunction<T>;
-
+export interface ISubscriber<T> extends ISubContext<T> {
     /**
      * Cancels the subscription.
      */
@@ -47,7 +60,7 @@ export interface ISubscriber<T> {
  */
 export class SubEvent<T = any> {
 
-    readonly options: IEventOptions;
+    readonly options: IEventOptions<T>;
 
     /**
      * Internal list of subscribers.
@@ -60,7 +73,7 @@ export class SubEvent<T = any> {
      * @param options
      * Configuration Options.
      */
-    constructor(options?: IEventOptions) {
+    constructor(options?: IEventOptions<T>) {
         this.options = options || {};
     }
 
@@ -74,12 +87,11 @@ export class SubEvent<T = any> {
      * Object for cancelling the subscription safely.
      */
     public subscribe(cb: SubFunction<T>): Subscription {
-        /*
-        if (typeof this.options.onSubscribe === 'function') {
-            this.options.onSubscribe.call(this, this);
-        }*/
-        const sub: ISubscriber<T> = {cb, cancel: null};
+        const sub: ISubscriber<T> = {event: this, cb, cancel: null};
         this._subs.push(sub);
+        if (typeof this.options.onSubscribe === 'function') {
+            this.options.onSubscribe(sub);
+        }
         return new Subscription(this._createCancel(sub), sub);
     }
 
@@ -210,11 +222,11 @@ export class SubEvent<T = any> {
      * Number of subscriptions cancelled.
      */
     public cancelAll(): number {
+        const copy = typeof this.options.onCancel === 'function' ? [...this._subs] : [];
         const n = this._subs.length;
-        this._subs.forEach(sub => {
-            sub.cancel();
-        });
+        this._subs.forEach(sub => sub.cancel());
         this._subs.length = 0;
+        copy.forEach(c => this.options.onCancel(c));
         return n;
     }
 
@@ -251,13 +263,11 @@ export class SubEvent<T = any> {
      * Subscriber to be removed, which must be on the list.
      */
     protected _cancelSub(sub: ISubscriber<T>) {
-        const idx = this._subs.indexOf(sub);
-        this._subs[idx].cancel();
-        this._subs.splice(idx, 1);
-        /*
+        this._subs.splice(this._subs.indexOf(sub), 1);
+        sub.cancel();
         if (typeof this.options.onCancel === 'function') {
-            this.options.onCancel.call(this, this);
-        }*/
+            this.options.onCancel(sub);
+        }
     }
 
     /**
