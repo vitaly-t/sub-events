@@ -2411,12 +2411,12 @@ img {
 			<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 				<h2>Install</h2>
 			</a>
-			<pre><code>npm <span class="hljs-built_in">i</span> sub-<span class="hljs-keyword">events</span></code></pre>
+			<pre><code class="language-sh">npm i sub-events</code></pre>
 			<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 				<h2>Usage</h2>
 			</a>
 			<ul>
-				<li>On the provider side:</li>
+				<li>On provider side:</li>
 			</ul>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> {SubEvent} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
 
@@ -2426,7 +2426,7 @@ img {
 <span class="hljs-comment">// trigerring the event when needed:</span>
 e.emit(<span class="hljs-string">'hello'</span>);</code></pre>
 			<ul>
-				<li>On the consumer side:</li>
+				<li>On consumer side:</li>
 			</ul>
 			<pre><code class="language-ts"><span class="hljs-comment">// subscribing to the event:</span>
 <span class="hljs-keyword">const</span> sub = e.subscribe(<span class="hljs-function">(<span class="hljs-params">data: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
@@ -2438,7 +2438,7 @@ sub.cancel();</code></pre>
 			<a href="#observing-subscriptions" id="observing-subscriptions" style="color: inherit; text-decoration: none;">
 				<h3>Observing Subscriptions</h3>
 			</a>
-			<p>Class <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a> extends <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a> with event <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a> to observe the number of subscriptions:</p>
+			<p>Class <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a> extends <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a> with event <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a>, to observe the number of live subscriptions:</p>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> {SubEventCount, ISubCountChange} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
 
 <span class="hljs-comment">// creating with the event's data type:</span>
@@ -2454,27 +2454,20 @@ monSub.cancel();</code></pre>
 			<a href="#browser" id="browser" style="color: inherit; text-decoration: none;">
 				<h3>Browser</h3>
 			</a>
-			<p>Including <code>./sub-events/dist</code> in your HTML will give you access to all types under <code>subEvents</code> namespace:</p>
-			<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./sub-events/dist"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+			<p>When using directly inside HTML, you can access all types under <code>subEvents</code> namespace:</p>
+			<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./node_modules/sub-events/dist"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
     <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> subEvents.SubEvent();
     e.subscribe(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
         <span class="hljs-comment">// data received</span>
     });
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-			<p>And when using it directly in TypeScript, you can compile and bundle it any way you want.</p>
-			<p><strong>Example:</strong></p>
-			<p>Simplified event wrapping example. See <a href="https://github.com/vitaly-t/sub-events/blob/master/src/extras.ts">extras</a> for a more complete example.</p>
-			<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fromEvent</span>(<span class="hljs-params">source: Node, event: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">SubEvent</span>&lt;<span class="hljs-title">Event</span>&gt; </span>{
-    <span class="hljs-keyword">const</span> sub = <span class="hljs-keyword">new</span> SubEvent&lt;Event&gt;();
-    source.addEventListener(event, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> sub.emit(e));
-    <span class="hljs-keyword">return</span> sub;
-}
-
-fromEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string">'click'</span>).subscribe(<span class="hljs-function">(<span class="hljs-params">e: Event</span>) =&gt;</span> {
-    <span class="hljs-comment">// handle click events from the document</span>
-});</code></pre>
-			<p>See also: <a href="https://vitaly-t.github.io/sub-events">code-generated API</a>.</p>
+			<p>But with TypeScript, you can bundle the code any way you want.</p>
+			<p><strong>See Also:</strong></p>
+			<ul>
+				<li><a href="https://github.com/vitaly-t/sub-events/wiki/Extras">Extras</a> for a practical example.</li>
+				<li><a href="https://vitaly-t.github.io/sub-events">API Documentation</a>.</li>
+			</ul>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
 		<section class="tsd-panel-group tsd-index-group">
