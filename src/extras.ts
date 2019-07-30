@@ -1,14 +1,14 @@
 /**
- * This module here serves two purposes:
+ * This module serves two purposes:
  *
- * 1. It shows how to wrap events as one-to-one for the original ones,
+ * 1. It shows how to wrap events as one-to-one with the original ones,
  *    versus sharing original events based on their subscription count.
  *
  * 2. The implementation here is hands-on practical, though not so flexible,
  *    but it can be used right away as it is. See the notes about it below.
  *
- * But in all, it is just a demo that validates the general approach to
- * wrapping existing events into the simpler subscribe-cancel approach.
+ * In all, it is just a demo that validates the general approach to wrapping
+ * existing events into a simpler subscribe->cancel solution.
  */
 
 import {SubEvent, ISubContext, SubEventCount} from './';
