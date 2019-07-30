@@ -15,7 +15,7 @@ npm i sub-events
 
 ## Usage
 
-* On the provider side:
+* On provider side:
 
 ```ts
 import {SubEvent} from 'sub-events';
@@ -27,7 +27,7 @@ const e: SubEvent<string> = new SubEvent();
 e.emit('hello');
 ```
 
-* On the consumer side:
+* On consumer side:
 
 ```ts
 // subscribing to the event:
