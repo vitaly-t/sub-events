@@ -1,5 +1,12 @@
 {
+  "name": "SUB-EVENTS",
   "readme": "README.md",
+  "mode": "file",
+  "out": "docs",
+  "theme": "minimal",
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeNotExported": true,
   "exclude": [
     "./src/extras.ts"
   ]

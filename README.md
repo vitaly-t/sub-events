@@ -9,7 +9,7 @@ Supports all versions of Node.js and web browsers.
 
 ## Install
 
-```
+```sh
 npm i sub-events
 ```
 
