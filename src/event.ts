@@ -60,10 +60,14 @@ export interface ISubscriber<T> extends ISubContext<T> {
  */
 export class SubEvent<T = any> {
 
+    /**
+     * @hidden
+     */
     readonly options: IEventOptions<T>;
 
     /**
      * Internal list of subscribers.
+     * @hidden
      */
     protected _subs: ISubscriber<T>[] = [];
 
@@ -235,6 +239,8 @@ export class SubEvent<T = any> {
      *
      * It returns a copy of subscribers array for safe iteration, while applying the
      * maximum limit when it is set with the [[max]] option.
+     *
+     * @hidden
      */
     protected _getRecipients(): ISubscriber<T>[] {
         const end = this.options.max > 0 ? this.options.max : this._subs.length;
@@ -243,6 +249,7 @@ export class SubEvent<T = any> {
 
     /**
      * Creates unsubscribe callback function for the [[Subscription]] class.
+     * @hidden
      *
      * @param sub
      * Subscriber details.
@@ -258,6 +265,7 @@ export class SubEvent<T = any> {
 
     /**
      * Cancels an existing subscription.
+     * @hidden
      *
      * @param sub
      * Subscriber to be removed, which must be on the list.
@@ -272,6 +280,7 @@ export class SubEvent<T = any> {
 
     /**
      * For compatibility with web browsers.
+     * @hidden
      */
     protected static _nextCall = typeof process === 'undefined' ? setTimeout : process.nextTick;
 }

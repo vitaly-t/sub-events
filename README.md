@@ -98,6 +98,6 @@ fromEvent(document, 'click').subscribe((e: Event) => {
 
 See also: [code-generated API](https://vitaly-t.github.io/sub-events).
 
-[extras]:./src/extras.ts
+[extras]:https://github.com/vitaly-t/sub-events/blob/master/src/extras.ts
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
 [SubEventCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html

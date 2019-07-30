@@ -34,11 +34,15 @@ export interface ICountOptions<T> extends IEventOptions<T> {
  * Extends [[SubEvent]] with event [[onCount]] to observe the number of subscriptions.
  */
 export class SubEventCount<T = any> extends SubEvent<T> {
+
+    /**
+     * @hidden
+     */
     protected _notify: (data: ISubCountChange) => void;
 
     /**
-     * @event onCount
      * Notifies of any change in the number of subscribers.
+     * @event onCount
      */
     readonly onCount: SubEvent<ISubCountChange> = new SubEvent();
 
@@ -75,6 +79,7 @@ export class SubEventCount<T = any> extends SubEvent<T> {
     /**
      * Overrides base implementation to trigger event [[onCount]] during
      * `subscribe` and `cancel` calls.
+     * @hidden
      */
     protected _createCancel(sub: ISubscriber<T>): () => void {
         const s = this._subs;

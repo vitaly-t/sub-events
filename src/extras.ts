@@ -1,6 +1,7 @@
-import {SubEvent, ISubContext, SubEventCount} from './';
-
 /**
+ * @module extras
+ * @preferred
+ *
  * This module here serves two purposes:
  *
  * 1. It shows how to wrap events as one-to-one for the original ones,
@@ -13,6 +14,7 @@ import {SubEvent, ISubContext, SubEventCount} from './';
  * wrapping existing events into the simpler subscribe-cancel approach.
  */
 
+import {SubEvent, ISubContext, SubEventCount} from './';
 
 /**
  * Example of one-to-one event wrapping for global type Event.
