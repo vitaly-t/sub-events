@@ -64,7 +64,7 @@ monSub.cancel();
 
 ### Browser
 
-Including `./sub-events/dist` in your HTML will give you access to all types under `subEvents` namespace:
+When using directly inside HTML, you can access all types under `subEvents` namespace:
 
 ```html
 <script src="./node_modules/sub-events/dist"></script>
@@ -76,7 +76,7 @@ Including `./sub-events/dist` in your HTML will give you access to all types und
 </script>
 ``` 
 
-And when using it directly in TypeScript, you can compile and bundle it any way you want.
+But when using it directly in TypeScript, you can compile and bundle the code any way you want.
 
 **See Also:**
 
