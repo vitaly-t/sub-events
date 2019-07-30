@@ -1,5 +1,8 @@
 import {expect, chai} from './';
-import {SubEvent} from '../src';
+import {ISubContext, SubEvent} from '../src';
+
+const dummy = () => {
+};
 
 describe('SubEvent', () => {
     it('must invoke subscription functions', () => {
@@ -46,6 +49,33 @@ describe('SubEvent', () => {
             expect(s2).to.not.have.been.called;
         });
     });
+    it('must call onSubscribe during subscription', () => {
+        let called = false;
+        const onSubscribe = (ctx: ISubContext) => {
+            called = true;
+        };
+        const a = new SubEvent({onSubscribe});
+        expect(called).to.be.false;
+        a.subscribe(dummy);
+        expect(called).to.be.true;
+    });
+    it('must call onCancel during cancellation', () => {
+        let data, called = false;
+        const onSubscribe = (ctx: ISubContext) => {
+            ctx.data = 123;
+        };
+        const onCancel = (ctx: ISubContext) => {
+            data = ctx.data;
+            called = true;
+        };
+        const a = new SubEvent({onSubscribe, onCancel});
+        const sub = a.subscribe(dummy);
+        expect(called).to.be.false;
+        sub.cancel();
+        expect(called).to.be.true;
+        expect(data).to.eql(123);
+    });
+
     describe('emitSafe', () => {
         const err = new Error('Ops!');
         it('must handle errors from synchronous subscribers', done => {

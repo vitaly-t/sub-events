@@ -3,7 +3,7 @@ import {Subscription} from './sub';
 /**
  * Subscription Context Interface.
  */
-export interface ISubContext<T, D = any> {
+export interface ISubContext<T = any, D = any> {
     readonly event: SubEvent<T>;
     readonly cb: SubFunction<T>;
 
