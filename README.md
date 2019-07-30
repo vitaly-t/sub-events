@@ -76,7 +76,7 @@ When using directly inside HTML, you can access all types under `subEvents` name
 </script>
 ``` 
 
-But when using it directly in TypeScript, you can compile and bundle the code any way you want.
+But with TypeScript, you can bundle the code any way you want.
 
 **See Also:**
 
