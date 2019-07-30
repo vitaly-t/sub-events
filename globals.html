@@ -2396,12 +2396,6 @@ img {
 		<li class=" tsd-kind-interface">
 			<a href="interfaces/isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
 		</li>
-		<li class=" tsd-kind-function">
-			<a href="globals.html#fromevent" class="tsd-kind-icon">from<wbr>Event</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="globals.html#fromsharedevent" class="tsd-kind-icon">from<wbr>Shared<wbr>Event</a>
-		</li>
 	</ul>
 </nav>
 <div class="container container-main">
@@ -2412,7 +2406,6 @@ img {
 			</a>
 			<p><a href="https://travis-ci.org/vitaly-t/sub-events"><img src="https://travis-ci.org/vitaly-t/sub-events.svg?branch=master" alt="Build Status"></a>
 			<a href="https://coveralls.io/r/vitaly-t/sub-events?branch=master"><img src="https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master" alt="Coverage Status"></a></p>
-			<p><strong>THIS PROJECT IS UNDER ACTIVE DEVELOPMENT</strong></p>
 			<p>Easy event subscription, implemented in TypeScript.</p>
 			<p>Supports all versions of Node.js and web browsers.</p>
 			<a href="#install" id="install" style="color: inherit; text-decoration: none;">
@@ -2452,7 +2445,7 @@ sub.cancel();</code></pre>
 <span class="hljs-keyword">const</span> e: SubEventCount&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEventCount();</code></pre>
 			<p>Any side can monitor the number of subscriptions:</p>
 			<pre><code class="language-ts"><span class="hljs-keyword">const</span> monSub = e.onCount.subscribe(<span class="hljs-function">(<span class="hljs-params">info: ISubCountChange</span>) =&gt;</span> {
-    <span class="hljs-comment">// number of subscribers has changed;</span>
+    <span class="hljs-comment">// number of subscriptions has changed;</span>
     <span class="hljs-comment">// info = {newCount, prevCount} </span>
 });
 
@@ -2471,7 +2464,7 @@ monSub.cancel();</code></pre>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 			<p>And when using it directly in TypeScript, you can compile and bundle it any way you want.</p>
 			<p><strong>Example:</strong></p>
-			<p>Simplified event wrapping. See <a href="./src/extras.ts">extras</a> for a more complete example.</p>
+			<p>Simplified event wrapping example. See <a href="https://github.com/vitaly-t/sub-events/blob/master/src/extras.ts">extras</a> for a more complete example.</p>
 			<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fromEvent</span>(<span class="hljs-params">source: Node, event: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">SubEvent</span>&lt;<span class="hljs-title">Event</span>&gt; </span>{
     <span class="hljs-keyword">const</span> sub = <span class="hljs-keyword">new</span> SubEvent&lt;Event&gt;();
     source.addEventListener(event, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> sub.emit(e));
@@ -2504,104 +2497,7 @@ fromEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string"
 							<li class="tsd-kind-interface"><a href="interfaces/isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section ">
-						<h3>Functions</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-function"><a href="globals.html#fromevent" class="tsd-kind-icon">from<wbr>Event</a></li>
-							<li class="tsd-kind-function"><a href="globals.html#fromsharedevent" class="tsd-kind-icon">from<wbr>Shared<wbr>Event</a></li>
-						</ul>
-					</section>
 				</div>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Functions</h2>
-			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="fromevent" class="tsd-anchor"></a>
-				<h3>from<wbr>Event</h3>
-				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">from<wbr>Event<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7f27833/src/extras.ts#L32">src/extras.ts:32</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Example of one-to-one event wrapping for global type Event.</p>
-							</div>
-							<p>In this context, one-to-one means that every <code>subscribe</code> call results
-								in the immediate <code>addEventListener</code> call, and every <code>cancel</code> call on
-								the returned <code>Subscription</code> object results in the immediate call of
-							<code>removeEventListener</code>.</p>
-							<p>This implementation is simplistic, just to show the general approach:</p>
-							<ul>
-								<li><p>it assumes that in a browser, you would want to forward events
-									synchronously, so it uses <code>emitSync</code>;</p>
-								</li>
-								<li><p>it does not use <code>emitSyncSafe</code> to let you accumulate errors;</p>
-									<p>But you can easily extend it to allow for much more flexibility.</p>
-								</li>
-							</ul>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>source: <span class="tsd-signature-type">Node</span></h5>
-							</li>
-							<li>
-								<h5>event: <span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="classes/subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="fromsharedevent" class="tsd-anchor"></a>
-				<h3>from<wbr>Shared<wbr>Event</h3>
-				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">from<wbr>Shared<wbr>Event<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7f27833/src/extras.ts#L57">src/extras.ts:57</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Example of wrapping global Event-s in a shared manner, based on their subscription count:</p>
-								<ul>
-									<li>we call <code>addEventListener</code> whenever the first subscriber has been registered;</li>
-									<li>we call <code>removeEventListener</code> after the last subscription has been cancelled.</li>
-								</ul>
-							</div>
-							<p>Such approach is suitable primarily for globally used events, because we need to permanently
-							maintain our subscription for the <code>onCount</code> event, and so we can never cancel it.</p>
-							<p>As above, it is a simplified implementation, but you can improve it easily, if needed:</p>
-							<ul>
-								<li>it assumes that in a browser, you would want to forward events synchronously,
-								so it uses <code>emitSync</code>;</li>
-								<li>it does not use <code>emitSyncSafe</code> to let you accumulate errors;</li>
-							</ul>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>source: <span class="tsd-signature-type">Node</span></h5>
-							</li>
-							<li>
-								<h5>event: <span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="classes/subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
