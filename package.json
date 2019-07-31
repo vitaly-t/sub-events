@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Events subscription in TypeScript.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -34,9 +34,11 @@
     "url": "https://github.com/vitaly-t/sub-events/issues"
   },
   "keywords": [
-    "observable",
+    "event",
     "subscription",
-    "counter"
+    "typescript",
+    "observable",
+    "count"
   ],
   "devDependencies": {
     "@types/chai": "4.1.7",
