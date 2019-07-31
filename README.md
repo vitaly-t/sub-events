@@ -27,6 +27,8 @@ const e: SubEvent<string> = new SubEvent();
 e.emit('hello');
 ```
 
+API: [SubEvent], [emit], [emitSync], [emitSafe], [emitSyncSafe]
+
 * On consumer side:
 
 ```ts
@@ -38,6 +40,8 @@ const sub = e.subscribe((data: string) => {
 // cancel the subscription when no longer needed:
 sub.cancel();
 ```
+
+API: [Subscription], [subscribe], [cancel]
 
 ### Observing Subscriptions
 
@@ -62,6 +66,8 @@ const monSub = e.onCount.subscribe((info: ISubCountChange) => {
 monSub.cancel();
 ``` 
 
+API: [SubEventCount], [onCount]
+
 ### Browser
 
 When using directly inside HTML, you can access all types under `subEvents` namespace:
@@ -83,6 +89,13 @@ But with TypeScript, you can bundle the code any way you want.
 * [Extras] for a practical example.
 * [API Documentation](https://vitaly-t.github.io/sub-events).
 
+[Subscription]:https://vitaly-t.github.io/sub-events/classes/subscription.html
+[subscribe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#subscribe
+[cancel]:https://vitaly-t.github.io/sub-events/classes/subscription.html#cancel
+[emit]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emit
+[emitSync]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emitsync
+[emitSafe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emitsafe
+[emitSyncSafe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emitsyncsafe
 [onCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount
 [Extras]:https://github.com/vitaly-t/sub-events/wiki/Extras
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
