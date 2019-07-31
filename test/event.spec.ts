@@ -119,6 +119,22 @@ describe('SubEvent', () => {
                 done();
             });
         });
+        it('must call onFinished once in the end', done => {
+            const a = new SubEvent<number>();
+            let count = 0;
+            a.subscribe(dummy);
+            const onFinished = (c: number) => {
+                count = c;
+            };
+            const handler = chai.spy(onFinished);
+            a.emitSafe(123, dummy, handler);
+            setTimeout(() => {
+                expect(handler).to.have.been.called.once;
+                expect(count).to.eq(1);
+                done();
+            });
+        });
+
     });
     describe('emitSyncSafe', () => {
         const err = new Error('Ops!');
@@ -158,6 +174,20 @@ describe('SubEvent', () => {
             a.emitSync('second');
             expect(received).to.eql(['first']);
             expect(sub.live).to.be.false;
+        });
+        it('must invoke onCancel for each subscription', () => {
+            let data;
+            const onSubscribe = (ctx: ISubContext<string, number>) => {
+                ctx.data = 123;
+            };
+            const onCancel = (ctx: ISubContext<string, number>) => {
+                data = ctx.data;
+            };
+            const a = new SubEvent<string>({onSubscribe, onCancel});
+            a.subscribe(dummy);
+            expect(data).to.be.undefined;
+            a.cancelAll();
+            expect(data).to.eq(123);
         });
     });
 });
