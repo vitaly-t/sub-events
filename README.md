@@ -20,14 +20,14 @@ npm i sub-events
 ```ts
 import {SubEvent} from 'sub-events';
 
-// creating with the event's data type: 
+// creating a strict-type event: 
 const e: SubEvent<string> = new SubEvent();
 
 // triggering the event when needed:
 e.emit('hello');
 ```
 
-API: [SubEvent], [emit], [emitSync], [emitSafe], [emitSyncSafe]
+**API:** [SubEvent], [emit], [emitSync], [emitSafe], [emitSyncSafe]
 
 * On consumer side:
 
@@ -41,7 +41,7 @@ const sub = e.subscribe((data: string) => {
 sub.cancel();
 ```
 
-API: [Subscription], [subscribe], [cancel]
+**API:** [Subscription], [subscribe], [cancel]
 
 ### Observing Subscriptions
 
@@ -50,11 +50,11 @@ Class [SubEventCount] extends [SubEvent] with event [onCount], to observe the nu
 ```ts
 import {SubEventCount, ISubCountChange} from 'sub-events';
 
-// creating with the event's data type:
+// creating a strict-type event:
 const e: SubEventCount<string> = new SubEventCount();
 ```
 
-Any side can monitor the number of subscriptions:
+Monitor the number of subscriptions:
 
 ```ts
 const monSub = e.onCount.subscribe((info: ISubCountChange) => {
@@ -62,11 +62,11 @@ const monSub = e.onCount.subscribe((info: ISubCountChange) => {
     // info = {newCount, prevCount} 
 });
 
-// cancel the monitoring when no longer needed: 
+// cancel monitoring when no longer needed: 
 monSub.cancel();
 ``` 
 
-API: [SubEventCount], [onCount]
+**API:** [SubEventCount], [onCount]
 
 ### Browser
 
