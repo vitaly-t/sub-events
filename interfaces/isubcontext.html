@@ -2407,15 +2407,23 @@ img {
 		<li class=" tsd-kind-interface">
 			<a href="isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
 		</li>
+		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+			<a href="../globals.html#subfunction" class="tsd-kind-icon">Sub<wbr>Function</a>
+		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
-				<div class="lead">
-					<p>Subscription Context Interface.</p>
-				</div>
+				<dl class="tsd-comment-tags">
+					<dt>interface</dt>
+					<dd><p>ISubContext</p>
+					</dd>
+					<dt>description</dt>
+					<dd><p>Subscription Context Interface.</p>
+					</dd>
+				</dl>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -2457,12 +2465,17 @@ img {
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="cb" class="tsd-anchor"></a>
 				<h3>cb</h3>
-				<div class="tsd-signature tsd-kind-icon">cb<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SubFunction</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<div class="tsd-signature tsd-kind-icon">cb<span class="tsd-signature-symbol">:</span> <a href="../globals.html#subfunction" class="tsd-signature-type">SubFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/6d92ff3/src/event.ts#L8">src/event.ts:8</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/07af7e6/src/event.ts#L17">src/event.ts:17</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Original subscription callback function from the client.</p>
+					</div>
+				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 				<a name="data" class="tsd-anchor"></a>
@@ -2470,7 +2483,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">D</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/6d92ff3/src/event.ts#L14">src/event.ts:14</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/07af7e6/src/event.ts#L23">src/event.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2486,9 +2499,14 @@ img {
 				<div class="tsd-signature tsd-kind-icon">event<span class="tsd-signature-symbol">:</span> <a href="../classes/subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/6d92ff3/src/event.ts#L7">src/event.ts:7</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/07af7e6/src/event.ts#L12">src/event.ts:12</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Event class that provides/owns the context.</p>
+					</div>
+				</div>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
