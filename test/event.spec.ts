@@ -75,7 +75,19 @@ describe('SubEvent', () => {
         expect(called).to.be.true;
         expect(data).to.eql(123);
     });
-
+    it('must call onFinish when done', done => {
+        let count: number;
+        const a = new SubEvent<string>();
+        const sub1 = a.subscribe(dummy);
+        const sub2 = a.subscribe(dummy);
+        a.emit('hello', c => {
+            count = c;
+        });
+        setTimeout(() => {
+            expect(count).to.eq(2);
+            done();
+        });
+    });
     describe('emitSafe', () => {
         const err = new Error('Ops!');
         it('must handle errors from synchronous subscribers', done => {
