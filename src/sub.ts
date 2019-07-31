@@ -3,7 +3,7 @@
  * Represents an event subscription, and a safe way to cancel it.
  */
 export class Subscription {
-    private _cancel: () => void;
+    private _cancel: () => void | null;
 
     /**
      * @hidden

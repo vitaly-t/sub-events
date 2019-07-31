@@ -3,7 +3,7 @@ import {Subscription} from './sub';
 /**
  * Subscription Context Interface.
  */
-export interface ISubContext<T = any, D = any> {
+export interface ISubContext<T = unknown, D = unknown> {
     readonly event: SubEvent<T>;
     readonly cb: SubFunction<T>;
 
@@ -49,16 +49,16 @@ export type SubFunction<T> = (data: T) => any;
  */
 export interface ISubscriber<T> extends ISubContext<T> {
     /**
-     * Cancels the subscription.
+     * Cancels the subscription, if set.
      */
-    cancel: () => void;
+    cancel: () => void | null;
 }
 
 /**
  * @class
  * Implements subscribing to and triggering an event.
  */
-export class SubEvent<T = any> {
+export class SubEvent<T = unknown> {
 
     /**
      * @hidden
