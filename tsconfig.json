@@ -4,7 +4,10 @@
     "declarationDir": "./dist",
     "esModuleInterop": true,
     "module": "commonjs",
-    "noImplicitAny": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "strictNullChecks": false,
+    "noUnusedLocals": true,
     "outDir": "./dist",
     "target": "es5"
   },

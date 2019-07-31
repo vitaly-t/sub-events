@@ -1,4 +1,4 @@
-import {expect, chai} from './';
+import {expect} from './';
 import {SubEvent} from '../src';
 
 describe('Subscription', () => {

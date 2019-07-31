@@ -78,8 +78,8 @@ describe('SubEvent', () => {
     it('must call onFinish when done', done => {
         let count: number;
         const a = new SubEvent<string>();
-        const sub1 = a.subscribe(dummy);
-        const sub2 = a.subscribe(dummy);
+        a.subscribe(dummy);
+        a.subscribe(dummy);
         const onFinished = (c: number) => {
             count = c;
         };
