@@ -13,6 +13,19 @@ describe('SubEventCount', () => {
         expect(s).to.have.been.called.with({newCount: 1, prevCount: 0});
         expect(s).to.have.been.called.once;
     });
+    describe('cancel', () => {
+        it('must cease notifications after cancellation', () => {
+            const a = new SubEventCount<string>();
+            const data: string[] = [];
+            const sub = a.subscribe(msg => {
+                data.push(msg);
+            });
+            a.emitSync('one');
+            sub.cancel();
+            a.emitSync('two');
+            expect(data).to.eql(['one']);
+        });
+    });
     describe('cancelAll', () => {
         it('must notify about zero clients', () => {
             const received: ISubCountChange[] = [];
