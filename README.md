@@ -23,7 +23,7 @@ import {SubEvent} from 'sub-events';
 // creating with the event's data type: 
 const e: SubEvent<string> = new SubEvent();
 
-// trigerring the event when needed:
+// triggering the event when needed:
 e.emit('hello');
 ```
 
