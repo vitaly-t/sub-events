@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Events subscription in TypeScript.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
