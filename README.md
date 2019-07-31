@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master)
 
-Easy event subscription, implemented in TypeScript.
+Strongly-typed generic events in TypeScript.
 
-Supports all versions of Node.js and web browsers.
+Supports all versions of Node.js and browsers.
 
 ## Install
 
@@ -20,7 +20,7 @@ npm i sub-events
 ```ts
 import {SubEvent} from 'sub-events';
 
-// creating a strict-type event: 
+// creating a strongly-typed event: 
 const e: SubEvent<string> = new SubEvent();
 
 // triggering the event when needed:
@@ -50,7 +50,7 @@ Class [SubEventCount] extends [SubEvent] with event [onCount], to observe the nu
 ```ts
 import {SubEventCount, ISubCountChange} from 'sub-events';
 
-// creating a strict-type event:
+// creating a strongly-typed event:
 const e: SubEventCount<string> = new SubEventCount();
 ```
 

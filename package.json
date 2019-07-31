@@ -1,7 +1,7 @@
 {
   "name": "sub-events",
   "version": "0.2.0",
-  "description": "Events subscription in TypeScript.",
+  "description": "Strongly-typed generic events in TypeScript.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/vitaly-t/sub-events",
@@ -35,9 +35,10 @@
   },
   "keywords": [
     "event",
+    "strongly-typed",
+    "generic",
     "subscription",
     "typescript",
-    "observable",
     "count"
   ],
   "devDependencies": {
