@@ -40,12 +40,12 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
 }
 
 /**
- * Example of wrapping global Event-s in a shared manner, based on their subscription count:
+ * Example of wrapping Event-s in a shared manner, based on their subscription count:
  * - we call `addEventListener` whenever the first subscriber has been registered;
  * - we call `removeEventListener` after the last subscription has been cancelled.
  *
- * Such approach is suitable primarily for globally used events, because we need to permanently
- * maintain our subscription for event `onCount`, and so we never cancel it.
+ * Such approach is suitable primarily for globally used events, because we need to
+ * permanently maintain our subscription for event `onCount`, and so we never cancel it.
  *
  * As above, it is a simplified implementation, but you can improve it easily, if needed:
  *  - it assumes that in a browser, you would want to forward events synchronously,
@@ -53,9 +53,9 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
  *  - it does not use `emitSyncSafe` to let you accumulate errors;
  */
 export function fromSharedEvent(source: Node, event: string): SubEventCount<Event> {
-    const sub: SubEventCount<Event> = new SubEventCount();
-    const handler = (e: Event) => sub.emitSync(e);
-    sub.onCount.subscribe(info => {
+    const sec: SubEventCount<Event> = new SubEventCount();
+    const handler = (e: Event) => sec.emitSync(e);
+    sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left
         if (start) {
@@ -66,5 +66,5 @@ export function fromSharedEvent(source: Node, event: string): SubEventCount<Even
             }
         }
     });
-    return sub;
+    return sec;
 }
