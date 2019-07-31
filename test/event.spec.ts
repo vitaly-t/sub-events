@@ -137,6 +137,18 @@ describe('SubEvent', () => {
 
     });
     describe('emitSyncSafe', () => {
+        it('must send data to all clients', () => {
+            const a = new SubEvent<number>();
+            let res = 0;
+            a.subscribe(data => {
+                res += data;
+            });
+            a.subscribe(data => {
+                res += data;
+            });
+            a.emitSyncSafe(3, dummy);
+            expect(res).to.eq(6);
+        });
         const err = new Error('Ops!');
         it('must handle errors from synchronous subscribers', () => {
             const a = new SubEvent();

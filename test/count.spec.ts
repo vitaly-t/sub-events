@@ -46,5 +46,9 @@ describe('SubEventCount', () => {
                 {newCount: 0, prevCount: 2}
             ]);
         });
+        it('must do nothing when there are no clients', () => {
+            const a = new SubEventCount<string>();
+            expect(a.cancelAll()).to.eq(0);
+        });
     });
 });

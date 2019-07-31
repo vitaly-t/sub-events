@@ -287,8 +287,10 @@ export class SubEvent<T = unknown> {
         }
     }
 
+    // istanbul ignore next: we are not auto-testing in the browser
     /**
      * For compatibility with web browsers.
+     *
      * @hidden
      */
     protected static _nextCall = typeof process === 'undefined' ? setTimeout : process.nextTick;
