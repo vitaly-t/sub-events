@@ -73,17 +73,20 @@ describe('SubEvent', () => {
         expect(called).to.be.false;
         sub.cancel();
         expect(called).to.be.true;
-        expect(data).to.eql(123);
+        expect(data).to.eq(123);
     });
     it('must call onFinish when done', done => {
         let count: number;
         const a = new SubEvent<string>();
         const sub1 = a.subscribe(dummy);
         const sub2 = a.subscribe(dummy);
-        a.emit('hello', c => {
+        const onFinished = (c: number) => {
             count = c;
-        });
+        };
+        const handler = chai.spy(onFinished);
+        a.emit('hello', handler);
         setTimeout(() => {
+            expect(handler).to.have.been.called.once;
             expect(count).to.eq(2);
             done();
         });
@@ -115,6 +118,32 @@ describe('SubEvent', () => {
                 expect(s).to.have.been.called.with(err);
                 done();
             });
+        });
+    });
+    describe('emitSyncSafe', () => {
+        const err = new Error('Ops!');
+        it('must handle errors from synchronous subscribers', () => {
+            const a = new SubEvent();
+            a.subscribe(() => {
+                throw err;
+            });
+            const handler = () => 1;
+            const s = chai.spy(handler);
+            a.emitSyncSafe(123, s);
+            expect(s).to.have.been.called.with(err);
+        });
+        it('must handle errors from asynchronous subscribers', done => {
+            const b = new SubEvent();
+            b.subscribe(async () => {
+                return Promise.reject(err);
+            });
+            const handler = () => 1;
+            const s = chai.spy(handler);
+            b.emitSyncSafe(123, s);
+            setTimeout(() => {
+                expect(s).to.have.been.called.with(err);
+                done();
+            }, 10);
         });
     });
     describe('cancelAll', () => {
