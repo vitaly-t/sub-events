@@ -1,10 +1,19 @@
 import {Subscription} from './sub';
 
 /**
+ * @interface ISubContext
+ * @description
  * Subscription Context Interface.
  */
 export interface ISubContext<T = unknown, D = unknown> {
+    /**
+     * Event class that provides/owns the context.
+     */
     readonly event: SubEvent<T>;
+
+    /**
+     * Original subscription callback function from the client.
+     */
     readonly cb: SubFunction<T>;
 
     /**
@@ -39,7 +48,6 @@ export interface IEventOptions<T> {
 
 /**
  * Subscription callback function type.
- * @hidden
  */
 export type SubFunction<T> = (data: T) => any;
 
@@ -55,7 +63,8 @@ export interface ISubscriber<T> extends ISubContext<T> {
 }
 
 /**
- * @class
+ * @class SubEvent
+ * @description
  * Implements subscribing to and triggering an event.
  */
 export class SubEvent<T = unknown> {

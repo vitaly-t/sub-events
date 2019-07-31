@@ -1,8 +1,12 @@
 /**
- * @class
+ * @class Subscription
+ * @description
  * Represents an event subscription, and a safe way to cancel it.
  */
 export class Subscription {
+    /**
+     * @hidden
+     */
     private _cancel: () => void | null;
 
     /**
@@ -18,7 +22,7 @@ export class Subscription {
     /**
      * Indicates whether the subscription is live / active.
      *
-     * It can be useful for subscribers when [[cancel]] or [[cancelAll]]
+     * It can be useful to subscribers when [[cancel]] or [[cancelAll]]
      * are used without their knowledge.
      */
     public get live(): boolean {
