@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master)
 
-Easy event subscription, implemented in TypeScript. Supports all versions of Node.js and web browsers.
+Easy event subscription, implemented in TypeScript.
+
+Supports all versions of Node.js and web browsers.
 
 ## Install
 

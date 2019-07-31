@@ -7,7 +7,7 @@ export class Subscription {
     /**
      * @hidden
      */
-    private _cancel: () => void | null;
+    private _cancel: null | (() => void);
 
     /**
      * @hidden

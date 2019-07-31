@@ -59,7 +59,7 @@ export interface ISubscriber<T> extends ISubContext<T> {
     /**
      * Cancels the subscription, if set.
      */
-    cancel: () => void | null;
+    cancel: null | (() => void);
 }
 
 /**
