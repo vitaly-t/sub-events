@@ -84,8 +84,8 @@ When using directly inside HTML, you can access all types under `subEvents` name
 
 **See Also:**
 
-* [Extras] for a practical example.
-* [API Documentation](https://vitaly-t.github.io/sub-events).
+* [WiKi Pages](https://github.com/vitaly-t/sub-events/wiki)
+* [API Documentation](https://vitaly-t.github.io/sub-events)
 
 [Subscription]:https://vitaly-t.github.io/sub-events/classes/subscription.html
 [subscribe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#subscribe
