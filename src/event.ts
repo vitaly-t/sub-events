@@ -7,7 +7,7 @@ import {Subscription} from './sub';
  */
 export interface ISubContext<T = unknown, D = unknown> {
     /**
-     * Event class that provides/owns the context.
+     * Event class that provides the context.
      */
     readonly event: SubEvent<T>;
 
@@ -17,8 +17,8 @@ export interface ISubContext<T = unknown, D = unknown> {
     readonly cb: SubFunction<T>;
 
     /**
-     * Data of any/specified type to let the event wrapper propagate
-     * any context it needs through the subscribe->cancel lifecycle.
+     * Strongly-typed data to let the event wrapper propagate any
+     * context it needs through the subscribe->cancel lifecycle.
      */
     data?: D;
 }
@@ -36,12 +36,12 @@ export interface IEventOptions<T> {
     max?: number;
 
     /**
-     * Subscription notification.
+     * Subscription notification callback.
      */
     onSubscribe?: (ctx: ISubContext<T>) => void;
 
     /**
-     * Subscription-cancel notification.
+     * Subscription-cancel notification callback.
      */
     onCancel?: (ctx: ISubContext<T>) => void;
 }
@@ -57,7 +57,7 @@ export type SubFunction<T> = (data: T) => any;
  */
 export interface ISubscriber<T> extends ISubContext<T> {
     /**
-     * Cancels the subscription, if set.
+     * Cancels the subscription, if one is set.
      */
     cancel: null | (() => void);
 }
@@ -65,7 +65,7 @@ export interface ISubscriber<T> extends ISubContext<T> {
 /**
  * @class SubEvent
  * @description
- * Implements subscribing to and triggering an event.
+ * Implements event subscription + triggering the event.
  */
 export class SubEvent<T = unknown> {
 
@@ -222,14 +222,14 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Current number of subscribers.
+     * Current number of subscriptions.
      */
     public get count(): number {
         return this._subs.length;
     }
 
     /**
-     * Cancels all event subscriptions.
+     * Cancels all subscriptions.
      *
      * @returns
      * Number of subscriptions cancelled.

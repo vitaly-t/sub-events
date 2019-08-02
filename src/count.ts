@@ -42,7 +42,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     protected _notify: (data: ISubCountChange) => void;
 
     /**
-     * Notifies of any change in the number of live subscriptions.
+     * Triggered on any change in the number of live subscriptions.
      * @event onCount
      */
     readonly onCount: SubEvent<ISubCountChange> = new SubEvent();

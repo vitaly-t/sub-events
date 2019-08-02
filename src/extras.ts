@@ -27,7 +27,7 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
  * - we call `removeEventListener` after the last subscription has been cancelled.
  *
  * Such approach is suitable primarily for global resources, because we need to
- * permanently maintain our `onCount` subscription, and so we never cancel it.
+ * permanently maintain our `onCount` subscription, which we never cancel.
  */
 export function fromSharedEvent(source: Node, event: string): SubEventCount<Event> {
     const sec: SubEventCount<Event> = new SubEventCount();
