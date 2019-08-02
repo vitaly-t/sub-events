@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Strongly-typed generic events in TypeScript.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
