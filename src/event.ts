@@ -12,7 +12,7 @@ export interface ISubContext<T = unknown, D = unknown> {
     readonly event: SubEvent<T>;
 
     /**
-     * Original subscription callback function from the client.
+     * Event notification callback function.
      */
     readonly cb: SubFunction<T>;
 
@@ -96,10 +96,14 @@ export class SubEvent<T = unknown> {
      * @param cb
      * Event notification callback function.
      *
+     * @param thisArg
+     * Calling this context for the event notification callback.
+     *
      * @returns
      * Object for cancelling the subscription safely.
      */
-    public subscribe(cb: SubFunction<T>): Subscription {
+    public subscribe(cb: SubFunction<T>, thisArg?: any): Subscription {
+        cb = arguments.length > 1 ? cb.bind(thisArg) : cb;
         const sub: ISubscriber<T> = {event: this, cb, cancel: null};
         this._subs.push(sub);
         if (typeof this.options.onSubscribe === 'function') {
