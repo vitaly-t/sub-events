@@ -97,7 +97,16 @@ export class SubEvent<T = unknown> {
      * Event notification callback function.
      *
      * @param thisArg
-     * Calling this context for the event notification callback.
+     * Optional `this` context for the event notification callback.
+     *
+     * It lets you simplify setting the event calling context, from this:
+     * ```ts
+     * event.subscribe(func.bind(this))
+     * ```
+     * to this:
+     * ```ts
+     * event.subscribe(func, this)
+     * ```
      *
      * @returns
      * Object for cancelling the subscription safely.
