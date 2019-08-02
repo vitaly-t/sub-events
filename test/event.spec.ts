@@ -15,6 +15,19 @@ describe('SubEvent', () => {
             expect(s).to.have.been.called.with(123);
         });
     });
+    it('must pass correct "this" context into subscription functions', () => {
+        const a = new SubEvent<void>();
+        let context;
+
+        function onEvent(this: any) {
+            context = this;
+        }
+
+        a.subscribe(onEvent, a);
+        a.emitSync();
+        expect(context).to.eq(a);
+    });
+
     it('must track subscription count', () => {
         const a = new SubEvent();
         expect(a.count).to.eq(0);
