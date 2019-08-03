@@ -16,7 +16,7 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
         source.addEventListener(event, ctx.data, false);
     };
     const onCancel = (ctx: ISubContext<Event, EventListener>) => {
-        source.removeEventListener(event, ctx.data, false);
+        source.removeEventListener(event, ctx.data || null, false);
     };
     return new SubEvent<Event>({onSubscribe, onCancel});
 }
