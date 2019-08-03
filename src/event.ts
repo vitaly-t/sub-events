@@ -5,7 +5,7 @@ import {Subscription} from './sub';
  * @description
  * Subscription Context Interface.
  */
-export interface ISubContext<T = unknown, D = unknown> {
+export interface ISubContext<T = unknown> {
     /**
      * Event class that provides the context.
      */
@@ -17,10 +17,10 @@ export interface ISubContext<T = unknown, D = unknown> {
     readonly cb: SubFunction<T>;
 
     /**
-     * Strongly-typed data to let the event wrapper propagate any
-     * context it needs through the subscribe->cancel lifecycle.
+     * Unknown-type data to let the event wrapper persist any
+     * context it needs within the event's lifecycle.
      */
-    data?: D;
+    data?: unknown;
 }
 
 /**
@@ -57,9 +57,9 @@ export type SubFunction<T> = (data: T) => any;
  */
 export interface ISubscriber<T> extends ISubContext<T> {
     /**
-     * Cancels the subscription, if one is set.
+     * Cancels the subscription.
      */
-    cancel: null | (() => void);
+    cancel: (() => void);
 }
 
 /**
@@ -113,7 +113,8 @@ export class SubEvent<T = unknown> {
      */
     public subscribe(cb: SubFunction<T>, thisArg?: any): Subscription {
         cb = arguments.length > 1 ? cb.bind(thisArg) : cb;
-        const sub: ISubscriber<T> = {event: this, cb, cancel: null};
+        // @ts-ignore: Property 'cancel' is set by Subscription
+        const sub: ISubscriber<T> = {event: this, cb};
         this._subs.push(sub);
         if (typeof this.options.onSubscribe === 'function') {
             this.options.onSubscribe(sub);
@@ -248,11 +249,14 @@ export class SubEvent<T = unknown> {
      * Number of subscriptions cancelled.
      */
     public cancelAll(): number {
-        const copy = typeof this.options.onCancel === 'function' ? [...this._subs] : [];
+        const onCancel = typeof this.options.onCancel === 'function' && this.options.onCancel;
+        const copy = onCancel ? [...this._subs] : [];
         const n = this._subs.length;
         this._subs.forEach(sub => sub.cancel());
         this._subs.length = 0;
-        copy.forEach(c => this.options.onCancel(c));
+        if (onCancel) {
+            copy.forEach(c => onCancel(c));
+        }
         return n;
     }
 
@@ -265,7 +269,8 @@ export class SubEvent<T = unknown> {
      * @hidden
      */
     protected _getRecipients(): ISubscriber<T>[] {
-        const end = this.options.max > 0 ? this.options.max : this._subs.length;
+        const max = this.options.max || 0;
+        const end = max > 0 ? max : this._subs.length;
         return this._subs.slice(0, end);
     }
 
