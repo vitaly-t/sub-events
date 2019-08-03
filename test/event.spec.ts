@@ -202,10 +202,10 @@ describe('SubEvent', () => {
         });
         it('must invoke onCancel for each subscription', () => {
             let data;
-            const onSubscribe = (ctx: ISubContext<string, number>) => {
+            const onSubscribe = (ctx: ISubContext<string>) => {
                 ctx.data = 123;
             };
-            const onCancel = (ctx: ISubContext<string, number>) => {
+            const onCancel = (ctx: ISubContext<string>) => {
                 data = ctx.data;
             };
             const a = new SubEvent<string>({onSubscribe, onCancel});

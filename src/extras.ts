@@ -11,12 +11,12 @@ import {SubEvent, ISubContext, SubEventCount} from './';
  * - every `cancel` results in immediate `removeEventListener` call.
  */
 export function fromEvent(source: Node, event: string): SubEvent<Event> {
-    const onSubscribe = (ctx: ISubContext<Event, EventListener>) => {
-        ctx.data = e => ctx.event.emitSync(e); // our event handler
+    const onSubscribe = (ctx: ISubContext<Event>) => {
+        ctx.data = (e: Event) => ctx.event.emitSync(e); // our event handler
         source.addEventListener(event, ctx.data, false);
     };
-    const onCancel = (ctx: ISubContext<Event, EventListener>) => {
-        source.removeEventListener(event, ctx.data || null, false);
+    const onCancel = (ctx: ISubContext<Event>) => {
+        source.removeEventListener(event, ctx.data, false);
     };
     return new SubEvent<Event>({onSubscribe, onCancel});
 }

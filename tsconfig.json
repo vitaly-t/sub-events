@@ -5,7 +5,6 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "strict": true,
-    "strictFunctionTypes": false,
     "noUnusedLocals": true,
     "outDir": "./dist",
     "target": "es5"

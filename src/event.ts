@@ -5,7 +5,7 @@ import {Subscription} from './sub';
  * @description
  * Subscription Context Interface.
  */
-export interface ISubContext<T = unknown, D = unknown> {
+export interface ISubContext<T = unknown> {
     /**
      * Event class that provides the context.
      */
@@ -17,10 +17,10 @@ export interface ISubContext<T = unknown, D = unknown> {
     readonly cb: SubFunction<T>;
 
     /**
-     * Strongly-typed data to let the event wrapper propagate any
+     * Any-type data to let the event wrapper propagate random
      * context it needs through the subscribe->cancel lifecycle.
      */
-    data?: D;
+    data?: any;
 }
 
 /**
