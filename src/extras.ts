@@ -12,11 +12,12 @@ import {SubEvent, ISubContext, SubEventCount} from './';
  */
 export function fromEvent(source: Node, event: string): SubEvent<Event> {
     const onSubscribe = (ctx: ISubContext<Event>) => {
-        ctx.data = (e: Event) => ctx.event.emitSync(e); // our event handler
-        source.addEventListener(event, ctx.data, false);
+        const handler: EventListener = e => ctx.event.emitSync(e);
+        source.addEventListener(event, handler, false);
+        ctx.data = handler; // context for the event's lifecycle
     };
     const onCancel = (ctx: ISubContext<Event>) => {
-        source.removeEventListener(event, ctx.data, false);
+        source.removeEventListener(event, <EventListener>ctx.data, false);
     };
     return new SubEvent<Event>({onSubscribe, onCancel});
 }
@@ -31,7 +32,7 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
  */
 export function fromSharedEvent(source: Node, event: string): SubEventCount<Event> {
     const sec: SubEventCount<Event> = new SubEventCount();
-    const handler = (e: Event) => sec.emitSync(e);
+    const handler: EventListener = e => sec.emitSync(e);
     sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left

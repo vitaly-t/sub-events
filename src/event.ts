@@ -17,10 +17,10 @@ export interface ISubContext<T = unknown> {
     readonly cb: SubFunction<T>;
 
     /**
-     * Any-type data to let the event wrapper propagate random
-     * context it needs through the subscribe->cancel lifecycle.
+     * Unknown-type data to let the event wrapper persist any
+     * context it needs within the event's lifecycle.
      */
-    data?: any;
+    data?: unknown;
 }
 
 /**
@@ -113,7 +113,7 @@ export class SubEvent<T = unknown> {
      */
     public subscribe(cb: SubFunction<T>, thisArg?: any): Subscription {
         cb = arguments.length > 1 ? cb.bind(thisArg) : cb;
-        // @ts-ignore: Property 'cancel' is set by Subscription constructor
+        // @ts-ignore: Property 'cancel' is set by Subscription
         const sub: ISubscriber<T> = {event: this, cb};
         this._subs.push(sub);
         if (typeof this.options.onSubscribe === 'function') {
