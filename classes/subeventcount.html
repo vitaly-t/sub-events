@@ -2514,7 +2514,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="subevent.html">SubEvent</a>.<a href="subevent.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/count.ts#L48">src/count.ts:48</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/count.ts#L48">src/count.ts:48</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2547,7 +2547,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">on<wbr>Count<span class="tsd-signature-symbol">:</span> <a href="subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isubcountchange.html" class="tsd-signature-type">ISubCountChange</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new SubEvent()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/count.ts#L48">src/count.ts:48</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/count.ts#L48">src/count.ts:48</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2566,7 +2566,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#count">count</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/event.ts#L240">src/event.ts:240</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/event.ts#L241">src/event.ts:241</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2589,7 +2589,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="subevent.html">SubEvent</a>.<a href="subevent.html#cancelall">cancelAll</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/count.ts#L71">src/count.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/count.ts#L71">src/count.ts:71</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2608,14 +2608,14 @@ img {
 				<a name="emit" class="tsd-anchor"></a>
 				<h3>emit</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, onFinished<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					<li class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, onFinished<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emit">emit</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/event.ts#L138">src/event.ts:138</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/event.ts#L139">src/event.ts:139</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2632,30 +2632,12 @@ img {
 								</div>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> onFinished: <span class="tsd-signature-type">function</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> onFinished: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Optional callback function to be notified when the last recipient has received the data.
 										The function takes one parameter - total number of clients that have received the data.
 									Note that asynchronous subscribers may still be processing the data at this point.</p>
 								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>count<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>count: <span class="tsd-signature-type">number</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2667,14 +2649,14 @@ img {
 				<a name="emitsafe" class="tsd-anchor"></a>
 				<h3>emit<wbr>Safe</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-					<li class="tsd-signature tsd-kind-icon">emit<wbr>Safe<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, onError<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, onFinished<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					<li class="tsd-signature tsd-kind-icon">emit<wbr>Safe<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, onError<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, onFinished<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsafe">emitSafe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/event.ts#L169">src/event.ts:169</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/event.ts#L170">src/event.ts:170</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2717,30 +2699,12 @@ img {
 								</ul>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> onFinished: <span class="tsd-signature-type">function</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> onFinished: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<p>Optional callback function to be notified when the last recipient has received the data.
 										The function takes one parameter - total number of clients that have received the data.
 									Note that asynchronous subscribers may still be processing the data at this point.</p>
 								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>count<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>count: <span class="tsd-signature-type">number</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2759,7 +2723,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsync">emitSync</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/event.ts#L199">src/event.ts:199</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/event.ts#L200">src/event.ts:200</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2793,7 +2757,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/event.ts#L222">src/event.ts:222</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/event.ts#L223">src/event.ts:223</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2853,7 +2817,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#subscribe">subscribe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f2525d2/src/event.ts#L114">src/event.ts:114</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/92fd5ab/src/event.ts#L114">src/event.ts:114</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
