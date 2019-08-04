@@ -12,15 +12,10 @@ export interface ISubContext<T = unknown> {
     readonly event: SubEvent<T>;
 
     /**
-     * Event notification callback function.
-     */
-    readonly cb: SubFunction<T>;
-
-    /**
      * Unknown-type data to let the event wrapper persist any
      * context it needs within the event's lifecycle.
      */
-    data?: unknown;
+    data: unknown;
 }
 
 /**
@@ -78,6 +73,12 @@ export type SubFunction<T> = (data: T) => any;
  * @hidden
  */
 export interface ISubscriber<T> extends ISubContext<T> {
+
+    /**
+     * Event notification callback function.
+     */
+    readonly cb: SubFunction<T>;
+
     /**
      * Cancels the subscription.
      */
@@ -125,9 +126,12 @@ export class SubEvent<T = unknown> {
      * Object for cancelling the subscription safely.
      */
     public subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
+        // istanbul ignore next
+        const cancel = () => {
+            // Subscription replaces it with actual cancellation
+        };
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
-        // @ts-ignore: Property 'cancel' is set by Subscription
-        const sub: ISubscriber<T> = {event: this, cb};
+        const sub: ISubscriber<T> = {event: this, data: undefined, cb, cancel};
         this._subs.push(sub);
         if (typeof this.options.onSubscribe === 'function') {
             this.options.onSubscribe(sub);
