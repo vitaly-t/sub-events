@@ -31,12 +31,16 @@ export interface IEventOptions<T> {
     maxSubs?: number;
 
     /**
-     * Subscription notification callback.
+     * Notification of a new subscriber being registered.
+     *
+     * The callback takes [[ISubContext]] as the only parameter.
      */
     onSubscribe?: (ctx: ISubContext<T>) => void;
 
     /**
-     * Subscription-cancel notification callback.
+     * Notification about a cancelled subscription.
+     *
+     * The callback takes [[ISubContext]] as the only parameter.
      */
     onCancel?: (ctx: ISubContext<T>) => void;
 }
