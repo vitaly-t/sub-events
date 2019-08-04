@@ -23,7 +23,7 @@ describe('SubEvent', () => {
             context = this;
         }
 
-        a.subscribe(onEvent, a);
+        a.subscribe(onEvent, {thisArg: a});
         a.emitSync();
         expect(context).to.eq(a);
     });
@@ -48,7 +48,7 @@ describe('SubEvent', () => {
         expect(sub.live).to.be.false;
     });
     it('must limit notifications according to the max option', () => {
-        const a = new SubEvent<number>({max: 1});
+        const a = new SubEvent<number>({maxSubs: 1});
         const cb1 = () => 1;
         const cb2 = () => 2;
         const s1 = chai.spy(cb1);

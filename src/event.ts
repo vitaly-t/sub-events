@@ -33,7 +33,7 @@ export interface IEventOptions<T> {
      * Maximum number of subscribers that can receive data.
      * Default is 0, meaning `no limit applies`.
      */
-    max?: number;
+    maxSubs?: number;
 
     /**
      * Subscription notification callback.
@@ -44,6 +44,28 @@ export interface IEventOptions<T> {
      * Subscription-cancel notification callback.
      */
     onCancel?: (ctx: ISubContext<T>) => void;
+}
+
+/**
+ * @interface ISubOptions
+ * @description
+ * Options that can be passed into method [[subscribe]].
+ */
+export interface ISubOptions {
+
+    /**
+     * Calling `this` context for the subscription callback function.
+     *
+     * Standard way of passing in context is like this:
+     * ```ts
+     * event.subscribe(func.bind(this))
+     * ```
+     * With this option you can do it also like this:
+     * ```ts
+     * event.subscribe(func, {thisArg: this})
+     * ```
+     */
+    thisArg?: any;
 }
 
 /**
@@ -96,23 +118,14 @@ export class SubEvent<T = unknown> {
      * @param cb
      * Event notification callback function.
      *
-     * @param thisArg
-     * Optional `this` context for the event notification callback.
-     *
-     * It lets you simplify setting the event calling context, from this:
-     * ```ts
-     * event.subscribe(func.bind(this))
-     * ```
-     * to this:
-     * ```ts
-     * event.subscribe(func, this)
-     * ```
+     * @param options
+     * Subscription options.
      *
      * @returns
      * Object for cancelling the subscription safely.
      */
-    public subscribe(cb: SubFunction<T>, thisArg?: any): Subscription {
-        cb = arguments.length > 1 ? cb.bind(thisArg) : cb;
+    public subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
+        cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
         // @ts-ignore: Property 'cancel' is set by Subscription
         const sub: ISubscriber<T> = {event: this, cb};
         this._subs.push(sub);
@@ -269,7 +282,7 @@ export class SubEvent<T = unknown> {
      * @hidden
      */
     protected _getRecipients(): ISubscriber<T>[] {
-        const max = this.options.max || 0;
+        const max = this.options.maxSubs || 0;
         const end = max > 0 ? max : this._subs.length;
         return this._subs.slice(0, end);
     }
