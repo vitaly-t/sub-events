@@ -132,10 +132,10 @@ export class SubEvent<T = unknown> {
         };
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
         const sub: ISubscriber<T> = {event: this, data: undefined, cb, cancel};
-        this._subs.push(sub);
         if (typeof this.options.onSubscribe === 'function') {
             this.options.onSubscribe(sub);
         }
+        this._subs.push(sub);
         return new Subscription(this._createCancel(sub), sub);
     }
 
