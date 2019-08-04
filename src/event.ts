@@ -56,11 +56,11 @@ export interface ISubOptions {
     /**
      * Calling `this` context for the subscription callback function.
      *
-     * Standard way of passing in context is like this:
+     * Standard way of passing in context is this way:
      * ```ts
      * event.subscribe(func.bind(this))
      * ```
-     * With this option you can do it also like this:
+     * With this option you can also do it this way:
      * ```ts
      * event.subscribe(func, {thisArg: this})
      * ```
