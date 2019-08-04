@@ -81,7 +81,7 @@ export interface ISubscriber<T> extends ISubContext<T> {
     /**
      * Event notification callback function.
      */
-    readonly cb: SubFunction<T>;
+    cb: SubFunction<T> | null;
 
     /**
      * Cancels the subscription.
@@ -160,7 +160,9 @@ export class SubEvent<T = unknown> {
     public emit(data: T, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
         r.forEach((sub, index) => SubEvent._nextCall(() => {
-            sub.cb(data);
+            if (sub.cb) {
+                sub.cb(data);
+            }
             if (index === r.length - 1 && typeof onFinished === 'function') {
                 onFinished(r.length); // finished sending
             }
@@ -192,7 +194,7 @@ export class SubEvent<T = unknown> {
         const r = this._getRecipients();
         r.forEach((sub, index) => SubEvent._nextCall(() => {
             try {
-                const res = sub.cb(data);
+                const res = sub.cb && sub.cb(data);
                 if (res && typeof res.catch === 'function') {
                     res.catch(onError);
                 }
@@ -220,7 +222,7 @@ export class SubEvent<T = unknown> {
      */
     public emitSync(data: T): number {
         const r = this._getRecipients();
-        r.forEach(sub => sub.cb(data));
+        r.forEach(sub => sub.cb && sub.cb(data));
         return r.length;
     }
 
@@ -245,7 +247,7 @@ export class SubEvent<T = unknown> {
         const r = this._getRecipients();
         r.forEach(sub => {
             try {
-                const res = sub.cb(data);
+                const res = sub.cb && sub.cb(data);
                 if (res && typeof res.catch === 'function') {
                     res.catch(onError);
                 }
@@ -273,7 +275,10 @@ export class SubEvent<T = unknown> {
         const onCancel = typeof this.options.onCancel === 'function' && this.options.onCancel;
         const copy = onCancel ? [...this._subs] : [];
         const n = this._subs.length;
-        this._subs.forEach(sub => sub.cancel());
+        this._subs.forEach(sub => {
+            sub.cancel();
+            sub.cb = null;
+        });
         this._subs.length = 0;
         if (onCancel) {
             copy.forEach(c => onCancel(c));
@@ -321,6 +326,7 @@ export class SubEvent<T = unknown> {
     protected _cancelSub(sub: ISubscriber<T>) {
         this._subs.splice(this._subs.indexOf(sub), 1);
         sub.cancel();
+        sub.cb = null;
         if (typeof this.options.onCancel === 'function') {
             this.options.onCancel(sub);
         }

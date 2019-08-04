@@ -15,6 +15,21 @@ describe('SubEvent', () => {
             expect(s).to.have.been.called.with(123);
         });
     });
+    it('must cease async notifications when cancelled', done => {
+        const a = new SubEvent<number>();
+        const values: number[] = [];
+        const sub = a.subscribe((value: number) => {
+            values.push(value);
+            sub.cancel();
+        });
+        a.emit(1);
+        a.emit(2);
+        a.emit(3);
+        setTimeout(() => {
+            expect(values).to.eql([1]);
+            done();
+        });
+    });
     it('must pass correct "this" context into subscription functions', () => {
         const a = new SubEvent<void>();
         let context;
