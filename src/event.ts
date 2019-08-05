@@ -25,8 +25,11 @@ export interface ISubContext<T = unknown> {
  */
 export interface IEventOptions<T> {
     /**
-     * Maximum number of subscribers that can receive data.
+     * Maximum number of subscribers that can receive events.
      * Default is 0, meaning `no limit applies`.
+     *
+     * As the older subscriptions get cancelled, the newer ones
+     * outside of the maximum quota will start receiving events.
      */
     maxSubs?: number;
 
@@ -146,7 +149,7 @@ export class SubEvent<T = unknown> {
 
     /**
      * Asynchronous data broadcast to all subscribers. Each subscriber will be receiving
-     * the event within its own processor tick (under Node.js), or timer tick (inside browsers).
+     * the event within its own processor tick (under Node.js), or timer tick (in browsers).
      *
      * @param data
      * Data to be sent, according to the type template.
@@ -174,7 +177,7 @@ export class SubEvent<T = unknown> {
 
     /**
      * Safe asynchronous data broadcast to all subscribers. Each subscriber will be receiving
-     * the event within its own processor tick (under Node.js), or timer tick (inside browsers).
+     * the event within its own processor tick (under Node.js), or timer tick (in browsers).
      *
      * Errors from subscription callbacks are passed into `onError` function, to handle both
      * synchronous and asynchronous subscription functions.
@@ -295,7 +298,7 @@ export class SubEvent<T = unknown> {
      * Gets all recipients that must receive data.
      *
      * It returns a copy of subscribers array for safe iteration, while applying the
-     * maximum limit when it is set with the [[max]] option.
+     * maximum limit when it is set with the [[maxSubs]] option.
      *
      * @hidden
      */
