@@ -2412,7 +2412,7 @@ img {
 			</a>
 			<p><a href="https://travis-ci.org/vitaly-t/sub-events"><img src="https://travis-ci.org/vitaly-t/sub-events.svg?branch=master" alt="Build Status"></a>
 			<a href="https://coveralls.io/r/vitaly-t/sub-events?branch=master"><img src="https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master" alt="Coverage Status"></a></p>
-			<p>Strongly-typed generic events in TypeScript.</p>
+			<p>Strongly-typed events in TypeScript, with monitored subscriptions. </p>
 			<p>Supports all versions of Node.js and browsers.</p>
 			<a href="#install" id="install" style="color: inherit; text-decoration: none;">
 				<h2>Install</h2>
@@ -2443,22 +2443,19 @@ e.emit(<span class="hljs-string">'hello'</span>);</code></pre>
 <span class="hljs-comment">// cancel the subscription when no longer needed:</span>
 sub.cancel();</code></pre>
 			<p><strong>API:</strong> <a href="https://vitaly-t.github.io/sub-events/classes/subscription.html">Subscription</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html#subscribe">subscribe</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subscription.html#cancel">cancel</a></p>
-			<a href="#observing-subscriptions" id="observing-subscriptions" style="color: inherit; text-decoration: none;">
-				<h3>Observing Subscriptions</h3>
+			<a href="#monitoring-subscriptions" id="monitoring-subscriptions" style="color: inherit; text-decoration: none;">
+				<h3>Monitoring Subscriptions</h3>
 			</a>
 			<p>Class <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a> extends <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a> with event <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a>, to observe the number of live subscriptions:</p>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> {SubEventCount, ISubCountChange} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
 
 <span class="hljs-comment">// creating a strongly-typed event:</span>
-<span class="hljs-keyword">const</span> e: SubEventCount&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEventCount();</code></pre>
-			<p>Monitor the number of subscriptions:</p>
-			<pre><code class="language-ts"><span class="hljs-keyword">const</span> monSub = e.onCount.subscribe(<span class="hljs-function">(<span class="hljs-params">info: ISubCountChange</span>) =&gt;</span> {
+<span class="hljs-keyword">const</span> e: SubEventCount&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEventCount();
+
+e.onCount.subscribe(<span class="hljs-function">(<span class="hljs-params">info: ISubCountChange</span>) =&gt;</span> {
     <span class="hljs-comment">// number of subscriptions has changed;</span>
     <span class="hljs-comment">// info = {newCount, prevCount} </span>
-});
-
-<span class="hljs-comment">// cancel monitoring when no longer needed: </span>
-monSub.cancel();</code></pre>
+});</code></pre>
 			<p><strong>API:</strong> <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a></p>
 			<a href="#browser" id="browser" style="color: inherit; text-decoration: none;">
 				<h3>Browser</h3>
@@ -2517,7 +2514,7 @@ monSub.cancel();</code></pre>
 				<div class="tsd-signature tsd-kind-icon">Sub<wbr>Function&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b248e6a/src/event.ts#L73">src/event.ts:73</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L73">src/event.ts:73</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
