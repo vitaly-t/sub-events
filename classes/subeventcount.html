@@ -2390,6 +2390,9 @@ img {
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
 					<a href="subeventcount.html#count" class="tsd-kind-icon">count</a>
 				</li>
+				<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+					<a href="subeventcount.html#maxsubs" class="tsd-kind-icon">max<wbr>Subs</a>
+				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 					<a href="subeventcount.html#cancelall" class="tsd-kind-icon">cancel<wbr>All</a>
 				</li>
@@ -2488,6 +2491,7 @@ img {
 						<h3>Accessors</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="subeventcount.html#count" class="tsd-kind-icon">count</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="subeventcount.html#maxsubs" class="tsd-kind-icon">max<wbr>Subs</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
@@ -2517,7 +2521,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="subevent.html">SubEvent</a>.<a href="subevent.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/count.ts#L48">src/count.ts:48</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/count.ts#L48">src/count.ts:48</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2551,7 +2555,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">on<wbr>Count<span class="tsd-signature-symbol">:</span> <a href="subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isubcountchange.html" class="tsd-signature-type">ISubCountChange</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new SubEvent()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/count.ts#L48">src/count.ts:48</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/count.ts#L48">src/count.ts:48</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2570,13 +2574,32 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#count">count</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/event.ts#L272">src/event.ts:272</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/event.ts#L272">src/event.ts:272</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>Current number of live subscriptions.</p>
 					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
+				<a name="maxsubs" class="tsd-anchor"></a>
+				<h3>max<wbr>Subs</h3>
+				<div class="tsd-signature tsd-kind-icon">max<wbr>Subs<span class="tsd-signature-symbol">:</span> </div>
+				<aside class="tsd-sources">
+					<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#maxsubs">maxSubs</a></p>
+					<ul>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/event.ts#L283">src/event.ts:283</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Maximum number of subscribers that can receive events.
+						Default is 0, meaning <code>no limit applies</code>.</p>
+					</div>
+					<p>As the older subscriptions get cancelled, the newer ones
+					outside of the maximum quota will start receiving events.</p>
 				</div>
 			</section>
 		</section>
@@ -2593,7 +2616,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="subevent.html">SubEvent</a>.<a href="subevent.html#cancelall">cancelAll</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/count.ts#L72">src/count.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/count.ts#L72">src/count.ts:72</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2619,7 +2642,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emit">emit</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/event.ts#L165">src/event.ts:165</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/event.ts#L165">src/event.ts:165</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2661,7 +2684,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsafe">emitSafe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/event.ts#L199">src/event.ts:199</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/event.ts#L199">src/event.ts:199</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2729,7 +2752,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsync">emitSync</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/event.ts#L230">src/event.ts:230</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/event.ts#L230">src/event.ts:230</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2764,7 +2787,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/event.ts#L254">src/event.ts:254</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/event.ts#L254">src/event.ts:254</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2825,7 +2848,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#subscribe">subscribe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/7ba619c/src/event.ts#L136">src/event.ts:136</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/01b18f9/src/event.ts#L136">src/event.ts:136</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
