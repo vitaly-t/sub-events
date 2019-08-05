@@ -274,6 +274,17 @@ export class SubEvent<T = unknown> {
     }
 
     /**
+     * Maximum number of subscribers that can receive events.
+     * Default is 0, meaning `no limit applies`.
+     *
+     * As the older subscriptions get cancelled, the newer ones
+     * outside of the maximum quota will start receiving events.
+     */
+    public get maxSubs(): number {
+        return this.options.maxSubs || 0;
+    }
+
+    /**
      * Cancels all subscriptions.
      *
      * @returns
@@ -303,8 +314,7 @@ export class SubEvent<T = unknown> {
      * @hidden
      */
     protected _getRecipients(): ISubscriber<T>[] {
-        const max = this.options.maxSubs || 0;
-        const end = max > 0 ? max : this._subs.length;
+        const end = this.maxSubs > 0 ? this.maxSubs : this._subs.length;
         return this._subs.slice(0, end);
     }
 

@@ -5,6 +5,11 @@ const dummy = () => {
 };
 
 describe('SubEvent', () => {
+    it('must initialize correctly', () => {
+        const a = new SubEvent();
+        expect(a.count).to.eq(0);
+        expect(a.maxSubs).to.eq(0);
+    });
     it('must invoke subscription functions', () => {
         const a = new SubEvent<number>();
         const cb = () => 1;
@@ -70,6 +75,7 @@ describe('SubEvent', () => {
         const s2 = chai.spy(cb2);
         a.subscribe(s1);
         a.subscribe(s2);
+        expect(a.maxSubs).to.eq(1);
         expect(a.count).to.eq(2);
         a.emit(123, (count: number) => {
             expect(count).to.be.eq(1);
