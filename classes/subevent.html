@@ -2439,7 +2439,7 @@ img {
 					<dd><p>SubEvent</p>
 					</dd>
 					<dt>description</dt>
-					<dd><p>Implements event subscription + triggering the event.</p>
+					<dd><p>Implements event subscription + emitting the event.</p>
 					</dd>
 				</dl>
 			</div>
@@ -2507,13 +2507,14 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L108">src/event.ts:108</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L108">src/event.ts:108</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<dl class="tsd-comment-tags">
 								<dt>constructor</dt>
-								<dd></dd>
+								<dd><p>Event constructor.</p>
+								</dd>
 							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2540,12 +2541,12 @@ img {
 				<div class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L264">src/event.ts:264</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L269">src/event.ts:269</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Current number of subscriptions.</p>
+						<p>Current number of live subscriptions.</p>
 					</div>
 				</div>
 			</section>
@@ -2562,7 +2563,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L274">src/event.ts:274</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L279">src/event.ts:279</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2585,12 +2586,13 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L160">src/event.ts:160</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L162">src/event.ts:162</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Asynchronous data broadcast to all subscribers.</p>
+								<p>Asynchronous data broadcast to all subscribers. Each subscriber will be receiving
+								the event within its own processor tick (under Node.js), or timer tick (inside browsers).</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2625,15 +2627,16 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L193">src/event.ts:193</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L196">src/event.ts:196</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Safe asynchronous data broadcast to all subscribers.</p>
+								<p>Safe asynchronous data broadcast to all subscribers. Each subscriber will be receiving
+								the event within its own processor tick (under Node.js), or timer tick (inside browsers).</p>
 							</div>
-							<p>Errors from subscription callbacks are passed into the callback function,
-							which handles both synchronous and asynchronous subscription functions.</p>
+							<p>Errors from subscription callbacks are passed into <code>onError</code> function, to handle both
+							synchronous and asynchronous subscription functions.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2646,7 +2649,7 @@ img {
 							<li>
 								<h5>onError: <span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>Callback for catching all unhandled errors from the event subscribers.</p>
+									<p>Callback for catching all unhandled errors from subscribers.</p>
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
@@ -2691,12 +2694,13 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L223">src/event.ts:223</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L227">src/event.ts:227</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Synchronous data broadcast to all subscribers.</p>
+								<p>Synchronous data broadcast to all subscribers. The event is delivered
+								to all subscribers immediately.</p>
 							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2724,15 +2728,16 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L246">src/event.ts:246</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L251">src/event.ts:251</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Safe synchronous data broadcast to all subscribers.</p>
+								<p>Safe synchronous data broadcast to all subscribers. The event is delivered
+								to all subscribers immediately.</p>
 							</div>
-							<p>Errors from subscription callbacks are passed into the callback function,
-							which handles both synchronous and asynchronous subscription functions.</p>
+							<p>Errors from subscription callbacks are passed into <code>onError</code> function,
+							to handle both synchronous and asynchronous subscription functions.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2745,7 +2750,7 @@ img {
 							<li>
 								<h5>onError: <span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>Callback for catching all unhandled errors from the event subscribers.</p>
+									<p>Callback for catching all unhandled errors from subscribers.</p>
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
@@ -2783,7 +2788,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/27d9e11/src/event.ts#L132">src/event.ts:132</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/194e91b/src/event.ts#L133">src/event.ts:133</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
