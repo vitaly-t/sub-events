@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master)
 
-Strongly-typed generic events in TypeScript.
+Strongly-typed events in TypeScript, with monitored subscriptions. 
 
 Supports all versions of Node.js and browsers.
 
@@ -43,7 +43,7 @@ sub.cancel();
 
 **API:** [Subscription], [subscribe], [cancel]
 
-### Observing Subscriptions
+### Monitoring Subscriptions
 
 Class [SubEventCount] extends [SubEvent] with event [onCount], to observe the number of live subscriptions:
 
@@ -52,18 +52,11 @@ import {SubEventCount, ISubCountChange} from 'sub-events';
 
 // creating a strongly-typed event:
 const e: SubEventCount<string> = new SubEventCount();
-```
 
-Monitor the number of subscriptions:
-
-```ts
-const monSub = e.onCount.subscribe((info: ISubCountChange) => {
+e.onCount.subscribe((info: ISubCountChange) => {
     // number of subscriptions has changed;
     // info = {newCount, prevCount} 
 });
-
-// cancel monitoring when no longer needed: 
-monSub.cancel();
 ``` 
 
 **API:** [SubEventCount], [onCount]
