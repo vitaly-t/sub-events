@@ -49,6 +49,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
 
     /**
      * @constructor
+     * Event constructor.
      *
      * @param options
      * Configuration Options.

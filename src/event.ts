@@ -53,7 +53,7 @@ export interface IEventOptions<T> {
 export interface ISubOptions {
 
     /**
-     * Calling `this` context for the subscription callback function.
+     * Calling / `this` context for the subscription callback function.
      *
      * Standard way of passing in context is this way:
      * ```ts
@@ -92,7 +92,7 @@ export interface ISubscriber<T> extends ISubContext<T> {
 /**
  * @class SubEvent
  * @description
- * Implements event subscription + triggering the event.
+ * Implements event subscription + emitting the event.
  */
 export class SubEvent<T = unknown> {
 
@@ -109,6 +109,7 @@ export class SubEvent<T = unknown> {
 
     /**
      * @constructor
+     * Event constructor.
      *
      * @param options
      * Configuration Options.
@@ -144,7 +145,8 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Asynchronous data broadcast to all subscribers.
+     * Asynchronous data broadcast to all subscribers. Each subscriber will be receiving
+     * the event within its own processor tick (under Node.js), or timer tick (inside browsers).
      *
      * @param data
      * Data to be sent, according to the type template.
@@ -171,16 +173,17 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Safe asynchronous data broadcast to all subscribers.
+     * Safe asynchronous data broadcast to all subscribers. Each subscriber will be receiving
+     * the event within its own processor tick (under Node.js), or timer tick (inside browsers).
      *
-     * Errors from subscription callbacks are passed into the callback function,
-     * which handles both synchronous and asynchronous subscription functions.
+     * Errors from subscription callbacks are passed into `onError` function, to handle both
+     * synchronous and asynchronous subscription functions.
      *
      * @param data
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for catching all unhandled errors from the event subscribers.
+     * Callback for catching all unhandled errors from subscribers.
      *
      * @param onFinished
      * Optional callback function to be notified when the last recipient has received the data.
@@ -210,7 +213,8 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Synchronous data broadcast to all subscribers.
+     * Synchronous data broadcast to all subscribers. The event is delivered
+     * to all subscribers immediately.
      *
      * @param data
      * Data to be sent, according to the type template.
@@ -227,16 +231,17 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Safe synchronous data broadcast to all subscribers.
+     * Safe synchronous data broadcast to all subscribers. The event is delivered
+     * to all subscribers immediately.
      *
-     * Errors from subscription callbacks are passed into the callback function,
-     * which handles both synchronous and asynchronous subscription functions.
+     * Errors from subscription callbacks are passed into `onError` function,
+     * to handle both synchronous and asynchronous subscription functions.
      *
      * @param data
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for catching all unhandled errors from the event subscribers.
+     * Callback for catching all unhandled errors from subscribers.
      *
      * @returns
      * Number of clients that have received the data.
@@ -259,7 +264,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Current number of subscriptions.
+     * Current number of live subscriptions.
      */
     public get count(): number {
         return this._subs.length;

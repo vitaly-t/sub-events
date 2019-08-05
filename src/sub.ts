@@ -30,7 +30,9 @@ export class Subscription {
     }
 
     /**
-     * Cancels the live subscription.
+     * Cancels the live subscription. The subscriber won't receive any more events.
+     *
+     * It also sets flag [[live]] to `false`.
      *
      * @returns
      * - `true` - subscription has been successfully cancelled
