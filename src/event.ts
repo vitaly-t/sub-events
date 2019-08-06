@@ -12,6 +12,11 @@ export interface ISubContext<T = unknown> {
     readonly event: SubEvent<T>;
 
     /**
+     * Subscription Name.
+     */
+    readonly name?: string;
+
+    /**
      * Unknown-type data to let the event wrapper persist any
      * context it needs within the event's lifecycle.
      */
@@ -114,11 +119,6 @@ export interface ISubscriber<T> extends ISubContext<T> {
      * Cancels the subscription.
      */
     cancel: (() => void);
-
-    /**
-     * Subscription Name.
-     */
-    name?: string;
 }
 
 /**
