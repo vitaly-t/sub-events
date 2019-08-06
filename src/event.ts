@@ -79,7 +79,7 @@ export interface ISubOptions {
 }
 
 /**
- * Subscriptions statistics, as returned by [[getSubStat]].
+ * Subscriptions statistics, as returned by method [[getSubStat]].
  */
 export interface ISubStat {
 
@@ -315,14 +315,13 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Retrieves subscriptions statistics.
+     * Retrieves subscriptions statistics, to help with diagnosing subscription leaks.
      *
      * @param options
-     * Statistics Accumulation Options
+     * Statistics Options:
      *
-     * @param options.minUse
-     * Minimum subscription usage to be included into the list of named subscriptions.
-     * If subscription is used less times, it will be excluded from the named list.
+     *  - `minUse: number` - Minimum subscription usage/count to be included into the list of named
+     *     subscriptions. If subscription is used less times, it will be excluded from the named list.
      */
     public getSubStat(options?: { minUse?: number }): ISubStat {
         const stat: ISubStat = {named: {}, unnamed: 0};
