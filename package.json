@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Strongly-typed events in TypeScript, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
