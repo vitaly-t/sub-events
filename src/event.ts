@@ -59,7 +59,7 @@ export interface ISubOptions {
      * Unique subscription name, to help with diagnosing subscription leaks.
      * It should identify place in the code where the subscription is created.
      *
-     * @see [[getSubStat]]
+     * @see [[getStat]]
      */
     name?: string;
 
@@ -79,7 +79,7 @@ export interface ISubOptions {
 }
 
 /**
- * Subscriptions statistics, as returned by method [[getSubStat]].
+ * Subscriptions statistics, as returned by method [[getStat]].
  */
 export interface ISubStat {
 
@@ -323,7 +323,7 @@ export class SubEvent<T = unknown> {
      *  - `minUse: number` - Minimum subscription usage/count to be included into the list of named
      *     subscriptions. If subscription is used less times, it will be excluded from the named list.
      */
-    public getSubStat(options?: { minUse?: number }): ISubStat {
+    public getStat(options?: { minUse?: number }): ISubStat {
         const stat: ISubStat = {named: {}, unnamed: 0};
         this._subs.forEach(s => {
             if (s.name) {

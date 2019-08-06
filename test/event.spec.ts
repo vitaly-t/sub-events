@@ -236,4 +236,35 @@ describe('SubEvent', () => {
             expect(data).to.eq(123);
         });
     });
+    describe('getStat', () => {
+        it('must report all subscriptions correctly', () => {
+            const a = new SubEvent();
+            a.subscribe(dummy);
+            a.subscribe(dummy);
+            a.subscribe(dummy, {name: 'first'});
+            a.subscribe(dummy, {name: 'second'});
+            a.subscribe(dummy, {name: 'third'});
+            a.subscribe(dummy, {name: 'third'});
+            expect(a.getStat()).to.eql({
+                named: {
+                    first: 1,
+                    second: 1,
+                    third: 2
+                },
+                unnamed: 2
+            });
+        });
+        it('must limit occurrences according to minUse option', () => {
+            const a = new SubEvent();
+            a.subscribe(dummy, {name: 'first'});
+            a.subscribe(dummy, {name: 'second'});
+            a.subscribe(dummy, {name: 'second'});
+            expect(a.getStat({minUse: 2})).to.eql({
+                named: {
+                    second: 2
+                },
+                unnamed: 0
+            });
+        });
+    });
 });
