@@ -35,7 +35,7 @@ describe('SubEvent', () => {
             done();
         });
     });
-    it('must pass correct "this" context into subscription functions', () => {
+    it('must pass subscription options correctly', () => {
         const a = new SubEvent<void>();
         let context;
 
@@ -43,9 +43,10 @@ describe('SubEvent', () => {
             context = this;
         }
 
-        a.subscribe(onEvent, {thisArg: a});
+        const sub = a.subscribe(onEvent, {thisArg: a, name: 'my-sub'});
         a.emitSync();
         expect(context).to.eq(a);
+        expect(sub.name).to.eq('my-sub');
     });
 
     it('must track subscription count', () => {
@@ -84,14 +85,17 @@ describe('SubEvent', () => {
         });
     });
     it('must call onSubscribe during subscription', () => {
-        let called = false;
+        let context: ISubContext | undefined;
         const onSubscribe = (ctx: ISubContext) => {
-            called = true;
+            context = ctx;
         };
         const a = new SubEvent({onSubscribe});
-        expect(called).to.be.false;
-        a.subscribe(dummy);
-        expect(called).to.be.true;
+        expect(context).to.be.undefined;
+        a.subscribe(dummy, {name: 'hello'});
+        expect(!!context).to.be.true;
+        if (context) {
+            expect(context.name).to.eq('hello');
+        }
     });
     it('must call onCancel during cancellation', () => {
         let data, called = false;
@@ -103,11 +107,12 @@ describe('SubEvent', () => {
             called = true;
         };
         const a = new SubEvent({onSubscribe, onCancel});
-        const sub = a.subscribe(dummy);
+        const sub = a.subscribe(dummy, {name: 'tst'});
         expect(called).to.be.false;
         sub.cancel();
         expect(called).to.be.true;
         expect(data).to.eq(123);
+        expect(sub.name).to.eq('tst');
     });
     it('must call onFinish when done', done => {
         let count: number;
@@ -234,6 +239,37 @@ describe('SubEvent', () => {
             expect(data).to.be.undefined;
             a.cancelAll();
             expect(data).to.eq(123);
+        });
+    });
+    describe('getStat', () => {
+        it('must report all subscriptions correctly', () => {
+            const a = new SubEvent();
+            a.subscribe(dummy);
+            a.subscribe(dummy);
+            a.subscribe(dummy, {name: 'first'});
+            a.subscribe(dummy, {name: 'second'});
+            a.subscribe(dummy, {name: 'third'});
+            a.subscribe(dummy, {name: 'third'});
+            expect(a.getStat()).to.eql({
+                named: {
+                    first: 1,
+                    second: 1,
+                    third: 2
+                },
+                unnamed: 2
+            });
+        });
+        it('must limit occurrences according to minUse option', () => {
+            const a = new SubEvent();
+            a.subscribe(dummy, {name: 'first'});
+            a.subscribe(dummy, {name: 'second'});
+            a.subscribe(dummy, {name: 'second'});
+            expect(a.getStat({minUse: 2})).to.eql({
+                named: {
+                    second: 2
+                },
+                unnamed: 0
+            });
         });
     });
 });

@@ -10,10 +10,16 @@ export class Subscription {
     private _cancel: null | (() => void);
 
     /**
+     * Subscription name, if one was specified with method [[subscribe]].
+     */
+    readonly name?: string;
+
+    /**
      * @hidden
      */
-    constructor(cancel: () => void, sub: { cancel?: () => void }) {
+    constructor(cancel: () => void, sub: { cancel?: () => void, name?: string }) {
         this._cancel = cancel;
+        this.name = sub.name;
         sub.cancel = () => {
             this._cancel = null;
         };

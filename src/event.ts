@@ -12,6 +12,11 @@ export interface ISubContext<T = unknown> {
     readonly event: SubEvent<T>;
 
     /**
+     * Subscription Name.
+     */
+    readonly name?: string;
+
+    /**
      * Unknown-type data to let the event wrapper persist any
      * context it needs within the event's lifecycle.
      */
@@ -56,6 +61,14 @@ export interface IEventOptions<T> {
 export interface ISubOptions {
 
     /**
+     * Unique subscription name, to help with diagnosing subscription leaks.
+     * It should identify place in the code where the subscription is created.
+     *
+     * @see [[getStat]]
+     */
+    name?: string;
+
+    /**
      * Calling / `this` context for the subscription callback function.
      *
      * Standard way of passing in context is this way:
@@ -68,6 +81,22 @@ export interface ISubOptions {
      * ```
      */
     thisArg?: any;
+}
+
+/**
+ * Subscriptions statistics, as returned by method [[getStat]].
+ */
+export interface ISubStat {
+
+    /**
+     * Map of subscription names to their usage counters.
+     */
+    named: { [name: string]: number };
+
+    /**
+     * Total number of unnamed subscriptions.
+     */
+    unnamed: number;
 }
 
 /**
@@ -139,7 +168,8 @@ export class SubEvent<T = unknown> {
             // Subscription replaces it with actual cancellation
         };
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
-        const sub: ISubscriber<T> = {event: this, data: undefined, cb, cancel};
+        const name = options && options.name;
+        const sub: ISubscriber<T> = {event: this, data: undefined, cb, cancel, name};
         if (typeof this.options.onSubscribe === 'function') {
             this.options.onSubscribe(sub);
         }
@@ -282,6 +312,39 @@ export class SubEvent<T = unknown> {
      */
     public get maxSubs(): number {
         return this.options.maxSubs || 0;
+    }
+
+    /**
+     * Retrieves subscriptions statistics, to help with diagnosing subscription leaks.
+     *
+     * @param options
+     * Statistics Options:
+     *
+     *  - `minUse: number` - Minimum subscription usage/count to be included into the list of named
+     *     subscriptions. If subscription is used less times, it will be excluded from the named list.
+     */
+    public getStat(options?: { minUse?: number }): ISubStat {
+        const stat: ISubStat = {named: {}, unnamed: 0};
+        this._subs.forEach(s => {
+            if (s.name) {
+                if (s.name in stat.named) {
+                    stat.named[s.name]++;
+                } else {
+                    stat.named[s.name] = 1;
+                }
+            } else {
+                stat.unnamed++;
+            }
+        });
+        const minUse = (options && options.minUse) || 0;
+        if (minUse > 1) {
+            for (const a in stat.named) {
+                if (stat.named[a] < minUse) {
+                    delete stat.named[a];
+                }
+            }
+        }
+        return stat;
     }
 
     /**
