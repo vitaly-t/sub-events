@@ -12,13 +12,13 @@ export interface ISubContext<T = unknown> {
     readonly event: SubEvent<T>;
 
     /**
-     * Subscription Name.
+     * Subscription name, if one was specified with method [[subscribe]].
      */
     readonly name?: string;
 
     /**
-     * Unknown-type data to let the event wrapper persist any
-     * context it needs within the event's lifecycle.
+     * Unknown-type data to let event wrappers persist any
+     * context they needs within the event's lifecycle.
      */
     data: unknown;
 }
