@@ -18,7 +18,7 @@ export interface ISubContext<T = unknown> {
 
     /**
      * Unknown-type data to let event wrappers persist any
-     * context they needs within the event's lifecycle.
+     * context they need within the event's lifecycle.
      */
     data: unknown;
 }
