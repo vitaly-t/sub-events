@@ -17,10 +17,10 @@ export class Subscription {
     /**
      * @hidden
      */
-    constructor(cancel: () => void, sub: { cancel?: () => void, name?: string }) {
-        this._cancel = cancel;
-        this.name = sub.name;
-        sub.cancel = () => {
+    constructor(init: { cancel: () => void, sub: { cancel?: () => void, name?: string } }) {
+        this._cancel = init.cancel;
+        this.name = init.sub.name;
+        init.sub.cancel = () => {
             this._cancel = null;
         };
     }

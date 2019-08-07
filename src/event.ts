@@ -174,7 +174,7 @@ export class SubEvent<T = unknown> {
             this.options.onSubscribe(sub);
         }
         this._subs.push(sub);
-        return new Subscription(this._createCancel(sub), sub);
+        return new Subscription({cancel: this._createCancel(sub), sub});
     }
 
     /**
