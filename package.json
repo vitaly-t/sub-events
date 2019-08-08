@@ -46,7 +46,7 @@
     "@types/chai-spies": "1.0.0",
     "@types/mocha": "5.2.7",
     "@types/node": "12.7.0",
-    "browserify": "16.3.0",
+    "browserify": "16.4.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
     "coveralls": "3.0.6",
