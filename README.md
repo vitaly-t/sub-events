@@ -1,7 +1,7 @@
 # sub-events
 
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
-[![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/vitaly-t/sub-events.svg)](https://greenkeeper.io/)
+[![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master)
 
 Strongly-typed events in TypeScript, with monitored subscriptions. 
 
