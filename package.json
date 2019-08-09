@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Strongly-typed events in TypeScript, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -42,11 +42,11 @@
     "typescript"
   ],
   "devDependencies": {
-    "@types/chai": "4.1.7",
-    "@types/chai-spies": "1.0.0",
+    "@types/chai": "4.2.0",
+    "@types/chai-spies": "1.0.1",
     "@types/mocha": "5.2.7",
     "@types/node": "12.7.1",
-    "browserify": "16.4.0",
+    "browserify": "16.5.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
     "coveralls": "3.0.6",
