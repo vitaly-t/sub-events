@@ -180,7 +180,9 @@ export class SubEvent<T = unknown> {
         const name = options && options.name;
         const sub: ISubscriber<T> = {event: this, data: undefined, cb, cancel, name};
         if (typeof this.options.onSubscribe === 'function') {
-            this.options.onSubscribe(sub);
+            const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
+            this.options.onSubscribe(ctx);
+            sub.data = ctx.data;
         }
         this._subs.push(sub);
         return new Subscription({cancel: this._createCancel(sub), sub});
@@ -384,7 +386,10 @@ export class SubEvent<T = unknown> {
         });
         this._subs.length = 0;
         if (onCancel) {
-            copy.forEach(c => onCancel(c));
+            copy.forEach(c => {
+                const ctx: ISubContext<T> = {event: c.event, name: c.name, data: c.data};
+                onCancel(ctx);
+            });
         }
         return n;
     }
@@ -430,7 +435,8 @@ export class SubEvent<T = unknown> {
         sub.cancel();
         sub.cb = null; // stops async emits
         if (typeof this.options.onCancel === 'function') {
-            this.options.onCancel(sub);
+            const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
+            this.options.onCancel(ctx);
         }
     }
 
