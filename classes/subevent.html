@@ -2448,7 +2448,10 @@ img {
 					<dd><p>SubEvent</p>
 					</dd>
 					<dt>description</dt>
-					<dd><p>Implements event subscription + emitting the event.</p>
+					<dd><p>Core class, implementing event subscription + emitting the event.</p>
+					</dd>
+					<dt>see</dt>
+					<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a></p>
 					</dd>
 				</dl>
 			</div>
@@ -2518,7 +2521,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L140">src/event.ts:140</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L145">src/event.ts:145</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2552,7 +2555,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L302">src/event.ts:302</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L319">src/event.ts:319</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2567,7 +2570,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">max<wbr>Subs<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L313">src/event.ts:313</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L330">src/event.ts:330</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2575,8 +2578,8 @@ img {
 						<p>Maximum number of subscribers that can receive events.
 						Default is 0, meaning <code>no limit applies</code>.</p>
 					</div>
-					<p>As the older subscriptions get cancelled, the newer ones
-					outside of the maximum quota will start receiving events.</p>
+					<p>Newer subscriptions outside of the maximum quota will start
+					receiving events when the older subscriptions get cancelled.</p>
 				</div>
 			</section>
 		</section>
@@ -2592,7 +2595,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L356">src/event.ts:356</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L377">src/event.ts:377</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2615,7 +2618,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L195">src/event.ts:195</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L206">src/event.ts:206</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2623,6 +2626,11 @@ img {
 								<p>Asynchronous data broadcast to all subscribers. Each subscriber will be receiving
 								the event within its own processor tick (under Node.js), or timer tick (in browsers).</p>
 							</div>
+							<dl class="tsd-comment-tags">
+								<dt>see</dt>
+								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emitsync">emitSync</a>, <a href="subevent.html#emitsafe">emitSafe</a>, <a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2656,7 +2664,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L229">src/event.ts:229</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L242">src/event.ts:242</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2666,6 +2674,11 @@ img {
 							</div>
 							<p>Errors from subscription callbacks are passed into <code>onError</code> function, to handle both
 							synchronous and asynchronous subscription functions.</p>
+							<dl class="tsd-comment-tags">
+								<dt>see</dt>
+								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a>, <a href="subevent.html#emitsync">emitSync</a>, <a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2723,7 +2736,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L260">src/event.ts:260</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L275">src/event.ts:275</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2731,6 +2744,11 @@ img {
 								<p>Synchronous data broadcast to all subscribers. The event is delivered
 								to all subscribers immediately.</p>
 							</div>
+							<dl class="tsd-comment-tags">
+								<dt>see</dt>
+								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a>, <a href="subevent.html#emitsafe">emitSafe</a>, <a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2757,7 +2775,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L284">src/event.ts:284</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L301">src/event.ts:301</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2767,6 +2785,11 @@ img {
 							</div>
 							<p>Errors from subscription callbacks are passed into <code>onError</code> function,
 							to handle both synchronous and asynchronous subscription functions.</p>
+							<dl class="tsd-comment-tags">
+								<dt>see</dt>
+								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a>, <a href="subevent.html#emitsync">emitSync</a>, <a href="subevent.html#emitsafe">emitSafe</a></p>
+								</dd>
+							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2817,13 +2840,15 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L326">src/event.ts:326</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L347">src/event.ts:347</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Retrieves subscriptions statistics, to help with diagnosing subscription leaks.</p>
 							</div>
+							<p>For this method to be useful, you need to set option <code>name</code> with the <a href="subevent.html#subscribe">subscribe</a> call.</p>
+							<p>See also: <a href="https://github.com/vitaly-t/sub-events/wiki/Diagnostics" class="external">Diagnostics</a></p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2833,7 +2858,7 @@ img {
 									<p>Statistics Options:</p>
 									<ul>
 										<li><code>minUse: number</code> - Minimum subscription usage/count to be included into the list of named
-										subscriptions. If subscription is used less times, it will be excluded from the named list.</li>
+										subscriptions. If subscription is used less times, it will be excluded from the <code>named</code> list.</li>
 									</ul>
 								</div>
 							</li>
@@ -2852,13 +2877,16 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b71dd56/src/event.ts#L165">src/event.ts:165</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2e54f52/src/event.ts#L174">src/event.ts:174</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Subscribes for the event.</p>
 							</div>
+							<p>When subscription is no longer needed, method <a href="subscription.html#cancel">cancel</a> should be called
+								on the returned object, to avoid memory leaks and performance degradation.
+							Method <a href="subevent.html#getstat">getStat</a> can help with diagnosing leaked subscriptions.</p>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
