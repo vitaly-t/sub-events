@@ -48,6 +48,22 @@ export function fromSharedEvent(source: Node, event: string): SubEventCount<Even
     return sec;
 }
 
+/**
+ * Example of wrapping `EventEmitter`, taking variable number of parameters,
+ * and making them available within `subscribe` callback as an array of values.
+ */
+export function fromEmitter(source: EventEmitter, event: string | symbol): SubEvent<any[]> {
+    const onSubscribe = (ctx: ISubContext<any[]>) => {
+        const handler = (...args: any[]) => ctx.event.emitSync(args);
+        source.addListener(event, handler);
+        ctx.data = handler; // context for the event's lifecycle
+    };
+    const onCancel = (ctx: ISubContext<any[]>) => {
+        source.removeListener(event, <() => void>ctx.data);
+    };
+    return new SubEvent<any[]>({onSubscribe, onCancel});
+}
+
 /*
 export function fromEmitter<T>(source: EventEmitter, event: string | symbol): SubEvent<T> {
     type EmitHandler = (...args: any[]) => void;
