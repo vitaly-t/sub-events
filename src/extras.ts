@@ -4,6 +4,7 @@
  */
 
 import {SubEvent, ISubContext, SubEventCount} from './';
+import EventEmitter = NodeJS.EventEmitter;
 
 /**
  * Example of one-to-one event wrapping, which in this context means:
@@ -46,3 +47,21 @@ export function fromSharedEvent(source: Node, event: string): SubEventCount<Even
     });
     return sec;
 }
+
+/*
+export function fromEmitter<T>(source: EventEmitter, event: string | symbol): SubEvent<T> {
+    type EmitHandler = (...args: any[]) => void;
+    const onSubscribe = (ctx: ISubContext<T>) => {
+        const handler = (e: EmitHandler) => {
+            const Test: new() => T;
+            const a = new T();
+        };// ctx.event.emitSync([...e]);
+        source.addListener(event, handler);
+        ctx.data = handler; // context for the event's lifecycle
+    };
+    const onCancel = (ctx: ISubContext<T>) => {
+        source.removeListener(event, <EmitHandler>ctx.data);
+    };
+    return new SubEvent<T>({onSubscribe, onCancel});
+}
+*/
