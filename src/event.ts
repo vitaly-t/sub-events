@@ -3,7 +3,8 @@ import {Subscription} from './sub';
 /**
  * @interface ISubContext
  * @description
- * Subscription Context Interface.
+ * Subscription Context Interface, as used with [[onSubscribe]] and [[onCancel]]
+ * notification options that can be set during [[SubEvent]] construction.
  */
 export interface ISubContext<T = unknown> {
     /**
@@ -33,8 +34,8 @@ export interface IEventOptions<T> {
      * Maximum number of subscribers that can receive events.
      * Default is 0, meaning `no limit applies`.
      *
-     * As the older subscriptions get cancelled, the newer ones
-     * outside of the maximum quota will start receiving events.
+     * Newer subscriptions outside of the maximum quota will start
+     * receiving events when the older subscriptions get cancelled.
      */
     maxSubs?: number;
 
@@ -61,8 +62,9 @@ export interface IEventOptions<T> {
 export interface ISubOptions {
 
     /**
-     * Unique subscription name, to help with diagnosing subscription leaks.
-     * It should identify place in the code where the subscription is created.
+     * Unique subscription name, to help with diagnosing subscription leaks
+     * via method [[getStat]]. The name should identify place in the code
+     * where the subscription is created.
      *
      * @see [[getStat]]
      */
@@ -89,7 +91,8 @@ export interface ISubOptions {
 export interface ISubStat {
 
     /**
-     * Map of subscription names to their usage counters.
+     * Map of subscription names to their usage counters. It consists of only
+     * subscriptions for which option `name` was set when calling [[subscribe]].
      */
     named: { [name: string]: number };
 
@@ -124,7 +127,9 @@ export interface ISubscriber<T> extends ISubContext<T> {
 /**
  * @class SubEvent
  * @description
- * Implements event subscription + emitting the event.
+ * Core class, implementing event subscription + emitting the event.
+ *
+ * @see [[subscribe]], [[emit]]
  */
 export class SubEvent<T = unknown> {
 
@@ -152,6 +157,10 @@ export class SubEvent<T = unknown> {
 
     /**
      * Subscribes for the event.
+     *
+     * When subscription is no longer needed, method [[cancel]] should be called
+     * on the returned object, to avoid memory leaks and performance degradation.
+     * Method [[getStat]] can help with diagnosing leaked subscriptions.
      *
      * @param cb
      * Event notification callback function.
@@ -191,6 +200,8 @@ export class SubEvent<T = unknown> {
      *
      * @returns
      * Number of clients that will be receiving the data.
+     *
+     * @see [[subscribe]], [[emitSync]], [[emitSafe]], [[emitSyncSafe]]
      */
     public emit(data: T, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
@@ -225,6 +236,8 @@ export class SubEvent<T = unknown> {
      *
      * @returns
      * Number of clients that will be receiving the data.
+     *
+     * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSyncSafe]]
      */
     public emitSafe(data: T, onError: (err: any) => void, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
@@ -256,6 +269,8 @@ export class SubEvent<T = unknown> {
      * Number of clients that have received the data.
      *
      * Note that asynchronous subscribers may still be processing the data.
+     *
+     * @see [[subscribe]], [[emit]], [[emitSafe]], [[emitSyncSafe]]
      */
     public emitSync(data: T): number {
         const r = this._getRecipients();
@@ -280,6 +295,8 @@ export class SubEvent<T = unknown> {
      * Number of clients that have received the data.
      *
      * Note that asynchronous subscribers may still be processing the data.
+     *
+     * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSafe]]
      */
     public emitSyncSafe(data: T, onError: (err: any) => void): number {
         const r = this._getRecipients();
@@ -307,8 +324,8 @@ export class SubEvent<T = unknown> {
      * Maximum number of subscribers that can receive events.
      * Default is 0, meaning `no limit applies`.
      *
-     * As the older subscriptions get cancelled, the newer ones
-     * outside of the maximum quota will start receiving events.
+     * Newer subscriptions outside of the maximum quota will start
+     * receiving events when the older subscriptions get cancelled.
      */
     public get maxSubs(): number {
         return this.options.maxSubs || 0;
@@ -317,11 +334,15 @@ export class SubEvent<T = unknown> {
     /**
      * Retrieves subscriptions statistics, to help with diagnosing subscription leaks.
      *
+     * For this method to be useful, you need to set option `name` with the [[subscribe]] call.
+     *
+     * See also: {@link https://github.com/vitaly-t/sub-events/wiki/Diagnostics Diagnostics}
+     *
      * @param options
      * Statistics Options:
      *
      *  - `minUse: number` - Minimum subscription usage/count to be included into the list of named
-     *     subscriptions. If subscription is used less times, it will be excluded from the named list.
+     *     subscriptions. If subscription is used less times, it will be excluded from the `named` list.
      */
     public getStat(options?: { minUse?: number }): ISubStat {
         const stat: ISubStat = {named: {}, unnamed: 0};

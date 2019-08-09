@@ -2,6 +2,8 @@
  * @class Subscription
  * @description
  * Represents an event subscription, and a safe way to cancel it.
+ *
+ * @see [[cancel]]
  */
 export class Subscription {
     /**
@@ -10,7 +12,7 @@ export class Subscription {
     private _cancel: null | (() => void);
 
     /**
-     * Subscription name, if one was specified with method [[subscribe]].
+     * Subscription's `name` option, if it was set with method [[subscribe]].
      */
     readonly name?: string;
 

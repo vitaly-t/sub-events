@@ -7,6 +7,8 @@ Strongly-typed events in TypeScript, with monitored subscriptions.
 
 Supports all versions of Node.js and browsers.
 
+Documentation: [API](https://vitaly-t.github.io/sub-events) + [WiKi](https://github.com/vitaly-t/sub-events/wiki).
+
 ## Install
 
 ```sh
@@ -74,11 +76,6 @@ When using directly inside HTML, you can access all types under `subEvents` name
     });
 </script>
 ``` 
-
-**See Also:**
-
-* [WiKi Pages](https://github.com/vitaly-t/sub-events/wiki)
-* [API Documentation](https://vitaly-t.github.io/sub-events)
 
 [Subscription]:https://vitaly-t.github.io/sub-events/classes/subscription.html
 [subscribe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#subscribe
