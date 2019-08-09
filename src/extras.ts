@@ -4,6 +4,7 @@
  */
 
 import {SubEvent, ISubContext, SubEventCount} from './';
+import EventEmitter = NodeJS.EventEmitter;
 
 /**
  * Example of one-to-one event wrapping, which in this context means:
@@ -41,6 +42,42 @@ export function fromSharedEvent(source: Node, event: string): SubEventCount<Even
         } else {
             if (stop) {
                 source.removeEventListener(event, handler, false);
+            }
+        }
+    });
+    return sec;
+}
+
+/**
+ * Example of wrapping `EventEmitter`, taking variable number of parameters,
+ * and making them available within `subscribe` callback as an array of values.
+ */
+export function fromEmitter(source: EventEmitter, event: string | symbol): SubEvent<any[]> {
+    const onSubscribe = (ctx: ISubContext<any[]>) => {
+        const handler = (...args: any[]) => ctx.event.emit(args);
+        source.addListener(event, handler);
+        ctx.data = handler; // context for the event's lifecycle
+    };
+    const onCancel = (ctx: ISubContext<any[]>) => {
+        source.removeListener(event, <() => void>ctx.data);
+    };
+    return new SubEvent<any[]>({onSubscribe, onCancel});
+}
+
+/**
+ * Same as above, but for shared `EventEmitter`, based on subscription count.
+ */
+export function fromSharedEmitter(source: EventEmitter, event: string | symbol): SubEventCount<any[]> {
+    const sec: SubEventCount<any[]> = new SubEventCount();
+    const handler = (...args: any[]) => sec.emit(args);
+    sec.onCount.subscribe(info => {
+        const start = info.prevCount === 0; // fresh start
+        const stop = info.newCount === 0; // no subscriptions left
+        if (start) {
+            source.addListener(event, handler);
+        } else {
+            if (stop) {
+                source.removeListener(event, handler);
             }
         }
     });
