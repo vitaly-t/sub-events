@@ -1,10 +1,10 @@
 Examples
 --------
 
-Practical examples of using the library: 
+Examples of wrapping event objects into [SubEvent]: 
 
-* [from-emitter] - examples of how to wrap [EventEmitter] into [SubEvent].
-* [from-event] - examples of how to wrap DOM's [Event] into [SubEvent].
+* [from-emitter] - from [EventEmitter] to [SubEvent]
+* [from-event] - from DOM [Event] to [SubEvent]
 
 [from-emitter]:./from-emitter.ts
 [from-event]:./from-event.ts
