@@ -65,7 +65,7 @@ e.onCount.subscribe((info: ISubCountChange) => {
 
 ### Browser
 
-When using directly inside HTML, you can access all types under `subEvents` namespace:
+When including directly from HTML, you can access all types under `subEvents` namespace:
 
 ```html
 <script src="./node_modules/sub-events/dist"></script>
