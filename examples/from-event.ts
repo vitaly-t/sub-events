@@ -1,7 +1,7 @@
 import {SubEvent, ISubContext, SubEventCount} from '../src';
 
 /**
- * Example of one-to-one event wrapping, which in this context means:
+ * Example of one-to-one DOM `Event` wrapping:
  * - every `subscribe` results in immediate `addEventListener` call;
  * - every `cancel` results in immediate `removeEventListener` call.
  */

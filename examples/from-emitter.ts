@@ -2,8 +2,12 @@ import {SubEvent, ISubContext, SubEventCount} from '../src';
 import EventEmitter = NodeJS.EventEmitter;
 
 /**
- * Example of wrapping a named event from `EventEmitter`, and sending a variable
- * number of event arguments into `subscribe` callback as an array of values.
+ * Example of one-to-one `EventEmitter` wrapping:
+ * - every `subscribe` results in immediate `addListener` call;
+ * - every `cancel` results in immediate `removeListener` call.
+ *
+ * Variable number of arguments emitted with the event become an array
+ * of values when they arrive into `subscribe` callback function.
  */
 export function fromEmitter(source: EventEmitter, event: string | symbol): SubEvent<any[]> {
     const onSubscribe = (ctx: ISubContext<any[]>) => {
@@ -22,8 +26,8 @@ export function fromEmitter(source: EventEmitter, event: string | symbol): SubEv
  * - we call `addListener` whenever the first subscriber has been registered;
  * - we call `removeListener` after the last subscription has been cancelled.
  *
- * Variable number of arguments emitted with the event become an array of values
- * when they arrive into `subscribe` callback function.
+ * Variable number of arguments emitted with the event become an array
+ * of values when they arrive into `subscribe` callback function.
  */
 export function fromSharedEmitter(source: EventEmitter, event: string | symbol): SubEventCount<any[]> {
     const sec: SubEventCount<any[]> = new SubEventCount();
