@@ -1,14 +1,9 @@
-/**
- * This module is primarily for demo purposes, with simplified examples
- * of one-to-one versus shared resource wrapping, for comparison.
- */
-
 import {SubEvent, ISubContext, SubEventCount} from '../src';
 import EventEmitter = NodeJS.EventEmitter;
 
 /**
- * Example of wrapping a named event from `EventEmitter`, and sending variable number
- * of event arguments into `subscribe` callback as an array of values.
+ * Example of wrapping a named event from `EventEmitter`, and sending a variable
+ * number of event arguments into `subscribe` callback as an array of values.
  */
 export function fromEmitter(source: EventEmitter, event: string | symbol): SubEvent<any[]> {
     const onSubscribe = (ctx: ISubContext<any[]>) => {
