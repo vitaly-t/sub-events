@@ -156,7 +156,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Subscribes for the event.
+     * Subscribes to the event.
      *
      * When subscription is no longer needed, method [[cancel]] should be called
      * on the returned object, to avoid memory leaks and performance degradation.
