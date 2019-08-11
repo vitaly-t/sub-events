@@ -3,8 +3,8 @@ Examples
 
 Examples of wrapping event objects into [SubEvent]: 
 
-* [from-emitter] - from [EventEmitter] to [SubEvent]
-* [from-event] - from DOM [Event] to [SubEvent]
+* [from-emitter] - create [SubEvent] from [EventEmitter]
+* [from-event] - create [SubEvent] from DOM [Event]
 
 [from-emitter]:./from-emitter.ts
 [from-event]:./from-event.ts
