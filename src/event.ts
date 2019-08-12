@@ -8,7 +8,7 @@ import {Subscription} from './sub';
  */
 export interface ISubContext<T = unknown> {
     /**
-     * Event class that provides the context.
+     * Event object that provides the context.
      */
     readonly event: SubEvent<T>;
 
@@ -328,6 +328,8 @@ export class SubEvent<T = unknown> {
      *
      * Newer subscriptions outside of the maximum quota will start
      * receiving events when the older subscriptions get cancelled.
+     *
+     * It can only be set with the [[constructor]].
      */
     public get maxSubs(): number {
         return this.options.maxSubs || 0;
