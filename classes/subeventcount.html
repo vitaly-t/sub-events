@@ -2528,7 +2528,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="subevent.html">SubEvent</a>.<a href="subevent.html#constructor">constructor</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/count.ts#L48">src/count.ts:48</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/count.ts#L48">src/count.ts:48</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2562,7 +2562,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">on<wbr>Count<span class="tsd-signature-symbol">:</span> <a href="subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/isubcountchange.html" class="tsd-signature-type">ISubCountChange</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new SubEvent()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/count.ts#L48">src/count.ts:48</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/count.ts#L48">src/count.ts:48</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2581,7 +2581,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#count">count</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L321">src/event.ts:321</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L325">src/event.ts:325</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2597,7 +2597,7 @@ img {
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#maxsubs">maxSubs</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L334">src/event.ts:334</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L338">src/event.ts:338</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2624,7 +2624,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Overrides <a href="subevent.html">SubEvent</a>.<a href="subevent.html#cancelall">cancelAll</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/count.ts#L72">src/count.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/count.ts#L72">src/count.ts:72</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2650,7 +2650,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emit">emit</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L208">src/event.ts:208</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L208">src/event.ts:208</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2697,7 +2697,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsafe">emitSafe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L244">src/event.ts:244</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L246">src/event.ts:246</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2724,12 +2724,14 @@ img {
 							<li>
 								<h5>onError: <span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>Callback for catching all unhandled errors from subscribers.</p>
+									<p>Callback for catching all unhandled errors from subscribers. The first parameter
+										is the error that was thrown/rejected, and the second one is the subscription <code>name</code>,
+									if it was set during <a href="subeventcount.html#subscribe">subscribe</a> call.</p>
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 										</ul>
 										<ul class="tsd-descriptions">
 											<li class="tsd-description">
@@ -2737,6 +2739,9 @@ img {
 												<ul class="tsd-parameters">
 													<li>
 														<h5>err: <span class="tsd-signature-type">any</span></h5>
+													</li>
+													<li>
+														<h5><span class="tsd-flag ts-flagOptional">Optional</span> name: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 													</li>
 												</ul>
 												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2770,7 +2775,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsync">emitSync</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L277">src/event.ts:277</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L279">src/event.ts:279</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2810,7 +2815,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L303">src/event.ts:303</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L307">src/event.ts:307</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2837,12 +2842,14 @@ img {
 							<li>
 								<h5>onError: <span class="tsd-signature-type">function</span></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>Callback for catching all unhandled errors from subscribers.</p>
+									<p>Callback for catching all unhandled errors from subscribers. The first parameter
+										is the error that was thrown/rejected, and the second one is the subscription <code>name</code>,
+									if it was set during <a href="subeventcount.html#subscribe">subscribe</a> call.</p>
 								</div>
 								<ul class="tsd-parameters">
 									<li class="tsd-parameter-siganture">
 										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 										</ul>
 										<ul class="tsd-descriptions">
 											<li class="tsd-description">
@@ -2850,6 +2857,9 @@ img {
 												<ul class="tsd-parameters">
 													<li>
 														<h5>err: <span class="tsd-signature-type">any</span></h5>
+													</li>
+													<li>
+														<h5><span class="tsd-flag ts-flagOptional">Optional</span> name: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 													</li>
 												</ul>
 												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -2876,7 +2886,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#getstat">getStat</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L351">src/event.ts:351</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L355">src/event.ts:355</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2914,7 +2924,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#subscribe">subscribe</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/55ba10d/src/event.ts#L174">src/event.ts:174</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L174">src/event.ts:174</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
