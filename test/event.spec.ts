@@ -136,12 +136,12 @@ describe('SubEvent', () => {
             const a = new SubEvent();
             a.subscribe(() => {
                 throw err;
-            });
+            }, {name: 'sync-test'});
             const handler = () => 1;
             const s = chai.spy(handler);
             a.emitSafe(123, s);
             setTimeout(() => {
-                expect(s).to.have.been.called.with(err);
+                expect(s).to.have.been.called.with(err, 'sync-test');
                 done();
             });
         });
@@ -149,12 +149,12 @@ describe('SubEvent', () => {
             const a = new SubEvent();
             a.subscribe(async () => {
                 throw err;
-            });
+            }, {name: 'async-test'});
             const handler = () => 1;
             const s = chai.spy(handler);
             a.emitSafe(123, s);
             setTimeout(() => {
-                expect(s).to.have.been.called.with(err);
+                expect(s).to.have.been.called.with(err, 'async-test');
                 done();
             });
         });
@@ -173,7 +173,6 @@ describe('SubEvent', () => {
                 done();
             });
         });
-
     });
     describe('emitSyncSafe', () => {
         it('must send data to all clients', () => {
@@ -193,11 +192,11 @@ describe('SubEvent', () => {
             const a = new SubEvent();
             a.subscribe(() => {
                 throw err;
-            });
+            }, {name: 'ops-cause'});
             const handler = () => 1;
             const s = chai.spy(handler);
             a.emitSyncSafe(123, s);
-            expect(s).to.have.been.called.with(err);
+            expect(s).to.have.been.called.with(err, 'ops-cause');
         });
         it('must handle errors from asynchronous subscribers', done => {
             const b = new SubEvent();
