@@ -384,7 +384,7 @@ export class SubEvent<T = unknown> {
         const n = this._subs.length;
         this._subs.forEach(sub => {
             sub.cancel();
-            sub.cb = null; // stops async emits
+            sub.cb = null; // prevent further emits
         });
         this._subs.length = 0;
         if (onCancel) {
@@ -435,7 +435,7 @@ export class SubEvent<T = unknown> {
     protected _cancelSub(sub: ISubscriber<T>) {
         this._subs.splice(this._subs.indexOf(sub), 1);
         sub.cancel();
-        sub.cb = null; // stops async emits
+        sub.cb = null; // prevent further emits
         if (typeof this.options.onCancel === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
             this.options.onCancel(ctx);

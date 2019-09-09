@@ -50,5 +50,18 @@ describe('SubEventCount', () => {
             const a = new SubEventCount<string>();
             expect(a.cancelAll()).to.eq(0);
         });
+        it('must not allow emits from counts of cancelled subs', () => {
+            const received: any[] = [];
+            const a = new SubEventCount<string>({sync: true});
+            a.onCount.subscribe((data: ISubCountChange) => {
+                received.push(data);
+                a.emitSync('hello');
+            });
+            a.subscribe(data => {
+                received.push(data);
+            });
+            a.cancelAll();
+            expect(received).to.eql([{prevCount: 0, newCount: 1}, 'hello', {prevCount: 1, newCount: 0}]);
+        });
     });
 });
