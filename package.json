@@ -42,10 +42,10 @@
     "typescript"
   ],
   "devDependencies": {
-    "@types/chai": "4.2.0",
+    "@types/chai": "4.2.1",
     "@types/chai-spies": "1.0.1",
     "@types/mocha": "5.2.7",
-    "@types/node": "12.7.3",
+    "@types/node": "12.7.4",
     "browserify": "16.5.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",

@@ -316,7 +316,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Current number of live subscriptions.
+     * Current number of subscriptions.
      */
     public get count(): number {
         return this._subs.length;
@@ -338,7 +338,7 @@ export class SubEvent<T = unknown> {
     /**
      * Retrieves subscriptions statistics, to help with diagnosing subscription leaks.
      *
-     * For this method to be useful, you need to set option `name` with the [[subscribe]] call.
+     * For this method to be useful, you need to set option `name` when calling [[subscribe]].
      *
      * See also: {@link https://github.com/vitaly-t/sub-events/wiki/Diagnostics Diagnostics}
      *

@@ -3,16 +3,16 @@ import {IEventOptions, ISubscriber, SubEvent} from './event';
 /**
  * @interface ISubCountChange
  * @description
- * Represents a change in the number of live subscriptions, as used with [[onCount]] event.
+ * Represents a change in the number of subscriptions, as used with [[onCount]] event.
  */
 export interface ISubCountChange {
     /**
-     * New number of live subscriptions.
+     * New number of subscriptions.
      */
     newCount: number;
 
     /**
-     * Previous number of live subscriptions.
+     * Previous number of subscriptions.
      */
     prevCount: number;
 }
@@ -32,7 +32,7 @@ export interface ICountOptions<T> extends IEventOptions<T> {
 /**
  * @class SubEventCount
  * @description
- * Extends [[SubEvent]] with event [[onCount]], to observe the number of live subscriptions.
+ * Extends [[SubEvent]] with event [[onCount]], to observe the number of subscriptions.
  */
 export class SubEventCount<T = unknown> extends SubEvent<T> {
 
@@ -42,7 +42,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     protected _notify: (data: ISubCountChange) => void;
 
     /**
-     * Triggered on any change in the number of live subscriptions.
+     * Triggered on any change in the number of subscriptions.
      * @event onCount
      */
     readonly onCount: SubEvent<ISubCountChange> = new SubEvent();
@@ -64,7 +64,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
      * Cancels all event subscriptions.
      *
      * It overrides the base implementation to trigger event [[onCount]]
-     * when there is at least one live subscription.
+     * when there was at least one subscription.
      *
      * @returns
      * Number of subscriptions cancelled.
