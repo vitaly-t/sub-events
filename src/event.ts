@@ -62,9 +62,9 @@ export interface IEventOptions<T> {
 export interface ISubOptions {
 
     /**
-     * Unique subscription name, to help with diagnosing subscription leaks
-     * via method [[getStat]]. The name should identify place in the code
-     * where the subscription is created.
+     * Unique subscription name. It helps with diagnosing subscription leaks,
+     * via method [[getStat]], and provides additional details during error handling.
+     * The name should help identify place in the code where the subscription is created.
      *
      * @see [[getStat]]
      */
@@ -229,7 +229,9 @@ export class SubEvent<T = unknown> {
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for catching all unhandled errors from subscribers.
+     * Callback for catching all unhandled errors from subscribers. The first parameter
+     * is the error that was thrown/rejected, and the second one is the subscription `name`,
+     * if it was set during [[subscribe]] call.
      *
      * @param onFinished
      * Optional callback function to be notified when the last recipient has received the data.
@@ -291,7 +293,9 @@ export class SubEvent<T = unknown> {
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for catching all unhandled errors from subscribers.
+     * Callback for catching all unhandled errors from subscribers. The first parameter
+     * is the error that was thrown/rejected, and the second one is the subscription `name`,
+     * if it was set during [[subscribe]] call.
      *
      * @returns
      * Number of clients that have received the data.
