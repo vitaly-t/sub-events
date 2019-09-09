@@ -1,7 +1,7 @@
 {
   "name": "sub-events",
-  "version": "0.8.3",
-  "description": "Strongly-typed events in TypeScript, with monitored subscriptions.",
+  "version": "0.8.4",
+  "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "homepage": "https://github.com/vitaly-t/sub-events",
@@ -35,7 +35,8 @@
   },
   "keywords": [
     "event",
-    "strongly-typed",
+    "strong",
+    "typed",
     "count",
     "monitoring",
     "subscription",
