@@ -62,9 +62,9 @@ export interface IEventOptions<T> {
 export interface ISubOptions {
 
     /**
-     * Unique subscription name, to help with diagnosing subscription leaks
-     * via method [[getStat]]. The name should identify place in the code
-     * where the subscription is created.
+     * Unique subscription name. It helps with diagnosing subscription leaks,
+     * via method [[getStat]], and provides additional details during error handling.
+     * The name should help identify place in the code where the subscription is created.
      *
      * @see [[getStat]]
      */
@@ -229,7 +229,9 @@ export class SubEvent<T = unknown> {
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for catching all unhandled errors from subscribers.
+     * Callback for catching all unhandled errors from subscribers. The first parameter
+     * is the error that was thrown/rejected, and the second one is the subscription `name`,
+     * if it was set during [[subscribe]] call.
      *
      * @param onFinished
      * Optional callback function to be notified when the last recipient has received the data.
@@ -241,16 +243,16 @@ export class SubEvent<T = unknown> {
      *
      * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSyncSafe]]
      */
-    public emitSafe(data: T, onError: (err: any) => void, onFinished?: (count: number) => void): number {
+    public emitSafe(data: T, onError: (err: any, name?: string) => void, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
         r.forEach((sub, index) => SubEvent._nextCall(() => {
             try {
                 const res = sub.cb && sub.cb(data);
                 if (res && typeof res.catch === 'function') {
-                    res.catch(onError);
+                    res.catch((err: any) => onError(err, sub.name));
                 }
             } catch (e) {
-                onError(e);
+                onError(e, sub.name);
             } finally {
                 if (index === r.length - 1 && typeof onFinished === 'function') {
                     onFinished(r.length); // finished sending
@@ -291,7 +293,9 @@ export class SubEvent<T = unknown> {
      * Data to be sent, according to the type template.
      *
      * @param onError
-     * Callback for catching all unhandled errors from subscribers.
+     * Callback for catching all unhandled errors from subscribers. The first parameter
+     * is the error that was thrown/rejected, and the second one is the subscription `name`,
+     * if it was set during [[subscribe]] call.
      *
      * @returns
      * Number of clients that have received the data.
@@ -300,16 +304,16 @@ export class SubEvent<T = unknown> {
      *
      * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSafe]]
      */
-    public emitSyncSafe(data: T, onError: (err: any) => void): number {
+    public emitSyncSafe(data: T, onError: (err: any, name?: string) => void): number {
         const r = this._getRecipients();
         r.forEach(sub => {
             try {
                 const res = sub.cb && sub.cb(data);
                 if (res && typeof res.catch === 'function') {
-                    res.catch(onError);
+                    res.catch((err: any) => onError(err, sub.name));
                 }
             } catch (e) {
-                onError(e);
+                onError(e, sub.name);
             }
         });
         return r.length;
