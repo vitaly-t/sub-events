@@ -57,6 +57,12 @@ e.onCount.subscribe((info: ISubCountChange) => {
     // number of subscriptions has changed;
     // info = {newCount, prevCount} 
 });
+
+// any subscription will trigger event onCount:
+const sub = e.subscribe(data => {});
+
+// cancelling a subscription will trigger onCount:
+sub.cancel();
 ``` 
 
 **API:** [SubEventCount], [onCount]
