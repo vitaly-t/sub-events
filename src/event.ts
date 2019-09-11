@@ -1,6 +1,66 @@
 import {Subscription} from './sub';
 
 /**
+ * Schedule for emitting / broadcasting data to subscribers,
+ * to be used by method [[emit]].
+ */
+export enum EmitSchedule {
+
+    /**
+     * Data is sent to all subscribers synchronously / immediately.
+     *
+     * This is the default schedule.
+     */
+    sync,
+
+    /**
+     * Data is sent asynchronously. Each subscriber will be receiving the event
+     * within its own processor tick (under Node.js), or timer tick (in browsers).
+     */
+    async,
+
+    /**
+     * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
+     * and only then broadcast data to all subscribers synchronously.
+     */
+    next
+}
+
+/**
+ * @interface IEmitOptions
+ * @description
+ * Options to be used with method [[emit]].
+ */
+export interface IEmitOptions {
+    /**
+     * Event emitting schedule. Default is `sync`.
+     */
+    schedule?: EmitSchedule;
+
+    /**
+     * Callback for catching all unhandled errors from subscribers,
+     * from both synchronous and asynchronous subscription functions.
+     *
+     * @param err
+     * The error that was thrown or rejected.
+     *
+     * @param name
+     * The subscription `name`, if set during [[subscribe]] call.
+     */
+    onError?: (err: any, name?: string) => void;
+
+    /**
+     * Notification callback of when the last recipient has received the data.
+     *
+     * Note that asynchronous subscribers may still be processing the data at this point.
+     *
+     * @param count
+     * Total number of clients that have received the data.
+     */
+    onFinished?: (count: number) => void;
+}
+
+/**
  * @interface ISubContext
  * @description
  * Subscription Context Interface, as used with [[onSubscribe]] and [[onCancel]]
@@ -189,132 +249,45 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Asynchronous data broadcast to all subscribers. Each subscriber will be receiving
-     * the event within its own processor tick (under Node.js), or timer tick (in browsers).
+     * Broadcasts data to all subscribers, according to the emit schedule,
+     * which is synchronous by default.
      *
      * @param data
      * Data to be sent, according to the type template.
      *
-     * @param onFinished
-     * Optional callback function to be notified when the last recipient has received the data.
-     * The function takes one parameter - total number of clients that have received the data.
-     * Note that asynchronous subscribers may still be processing the data at this point.
+     * @param options
+     * Event emitting options.
      *
      * @returns
-     * Number of clients that will be receiving the data.
-     *
-     * @see [[subscribe]], [[emitSync]], [[emitSafe]], [[emitSyncSafe]]
+     * Number of subscribers to receive the data.
      */
-    public emit(data: T, onFinished?: (count: number) => void): number {
+    public emit(data: T, options?: IEmitOptions): number {
+        const schedule: EmitSchedule = (options && options.schedule) || EmitSchedule.sync;
+        const onFinished = options && typeof options.onFinished === 'function' && options.onFinished;
+        const onError = options && typeof options.onError === 'function' && options.onError;
+        const start = schedule === EmitSchedule.sync ? SubEvent._callNow : SubEvent._callNext;
+        const middle = schedule === EmitSchedule.async ? SubEvent._callNext : SubEvent._callNow;
         const r = this._getRecipients();
-        r.forEach((sub, index) => SubEvent._nextCall(() => {
-            if (sub.cb) {
-                sub.cb(data);
-            }
-            if (index === r.length - 1 && typeof onFinished === 'function') {
-                onFinished(r.length); // finished sending
-            }
-        }));
-        return r.length;
-    }
-
-    /**
-     * Safe asynchronous data broadcast to all subscribers. Each subscriber will be receiving
-     * the event within its own processor tick (under Node.js), or timer tick (in browsers).
-     *
-     * Errors from subscription callbacks are passed into `onError` function, to handle both
-     * synchronous and asynchronous subscription functions.
-     *
-     * @param data
-     * Data to be sent, according to the type template.
-     *
-     * @param onError
-     * Callback for catching all unhandled errors from subscribers. The first parameter
-     * is the error that was thrown/rejected, and the second one is the subscription `name`,
-     * if it was set during [[subscribe]] call.
-     *
-     * @param onFinished
-     * Optional callback function to be notified when the last recipient has received the data.
-     * The function takes one parameter - total number of clients that have received the data.
-     * Note that asynchronous subscribers may still be processing the data at this point.
-     *
-     * @returns
-     * Number of clients that will be receiving the data.
-     *
-     * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSyncSafe]]
-     */
-    public emitSafe(data: T, onError: (err: any, name?: string) => void, onFinished?: (count: number) => void): number {
-        const r = this._getRecipients();
-        r.forEach((sub, index) => SubEvent._nextCall(() => {
-            try {
-                const res = sub.cb && sub.cb(data);
-                if (res && typeof res.catch === 'function') {
-                    res.catch((err: any) => onError(err, sub.name));
+        start(() => {
+            r.forEach((sub, index) => middle(() => {
+                if (onError) {
+                    try {
+                        const res = sub.cb && sub.cb(data);
+                        if (res && typeof res.catch === 'function') {
+                            res.catch((err: any) => onError(err, sub.name));
+                        }
+                    } catch (e) {
+                        onError(e, sub.name);
+                    }
+                } else {
+                    if (sub.cb) {
+                        sub.cb(data);
+                    }
                 }
-            } catch (e) {
-                onError(e, sub.name);
-            } finally {
-                if (index === r.length - 1 && typeof onFinished === 'function') {
+                if (onFinished && index === r.length - 1) {
                     onFinished(r.length); // finished sending
                 }
-            }
-        }));
-        return r.length;
-    }
-
-    /**
-     * Synchronous data broadcast to all subscribers. The event is delivered
-     * to all subscribers immediately.
-     *
-     * @param data
-     * Data to be sent, according to the type template.
-     *
-     * @returns
-     * Number of clients that have received the data.
-     *
-     * Note that asynchronous subscribers may still be processing the data.
-     *
-     * @see [[subscribe]], [[emit]], [[emitSafe]], [[emitSyncSafe]]
-     */
-    public emitSync(data: T): number {
-        const r = this._getRecipients();
-        r.forEach(sub => sub.cb && sub.cb(data));
-        return r.length;
-    }
-
-    /**
-     * Safe synchronous data broadcast to all subscribers. The event is delivered
-     * to all subscribers immediately.
-     *
-     * Errors from subscription callbacks are passed into `onError` function,
-     * to handle both synchronous and asynchronous subscription functions.
-     *
-     * @param data
-     * Data to be sent, according to the type template.
-     *
-     * @param onError
-     * Callback for catching all unhandled errors from subscribers. The first parameter
-     * is the error that was thrown/rejected, and the second one is the subscription `name`,
-     * if it was set during [[subscribe]] call.
-     *
-     * @returns
-     * Number of clients that have received the data.
-     *
-     * Note that asynchronous subscribers may still be processing the data.
-     *
-     * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSafe]]
-     */
-    public emitSyncSafe(data: T, onError: (err: any, name?: string) => void): number {
-        const r = this._getRecipients();
-        r.forEach(sub => {
-            try {
-                const res = sub.cb && sub.cb(data);
-                if (res && typeof res.catch === 'function') {
-                    res.catch((err: any) => onError(err, sub.name));
-                }
-            } catch (e) {
-                onError(e, sub.name);
-            }
+            }));
         });
         return r.length;
     }
@@ -452,5 +425,10 @@ export class SubEvent<T = unknown> {
      *
      * @hidden
      */
-    protected static _nextCall = typeof process === 'undefined' ? setTimeout : process.nextTick;
+    protected static _callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
+
+    /**
+     * @hidden
+     */
+    protected static _callNow = (callback: Function) => callback();
 }

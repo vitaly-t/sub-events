@@ -1,4 +1,4 @@
-import {SubEvent, ISubContext, SubEventCount} from '../src';
+import {ISubContext, SubEvent, SubEventCount} from '../src';
 import EventEmitter = NodeJS.EventEmitter;
 
 /**
