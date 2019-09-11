@@ -114,7 +114,7 @@ export interface IEventOptions<T> {
      * ```
      *
      * @param ctx
-     * `ctx`: Subscription context.
+     * `ctx`: [[ISubContext]] - Subscription Context.
      */
     onSubscribe?: (ctx: ISubContext<T>) => void;
 
@@ -126,7 +126,7 @@ export interface IEventOptions<T> {
      * ```
      *
      * @param ctx
-     * `ctx`: Subscription context.
+     * `ctx`: [[ISubContext]] - Subscription Context.
      */
     onCancel?: (ctx: ISubContext<T>) => void;
 }
