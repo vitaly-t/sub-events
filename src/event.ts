@@ -218,20 +218,12 @@ export class SubEvent<T = unknown> {
      * @see [[subscribe]], [[emitSync]], [[emitSafe]], [[emitSyncSafe]]
      */
 
-    /*
-    public emit(data: T, onFinished?: (count: number) => void): number {
-        const r = this._getRecipients();
-        r.forEach((sub, index) => SubEvent._callNext(() => {
-            if (sub.cb) {
-                sub.cb(data);
-            }
-            if (index === r.length - 1 && typeof onFinished === 'function') {
-                onFinished(r.length); // finished sending
-            }
-        }));
-        return r.length;
-    }*/
 
+    /**
+     *
+     * @param data
+     * @param options
+     */
     public emit(data: T, options?: IEmitOptions): number {
         const schedule: EmitSchedule = (options && options.schedule) || EmitSchedule.sync;
         const onFinished = options && typeof options.onFinished === 'function' && options.onFinished;
@@ -289,27 +281,6 @@ export class SubEvent<T = unknown> {
      * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSyncSafe]]
      */
 
-    /*
-    public emitSafe(data: T, onError: (err: any, name?: string) => void, onFinished?: (count: number) => void): number {
-        const r = this._getRecipients();
-        r.forEach((sub, index) => SubEvent._callNext(() => {
-            try {
-                const res = sub.cb && sub.cb(data);
-                if (res && typeof res.catch === 'function') {
-                    res.catch((err: any) => onError(err, sub.name));
-                }
-            } catch (e) {
-                onError(e, sub.name);
-            } finally {
-                if (index === r.length - 1 && typeof onFinished === 'function') {
-                    onFinished(r.length); // finished sending
-                }
-            }
-        }));
-        return r.length;
-    }
-*/
-
     /**
      * Synchronous data broadcast to all subscribers. The event is delivered
      * to all subscribers immediately.
@@ -324,12 +295,6 @@ export class SubEvent<T = unknown> {
      *
      * @see [[subscribe]], [[emit]], [[emitSafe]], [[emitSyncSafe]]
      */
-    /*
-    public emitSync(data: T): number {
-        const r = this._getRecipients();
-        r.forEach(sub => sub.cb && sub.cb(data));
-        return r.length;
-    }*/
 
     /**
      * Safe synchronous data broadcast to all subscribers. The event is delivered
@@ -354,21 +319,6 @@ export class SubEvent<T = unknown> {
      * @see [[subscribe]], [[emit]], [[emitSync]], [[emitSafe]]
      */
 
-    /*
-    public emitSyncSafe(data: T, onError: (err: any, name?: string) => void): number {
-        const r = this._getRecipients();
-        r.forEach(sub => {
-            try {
-                const res = sub.cb && sub.cb(data);
-                if (res && typeof res.catch === 'function') {
-                    res.catch((err: any) => onError(err, sub.name));
-                }
-            } catch (e) {
-                onError(e, sub.name);
-            }
-        });
-        return r.length;
-    }*/
 
     /**
      * Current number of subscriptions.

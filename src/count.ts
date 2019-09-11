@@ -1,4 +1,4 @@
-import {EmitSchedule, IEventOptions, ISubscriber, SubEvent} from './event';
+import {IEmitOptions, ISubscriber, SubEvent} from './event';
 
 /**
  * @interface ISubCountChange
@@ -18,18 +18,6 @@ export interface ISubCountChange {
 }
 
 /**
- * @interface ICountOptions
- * @description
- * Constructor options for [[SubEventCount]] class.
- */
-export interface ICountOptions<T> extends IEventOptions<T> {
-    /**
-     * [[onCount]] emit schedule. Default is `sync`.
-     */
-    schedule?: EmitSchedule;
-}
-
-/**
  * @class SubEventCount
  * @description
  * Extends [[SubEvent]] with event [[onCount]], to observe the number of subscriptions.
@@ -39,7 +27,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     /**
      * @hidden
      */
-    protected _notify: (data: ISubCountChange) => void;
+    protected _notify: (data: ISubCountChange) => number;
 
     /**
      * Triggered on any change in the number of subscriptions.
@@ -54,13 +42,9 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
      * @param options
      * Configuration Options.
      */
-    constructor(options?: ICountOptions<T>) {
-        // TODO: Should I just pass in IEmitOptions?
-        super(options);
-        // const c = this.onCount;
-        // this._notify = (options && options.sync ? c.emitSync : c.emit).bind(c);
-        const schedule = options && options.schedule;
-        this._notify = (data: ISubCountChange) => this.onCount.emit(data, {schedule});
+    constructor(options?: IEmitOptions) {
+        super();
+        this._notify = (data: ISubCountChange) => this.onCount.emit(data, options);
     }
 
     /**
