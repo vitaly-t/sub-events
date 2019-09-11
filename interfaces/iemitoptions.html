@@ -2469,7 +2469,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">on<wbr>Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/a23d73c/src/event.ts#L51">src/event.ts:51</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/76e81ec/src/event.ts#L54">src/event.ts:54</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2477,12 +2477,13 @@ img {
 						<p>Callback for catching all unhandled errors from subscribers,
 						from both synchronous and asynchronous subscription functions.</p>
 					</div>
+					<pre><code class="language-js">(err: any, name?: string) =&gt; <span class="hljs-keyword">void</span>;</code></pre>
 					<dl class="tsd-comment-tags">
 						<dt>param</dt>
-						<dd><p>The error that was thrown or rejected.</p>
+						<dd><p><code>err</code>: The error that was thrown or rejected.</p>
 						</dd>
 						<dt>param</dt>
-						<dd><p>The subscription <code>name</code>, if set during <a href="../classes/subevent.html#subscribe">subscribe</a> call.</p>
+						<dd><p><code>name</code>: The subscription <code>name</code>, if set during <a href="../classes/subevent.html#subscribe">subscribe</a> call.</p>
 						</dd>
 					</dl>
 				</div>
@@ -2493,7 +2494,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">on<wbr>Finished<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/a23d73c/src/event.ts#L60">src/event.ts:60</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/76e81ec/src/event.ts#L67">src/event.ts:67</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2501,9 +2502,10 @@ img {
 						<p>Notification callback of when the last recipient has received the data.
 						Note that asynchronous subscribers may still be processing the data at this point.</p>
 					</div>
+					<pre><code class="language-js">(count: number) =&gt; <span class="hljs-keyword">void</span>;</code></pre>
 					<dl class="tsd-comment-tags">
 						<dt>param</dt>
-						<dd><p>Total number of clients that have received the data.</p>
+						<dd><p><code>count</code>: Total number of subscribers that have received the data.</p>
 						</dd>
 					</dl>
 				</div>
@@ -2514,7 +2516,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">schedule<span class="tsd-signature-symbol">:</span> <a href="../enums/emitschedule.html" class="tsd-signature-type">EmitSchedule</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/a23d73c/src/event.ts#L39">src/event.ts:39</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/76e81ec/src/event.ts#L38">src/event.ts:38</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
