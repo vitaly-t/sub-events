@@ -1,5 +1,17 @@
 import {Subscription} from './sub';
 
+export enum EmitSchedule {
+    sync = 'sync',
+    async = 'async',
+    mixed = 'mixed'
+}
+
+export interface IEmitOptions {
+    schedule?: EmitSchedule;
+    onError?: (err: any, name?: string) => void;
+    onFinished?: (count: number) => void;
+}
+
 /**
  * @interface ISubContext
  * @description
@@ -207,7 +219,7 @@ export class SubEvent<T = unknown> {
      */
     public emit(data: T, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
-        r.forEach((sub, index) => SubEvent._nextCall(() => {
+        r.forEach((sub, index) => SubEvent._callNext(() => {
             if (sub.cb) {
                 sub.cb(data);
             }
@@ -217,6 +229,44 @@ export class SubEvent<T = unknown> {
         }));
         return r.length;
     }
+
+    public genericEmit(data: T, options?: IEmitOptions): number {
+        const schedule: EmitSchedule = (options && options.schedule) || EmitSchedule.sync;
+        const onFinished = options && typeof options.onFinished === 'function' && options.onFinished;
+        const onError = options && typeof options.onError === 'function' && options.onError;
+        const start = schedule === EmitSchedule.sync ? SubEvent._callNow : SubEvent._callNext;
+        const middle = schedule === EmitSchedule.async ? SubEvent._callNext : SubEvent._callNow;
+        const r = this._getRecipients();
+        start(() => {
+            if (onError) {
+                r.forEach((sub, index) => middle(() => {
+                    try {
+                        const res = sub.cb && sub.cb(data);
+                        if (res && typeof res.catch === 'function') {
+                            res.catch((err: any) => onError(err, sub.name));
+                        }
+                    } catch (e) {
+                        onError(e, sub.name);
+                    } finally {
+                        if (onFinished && index === r.length - 1) {
+                            onFinished(r.length); // finished sending
+                        }
+                    }
+                }));
+            } else {
+                r.forEach((sub, index) => middle(() => {
+                    if (sub.cb) {
+                        sub.cb(data);
+                    }
+                    if (onFinished && index === r.length - 1) {
+                        onFinished(r.length); // finished sending
+                    }
+                }));
+            }
+        });
+        return r.length;
+    }
+
 
     /**
      * Safe asynchronous data broadcast to all subscribers. Each subscriber will be receiving
@@ -245,7 +295,7 @@ export class SubEvent<T = unknown> {
      */
     public emitSafe(data: T, onError: (err: any, name?: string) => void, onFinished?: (count: number) => void): number {
         const r = this._getRecipients();
-        r.forEach((sub, index) => SubEvent._nextCall(() => {
+        r.forEach((sub, index) => SubEvent._callNext(() => {
             try {
                 const res = sub.cb && sub.cb(data);
                 if (res && typeof res.catch === 'function') {
@@ -452,5 +502,7 @@ export class SubEvent<T = unknown> {
      *
      * @hidden
      */
-    protected static _nextCall = typeof process === 'undefined' ? setTimeout : process.nextTick;
+    protected static _callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
+
+    protected static _callNow = (callback: Function) => callback();
 }
