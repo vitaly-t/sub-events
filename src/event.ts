@@ -2,7 +2,6 @@ import {Subscription} from './sub';
 
 /**
  * Schedule for emitting / broadcasting data to subscribers, to be used by method [[emit]].
- *
  * It represents a concurrency strategy for delivering event data to subscribers.
  */
 export enum EmitSchedule {
@@ -42,11 +41,15 @@ export interface IEmitOptions {
      * Callback for catching all unhandled errors from subscribers,
      * from both synchronous and asynchronous subscription functions.
      *
+     * ```js
+     * (err: any, name?: string) => void;
+     * ```
+     *
      * @param err
-     * The error that was thrown or rejected.
+     * `err`: The error that was thrown or rejected.
      *
      * @param name
-     * The subscription `name`, if set during [[subscribe]] call.
+     * `name`: The subscription `name`, if set during [[subscribe]] call.
      */
     onError?: (err: any, name?: string) => void;
 
@@ -54,8 +57,12 @@ export interface IEmitOptions {
      * Notification callback of when the last recipient has received the data.
      * Note that asynchronous subscribers may still be processing the data at this point.
      *
+     * ```js
+     * (count: number) => void;
+     * ```
+     *
      * @param count
-     * Total number of clients that have received the data.
+     * `count`: Total number of subscribers that have received the data.
      */
     onFinished?: (count: number) => void;
 }
@@ -102,14 +109,24 @@ export interface IEventOptions<T> {
     /**
      * Notification of a new subscriber being registered.
      *
-     * The callback takes [[ISubContext]] as the only parameter.
+     * ```js
+     * (ctx: ISubContext<T>) => void;
+     * ```
+     *
+     * @param ctx
+     * `ctx`: Subscription context.
      */
     onSubscribe?: (ctx: ISubContext<T>) => void;
 
     /**
      * Notification about a cancelled subscription.
      *
-     * The callback takes [[ISubContext]] as the only parameter.
+     * ```js
+     * (ctx: ISubContext<T>) => void;
+     * ```
+     *
+     * @param ctx
+     * `ctx`: Subscription context.
      */
     onCancel?: (ctx: ISubContext<T>) => void;
 }
