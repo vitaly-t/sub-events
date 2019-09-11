@@ -1,5 +1,5 @@
-import {expect, chai} from './';
-import {ISubContext, SubEvent} from '../src';
+import {chai, expect} from './';
+import {EmitSchedule, ISubContext, SubEvent} from '../src';
 
 const dummy = () => {
 };
@@ -29,9 +29,9 @@ describe('SubEvent', () => {
             values.push(value);
             sub.cancel();
         });
-        a.emit(1);
-        a.emit(2);
-        a.emit(3);
+        a.emit(1, {schedule: EmitSchedule.async});
+        a.emit(2, {schedule: EmitSchedule.async});
+        a.emit(3, {schedule: EmitSchedule.async});
         setTimeout(() => {
             expect(values).to.eql([1]);
             done();
