@@ -17,11 +17,11 @@ export enum EmitSchedule {
      * Data is sent asynchronously. Each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-        async = 'async',
+    async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
-     * and then broadcast data to all subscribers synchronously.
+     * and only then broadcast data to all subscribers synchronously.
      */
     next = 'next'
 }
@@ -427,7 +427,6 @@ export class SubEvent<T = unknown> {
      */
     protected static _callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
 
-    // istanbul ignore next: we are not auto-testing in the browser
     /**
      * @hidden
      */
