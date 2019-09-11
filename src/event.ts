@@ -231,6 +231,7 @@ export class SubEvent<T = unknown> {
         const start = schedule === EmitSchedule.sync ? SubEvent._callNow : SubEvent._callNext;
         const middle = schedule === EmitSchedule.async ? SubEvent._callNext : SubEvent._callNow;
         const r = this._getRecipients();
+
         start(() => {
             r.forEach((sub, index) => middle(() => {
                 if (onError) {
@@ -242,6 +243,8 @@ export class SubEvent<T = unknown> {
                     } catch (e) {
                         onError(e, sub.name);
                     }
+                    // TODO: Need to test against this:
+                    //  https://stackoverflow.com/questions/3421486/why-do-we-use-finally-blocks
                 } else {
                     if (sub.cb) {
                         sub.cb(data);
