@@ -7,7 +7,7 @@ import {SubEvent, ISubContext, SubEventCount} from '../src';
  */
 export function fromEvent(source: Node, event: string): SubEvent<Event> {
     const onSubscribe = (ctx: ISubContext<Event>) => {
-        const handler: EventListener = e => ctx.event.emitSync(e);
+        const handler: EventListener = e => ctx.event.emit(e);
         source.addEventListener(event, handler, false);
         ctx.data = handler; // context for the event's lifecycle
     };
@@ -24,7 +24,7 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
  */
 export function fromSharedEvent(source: Node, event: string): SubEventCount<Event> {
     const sec: SubEventCount<Event> = new SubEventCount();
-    const handler: EventListener = e => sec.emitSync(e);
+    const handler: EventListener = e => sec.emit(e);
     sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left

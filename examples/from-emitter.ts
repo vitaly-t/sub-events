@@ -1,4 +1,4 @@
-import {SubEvent, ISubContext, SubEventCount} from '../src';
+import {EmitSchedule, ISubContext, SubEvent, SubEventCount} from '../src';
 import EventEmitter = NodeJS.EventEmitter;
 
 /**
@@ -11,7 +11,7 @@ import EventEmitter = NodeJS.EventEmitter;
  */
 export function fromEmitter(source: EventEmitter, event: string | symbol): SubEvent<any[]> {
     const onSubscribe = (ctx: ISubContext<any[]>) => {
-        const handler = (...args: any[]) => ctx.event.emit(args);
+        const handler = (...args: any[]) => ctx.event.emit(args, {schedule: EmitSchedule.async});
         source.addListener(event, handler);
         ctx.data = handler; // context for the event's lifecycle
     };
@@ -31,7 +31,7 @@ export function fromEmitter(source: EventEmitter, event: string | symbol): SubEv
  */
 export function fromSharedEmitter(source: EventEmitter, event: string | symbol): SubEventCount<any[]> {
     const sec: SubEventCount<any[]> = new SubEventCount();
-    const handler = (...args: any[]) => sec.emit(args);
+    const handler = (...args: any[]) => sec.emit(args, {schedule: EmitSchedule.async});
     sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left

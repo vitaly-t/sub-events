@@ -3,7 +3,7 @@ import {SubEventCount, ISubCountChange} from '../src';
 
 describe('SubEventCount', () => {
     it('must notify about the count', () => {
-        const a = new SubEventCount<string>({sync: true});
+        const a = new SubEventCount<string>();
         const cb = (data: ISubCountChange) => {
         };
         const s = chai.spy(cb);
@@ -20,16 +20,16 @@ describe('SubEventCount', () => {
             const sub = a.subscribe(msg => {
                 data.push(msg);
             });
-            a.emitSync('one');
+            a.emit('one');
             sub.cancel();
-            a.emitSync('two');
+            a.emit('two');
             expect(data).to.eql(['one']);
         });
     });
     describe('cancelAll', () => {
         it('must notify about zero clients', () => {
             const received: ISubCountChange[] = [];
-            const a = new SubEventCount<string>({sync: true});
+            const a = new SubEventCount<string>();
             a.onCount.subscribe((data: ISubCountChange) => {
                 received.push(data);
             });
@@ -52,10 +52,10 @@ describe('SubEventCount', () => {
         });
         it('must not allow emits from counts of cancelled subs', () => {
             const received: any[] = [];
-            const a = new SubEventCount<string>({sync: true});
+            const a = new SubEventCount<string>();
             a.onCount.subscribe((data: ISubCountChange) => {
                 received.push(data);
-                a.emitSync('hello');
+                a.emit('hello');
             });
             a.subscribe(data => {
                 received.push(data);
