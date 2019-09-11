@@ -11,19 +11,19 @@ export enum EmitSchedule {
      *
      * This is the default schedule.
      */
-    sync,
+    sync = 'sync',
 
     /**
      * Data is sent asynchronously. Each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async,
+    async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
      * and then broadcast data to all subscribers synchronously.
      */
-    next
+    next = 'next'
 }
 
 /**
@@ -282,7 +282,7 @@ export class SubEvent<T = unknown> {
         const schedule: EmitSchedule = (options && options.schedule) || EmitSchedule.sync;
         const onFinished = options && typeof options.onFinished === 'function' && options.onFinished;
         const onError = options && typeof options.onError === 'function' && options.onError;
-        const start = schedule === EmitSchedule.sync ? SubEvent._callNow : SubEvent._callNext;
+        const start = schedule === EmitSchedule.next ? SubEvent._callNext : SubEvent._callNow;
         const middle = schedule === EmitSchedule.async ? SubEvent._callNext : SubEvent._callNow;
         const r = this._getRecipients();
         start(() => {

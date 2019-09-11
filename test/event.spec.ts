@@ -10,7 +10,7 @@ describe('SubEvent', () => {
         expect(a.count).to.eq(0);
         expect(a.maxSubs).to.eq(0);
     });
-    it('must invoke subscription functions', () => {
+    it('must invoke subscription functions', done => {
         const a = new SubEvent<number>();
         const cb = () => 1;
         const s = chai.spy(cb);
@@ -19,7 +19,9 @@ describe('SubEvent', () => {
             onFinished: (count: number) => {
                 expect(count).to.be.eq(1);
                 expect(s).to.have.been.called.with(123);
-            }
+                done();
+            },
+            schedule: EmitSchedule.async
         });
     });
     it('must cease async notifications when cancelled', done => {
@@ -50,7 +52,6 @@ describe('SubEvent', () => {
         expect(context).to.eq(a);
         expect(sub.name).to.eq('my-sub');
     });
-
     it('must track subscription count', () => {
         const a = new SubEvent();
         expect(a.count).to.eq(0);
@@ -156,7 +157,7 @@ describe('SubEvent', () => {
             }, {name: 'async-test'});
             const handler = () => 1;
             const onError = chai.spy(handler);
-            a.emit(123, {onError});
+            a.emit(123, {onError, schedule: EmitSchedule.async});
             setTimeout(() => {
                 expect(onError).to.have.been.called.with(err, 'async-test');
                 done();
@@ -209,11 +210,28 @@ describe('SubEvent', () => {
             });
             const handler = () => 1;
             const onError = chai.spy(handler);
-            b.emit(123, {onError});
+            b.emit(123, {onError, schedule: EmitSchedule.async});
             setTimeout(() => {
                 expect(onError).to.have.been.called.with(err);
                 done();
             }, 10);
+        });
+    });
+    describe('next emit', () => {
+        it('must delay event broadcast', done => {
+            let res: string | null = null;
+            const e = new SubEvent<string>();
+            e.subscribe(data => {
+                res = data;
+            });
+            e.emit('hello', {
+                schedule: EmitSchedule.next,
+                onFinished: () => {
+                    expect(res).to.eql('hello');
+                    done();
+                }
+            });
+            expect(res).to.be.null;
         });
     });
     describe('cancelAll', () => {
