@@ -11,19 +11,19 @@ export enum EmitSchedule {
      *
      * This is the default schedule.
      */
-    sync = 'sync',
+    sync,
 
     /**
      * Data is sent asynchronously. Each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+    async,
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
      * and only then broadcast data to all subscribers synchronously.
      */
-    next = 'next'
+    next
 }
 
 /**

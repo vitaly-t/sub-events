@@ -1,5 +1,8 @@
-import {expect, chai} from './';
-import {SubEventCount, ISubCountChange} from '../src';
+import {chai, expect} from './';
+import {EmitSchedule, ISubCountChange, SubEventCount} from '../src';
+
+const dummy = () => {
+};
 
 describe('SubEventCount', () => {
     it('must notify about the count', () => {
@@ -62,6 +65,30 @@ describe('SubEventCount', () => {
             });
             a.cancelAll();
             expect(received).to.eql([{prevCount: 0, newCount: 1}, 'hello', {prevCount: 1, newCount: 0}]);
+        });
+    });
+    describe('with options', () => {
+        it('must allow empty options', () => {
+            let res: ISubCountChange | null = null;
+            const a = new SubEventCount<string>({});
+            a.onCount.subscribe(data => {
+                res = data;
+            });
+            a.subscribe(dummy);
+            expect(res).to.eql({prevCount: 0, newCount: 1});
+        });
+        it('must support async notifications', done => {
+            let res: ISubCountChange | null = null;
+            const a = new SubEventCount<string>({emitOptions: {schedule: EmitSchedule.async}});
+            a.onCount.subscribe(data => {
+                res = data;
+            });
+            a.subscribe(dummy);
+            expect(res).to.be.null;
+            setTimeout(() => {
+                expect(res).to.eql({prevCount: 0, newCount: 1});
+                done();
+            });
         });
     });
 });
