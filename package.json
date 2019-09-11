@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -43,10 +43,10 @@
     "typescript"
   ],
   "devDependencies": {
-    "@types/chai": "4.2.1",
+    "@types/chai": "4.2.2",
     "@types/chai-spies": "1.0.1",
     "@types/mocha": "5.2.7",
-    "@types/node": "12.7.4",
+    "@types/node": "12.7.5",
     "browserify": "16.5.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
@@ -55,8 +55,8 @@
     "mocha-lcov-reporter": "1.3.0",
     "nyc": "14.1.1",
     "ts-node": "8.3.0",
-    "tslint": "5.19.0",
+    "tslint": "5.20.0",
     "typedoc": "0.15.0",
-    "typescript": "3.6.2"
+    "typescript": "3.6.3"
   }
 }
