@@ -134,7 +134,7 @@ describe('SubEvent', () => {
             done();
         });
     });
-    describe('emitSafe', () => {
+    describe('emit with error handler', () => {
         const err = new Error('Ops!');
         it('must handle errors from synchronous subscribers', done => {
             const a = new SubEvent();
@@ -178,7 +178,7 @@ describe('SubEvent', () => {
             });
         });
     });
-    describe('emitSyncSafe', () => {
+    describe('sync emit with error handler', () => {
         it('must send data to all clients', () => {
             const a = new SubEvent<number>();
             let res = 0;

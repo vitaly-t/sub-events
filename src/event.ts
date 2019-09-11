@@ -1,8 +1,9 @@
 import {Subscription} from './sub';
 
 /**
- * Schedule for emitting / broadcasting data to subscribers,
- * to be used by method [[emit]].
+ * Schedule for emitting / broadcasting data to subscribers, to be used by method [[emit]].
+ *
+ * It represents a concurrency strategy for delivering event data to subscribers.
  */
 export enum EmitSchedule {
 
@@ -21,7 +22,7 @@ export enum EmitSchedule {
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
-     * and only then broadcast data to all subscribers synchronously.
+     * and then broadcast data to all subscribers synchronously.
      */
     next
 }
@@ -51,7 +52,6 @@ export interface IEmitOptions {
 
     /**
      * Notification callback of when the last recipient has received the data.
-     *
      * Note that asynchronous subscribers may still be processing the data at this point.
      *
      * @param count
