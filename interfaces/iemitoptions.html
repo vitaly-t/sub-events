@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ISubOptions | SUB-EVENTS</title>
+	<title>IEmitOptions | SUB-EVENTS</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2390,8 +2390,19 @@ img {
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
 			<a href="icountoptions.html" class="tsd-kind-icon">ICount<wbr>Options</a>
 		</li>
-		<li class=" tsd-kind-interface">
+		<li class="current tsd-kind-interface">
 			<a href="iemitoptions.html" class="tsd-kind-icon">IEmit<wbr>Options</a>
+			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="iemitoptions.html#onerror" class="tsd-kind-icon">on<wbr>Error</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="iemitoptions.html#onfinished" class="tsd-kind-icon">on<wbr>Finished</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="iemitoptions.html#schedule" class="tsd-kind-icon">schedule</a>
+				</li>
+			</ul>
 		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
 			<a href="ieventoptions.html" class="tsd-kind-icon">IEvent<wbr>Options</a>
@@ -2402,16 +2413,8 @@ img {
 		<li class=" tsd-kind-interface">
 			<a href="isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
 		</li>
-		<li class="current tsd-kind-interface">
+		<li class=" tsd-kind-interface">
 			<a href="isuboptions.html" class="tsd-kind-icon">ISub<wbr>Options</a>
-			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="isuboptions.html#name" class="tsd-kind-icon">name</a>
-				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="isuboptions.html#thisarg" class="tsd-kind-icon">this<wbr>Arg</a>
-				</li>
-			</ul>
 		</li>
 		<li class=" tsd-kind-interface">
 			<a href="isubstat.html" class="tsd-kind-icon">ISub<wbr>Stat</a>
@@ -2427,10 +2430,10 @@ img {
 			<div class="tsd-comment tsd-typography">
 				<dl class="tsd-comment-tags">
 					<dt>interface</dt>
-					<dd><p>ISubOptions</p>
+					<dd><p>IEmitOptions</p>
 					</dd>
 					<dt>description</dt>
-					<dd><p>Options that can be passed into method <a href="../classes/subevent.html#subscribe">subscribe</a>.</p>
+					<dd><p>Options to be used with method <a href="../classes/subevent.html#emit">emit</a>.</p>
 					</dd>
 				</dl>
 			</div>
@@ -2439,7 +2442,7 @@ img {
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">ISubOptions</span>
+					<span class="target">IEmitOptions</span>
 				</li>
 			</ul>
 		</section>
@@ -2450,8 +2453,9 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="isuboptions.html#name" class="tsd-kind-icon">name</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="isuboptions.html#thisarg" class="tsd-kind-icon">this<wbr>Arg</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iemitoptions.html#onerror" class="tsd-kind-icon">on<wbr>Error</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iemitoptions.html#onfinished" class="tsd-kind-icon">on<wbr>Finished</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="iemitoptions.html#schedule" class="tsd-kind-icon">schedule</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2460,44 +2464,63 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="name" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> name</h3>
-				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+				<a name="onerror" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Error</h3>
+				<div class="tsd-signature tsd-kind-icon">on<wbr>Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L131">src/event.ts:131</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L50">src/event.ts:50</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Unique subscription name. It helps with diagnosing subscription leaks,
-							via method <a href="../classes/subevent.html#getstat">getStat</a>, and provides additional details during error handling.
-						The name should help identify place in the code where the subscription is created.</p>
+						<p>Callback for catching all unhandled errors from subscribers,
+						from both synchronous and asynchronous subscription functions.</p>
 					</div>
 					<dl class="tsd-comment-tags">
-						<dt>see</dt>
-						<dd><p><a href="../classes/subevent.html#getstat">getStat</a></p>
+						<dt>param</dt>
+						<dd><p>The error that was thrown or rejected.</p>
+						</dd>
+						<dt>param</dt>
+						<dd><p>The subscription <code>name</code>, if set during <a href="../classes/subevent.html#subscribe">subscribe</a> call.</p>
 						</dd>
 					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="thisarg" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> this<wbr>Arg</h3>
-				<div class="tsd-signature tsd-kind-icon">this<wbr>Arg<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+				<a name="onfinished" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Finished</h3>
+				<div class="tsd-signature tsd-kind-icon">on<wbr>Finished<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L145">src/event.ts:145</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L60">src/event.ts:60</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Calling / <code>this</code> context for the subscription callback function.</p>
+						<p>Notification callback of when the last recipient has received the data.</p>
 					</div>
-					<p>Standard way of passing in context is this way:</p>
-					<pre><code class="language-ts">event.subscribe(func.bind(<span class="hljs-keyword">this</span>))</code></pre>
-					<p>With this option you can also do it this way:</p>
-					<pre><code class="language-ts">event.subscribe(func, {thisArg: <span class="hljs-keyword">this</span>})</code></pre>
+					<p>Note that asynchronous subscribers may still be processing the data at this point.</p>
+					<dl class="tsd-comment-tags">
+						<dt>param</dt>
+						<dd><p>Total number of clients that have received the data.</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="schedule" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagOptional">Optional</span> schedule</h3>
+				<div class="tsd-signature tsd-kind-icon">schedule<span class="tsd-signature-symbol">:</span> <a href="../enums/emitschedule.html" class="tsd-signature-type">EmitSchedule</a></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L38">src/event.ts:38</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Event emitting schedule. Default is <code>sync</code>.</p>
+					</div>
 				</div>
 			</section>
 		</section>

@@ -2375,6 +2375,9 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
+		<li class=" tsd-kind-enum">
+			<a href="../enums/emitschedule.html" class="tsd-kind-icon">Emit<wbr>Schedule</a>
+		</li>
 		<li class="current tsd-kind-class tsd-has-type-parameter">
 			<a href="subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
 			<ul>
@@ -2394,15 +2397,6 @@ img {
 					<a href="subevent.html#emit" class="tsd-kind-icon">emit</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#emitsafe" class="tsd-kind-icon">emit<wbr>Safe</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#emitsync" class="tsd-kind-icon">emit<wbr>Sync</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#emitsyncsafe" class="tsd-kind-icon">emit<wbr>Sync<wbr>Safe</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="subevent.html#getstat" class="tsd-kind-icon">get<wbr>Stat</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -2418,6 +2412,9 @@ img {
 		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
 			<a href="../interfaces/icountoptions.html" class="tsd-kind-icon">ICount<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/iemitoptions.html" class="tsd-kind-icon">IEmit<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface tsd-has-type-parameter">
 			<a href="../interfaces/ieventoptions.html" class="tsd-kind-icon">IEvent<wbr>Options</a>
@@ -2499,9 +2496,6 @@ img {
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#cancelall" class="tsd-kind-icon">cancel<wbr>All</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#emit" class="tsd-kind-icon">emit</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#emitsafe" class="tsd-kind-icon">emit<wbr>Safe</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#emitsync" class="tsd-kind-icon">emit<wbr>Sync</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#emitsyncsafe" class="tsd-kind-icon">emit<wbr>Sync<wbr>Safe</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#getstat" class="tsd-kind-icon">get<wbr>Stat</a></li>
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
 						</ul>
@@ -2521,7 +2515,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L145">src/event.ts:145</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L205">src/event.ts:205</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2555,7 +2549,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">count<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L325">src/event.ts:325</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L298">src/event.ts:298</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2570,7 +2564,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">max<wbr>Subs<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L338">src/event.ts:338</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L311">src/event.ts:311</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2596,7 +2590,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L385">src/event.ts:385</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L358">src/event.ts:358</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2613,25 +2607,20 @@ img {
 				<a name="emit" class="tsd-anchor"></a>
 				<h3>emit</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, onFinished<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					<li class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L208">src/event.ts:208</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L264">src/event.ts:264</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Asynchronous data broadcast to all subscribers. Each subscriber will be receiving
-								the event within its own processor tick (under Node.js), or timer tick (in browsers).</p>
+								<p>Broadcasts data to all subscribers, according to the emit schedule,
+								which is synchronous by default.</p>
 							</div>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emitsync">emitSync</a>, <a href="subevent.html#emitsafe">emitSafe</a>, <a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
-								</dd>
-							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
@@ -2642,202 +2631,14 @@ img {
 								</div>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> onFinished: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a></h5>
 								<div class="tsd-comment tsd-typography">
-									<p>Optional callback function to be notified when the last recipient has received the data.
-										The function takes one parameter - total number of clients that have received the data.
-									Note that asynchronous subscribers may still be processing the data at this point.</p>
+									<p>Event emitting options.</p>
 								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						<p>Number of clients that will be receiving the data.</p>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="emitsafe" class="tsd-anchor"></a>
-				<h3>emit<wbr>Safe</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">emit<wbr>Safe<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, onError<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, onFinished<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L246">src/event.ts:246</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Safe asynchronous data broadcast to all subscribers. Each subscriber will be receiving
-								the event within its own processor tick (under Node.js), or timer tick (in browsers).</p>
-							</div>
-							<p>Errors from subscription callbacks are passed into <code>onError</code> function, to handle both
-							synchronous and asynchronous subscription functions.</p>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a>, <a href="subevent.html#emitsync">emitSync</a>, <a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>data: <span class="tsd-signature-type">T</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Data to be sent, according to the type template.</p>
-								</div>
-							</li>
-							<li>
-								<h5>onError: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Callback for catching all unhandled errors from subscribers. The first parameter
-										is the error that was thrown/rejected, and the second one is the subscription <code>name</code>,
-									if it was set during <a href="subevent.html#subscribe">subscribe</a> call.</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>err: <span class="tsd-signature-type">any</span></h5>
-													</li>
-													<li>
-														<h5><span class="tsd-flag ts-flagOptional">Optional</span> name: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> onFinished: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Optional callback function to be notified when the last recipient has received the data.
-										The function takes one parameter - total number of clients that have received the data.
-									Note that asynchronous subscribers may still be processing the data at this point.</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						<p>Number of clients that will be receiving the data.</p>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="emitsync" class="tsd-anchor"></a>
-				<h3>emit<wbr>Sync</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">emit<wbr>Sync<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L279">src/event.ts:279</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Synchronous data broadcast to all subscribers. The event is delivered
-								to all subscribers immediately.</p>
-							</div>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a>, <a href="subevent.html#emitsafe">emitSafe</a>, <a href="subevent.html#emitsyncsafe">emitSyncSafe</a></p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>data: <span class="tsd-signature-type">T</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Data to be sent, according to the type template.</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						<p>Number of clients that have received the data.</p>
-						<p>Note that asynchronous subscribers may still be processing the data.</p>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="emitsyncsafe" class="tsd-anchor"></a>
-				<h3>emit<wbr>Sync<wbr>Safe</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">emit<wbr>Sync<wbr>Safe<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, onError<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L307">src/event.ts:307</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Safe synchronous data broadcast to all subscribers. The event is delivered
-								to all subscribers immediately.</p>
-							</div>
-							<p>Errors from subscription callbacks are passed into <code>onError</code> function,
-							to handle both synchronous and asynchronous subscription functions.</p>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a>, <a href="subevent.html#emitsync">emitSync</a>, <a href="subevent.html#emitsafe">emitSafe</a></p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>data: <span class="tsd-signature-type">T</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Data to be sent, according to the type template.</p>
-								</div>
-							</li>
-							<li>
-								<h5>onError: <span class="tsd-signature-type">function</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Callback for catching all unhandled errors from subscribers. The first parameter
-										is the error that was thrown/rejected, and the second one is the subscription <code>name</code>,
-									if it was set during <a href="subevent.html#subscribe">subscribe</a> call.</p>
-								</div>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-parameters-title">Parameters</h4>
-												<ul class="tsd-parameters">
-													<li>
-														<h5>err: <span class="tsd-signature-type">any</span></h5>
-													</li>
-													<li>
-														<h5><span class="tsd-flag ts-flagOptional">Optional</span> name: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-													</li>
-												</ul>
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						<p>Number of clients that have received the data.</p>
-						<p>Note that asynchronous subscribers may still be processing the data.</p>
+						<p>Number of subscribers to receive the data.</p>
 					</li>
 				</ul>
 			</section>
@@ -2851,7 +2652,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L355">src/event.ts:355</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L328">src/event.ts:328</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2888,7 +2689,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f44bf23/src/event.ts#L174">src/event.ts:174</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/ed30b9d/src/event.ts#L234">src/event.ts:234</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
