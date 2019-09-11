@@ -3,7 +3,7 @@ import {Subscription} from './sub';
 export enum EmitSchedule {
     sync = 'sync',
     async = 'async',
-    mixed = 'mixed'
+    next = 'next'
 }
 
 export interface IEmitOptions {
