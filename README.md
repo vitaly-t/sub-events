@@ -27,7 +27,7 @@ const e: SubEvent<string> = new SubEvent();
 e.emit('hello');
 ```
 
-**API:** [SubEvent], [emit], [emitSync], [emitSafe], [emitSyncSafe]
+**API:** [SubEvent], [emit]
 
 * On consumer side:
 
@@ -81,9 +81,6 @@ When including directly from HTML, you can access all types under `subEvents` na
 [subscribe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#subscribe
 [cancel]:https://vitaly-t.github.io/sub-events/classes/subscription.html#cancel
 [emit]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emit
-[emitSync]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emitsync
-[emitSafe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emitsafe
-[emitSyncSafe]:https://vitaly-t.github.io/sub-events/classes/subevent.html#emitsyncsafe
 [onCount]:https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount
 [Extras]:https://github.com/vitaly-t/sub-events/wiki/Extras
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html

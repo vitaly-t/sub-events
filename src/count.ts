@@ -1,4 +1,4 @@
-import {IEmitOptions, ISubscriber, SubEvent} from './event';
+import {IEmitOptions, IEventOptions, ISubscriber, SubEvent} from './event';
 
 /**
  * @interface ISubCountChange
@@ -15,6 +15,18 @@ export interface ISubCountChange {
      * Previous number of subscriptions.
      */
     prevCount: number;
+}
+
+/**
+ * @interface ICountOptions
+ * @description
+ * Constructor options for [[SubEventCount]] class.
+ */
+export interface ICountOptions<T> extends IEventOptions<T> {
+    /**
+     * Emit options for event [[onCount]].
+     */
+    emitOptions?: IEmitOptions;
 }
 
 /**
@@ -42,9 +54,10 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
      * @param options
      * Configuration Options.
      */
-    constructor(options?: IEmitOptions) {
-        super();
-        this._notify = (data: ISubCountChange) => this.onCount.emit(data, options);
+    constructor(options?: ICountOptions<T>) {
+        super(options);
+        const eo = options && options.emitOptions;
+        this._notify = (data: ISubCountChange) => this.onCount.emit(data, eo);
     }
 
     /**

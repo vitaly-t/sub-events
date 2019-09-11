@@ -33,7 +33,7 @@ export enum EmitSchedule {
  */
 export interface IEmitOptions {
     /**
-     * Emitting schedule.
+     * Event emitting schedule. Default is `sync`.
      */
     schedule?: EmitSchedule;
 
@@ -249,12 +249,14 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Broadcasts data to all subscribers, according to the emit schedule.
+     * Broadcasts data to all subscribers, according to the emit schedule,
+     * which is synchronous by default.
      *
      * @param data
      * Data to be sent, according to the type template.
      *
      * @param options
+     * Event emitting options.
      *
      * @returns
      * Number of subscribers to receive the data.
@@ -425,5 +427,9 @@ export class SubEvent<T = unknown> {
      */
     protected static _callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
 
+    // istanbul ignore next: we are not auto-testing in the browser
+    /**
+     * @hidden
+     */
     protected static _callNow = (callback: Function) => callback();
 }
