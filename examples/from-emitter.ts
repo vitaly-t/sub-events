@@ -2,7 +2,7 @@ import {ISubContext, SubEvent, SubEventCount} from '../src';
 import EventEmitter = NodeJS.EventEmitter;
 
 /**
- * Example of one-to-one `EventEmitter` wrapping:
+ * Example of 1-to-1 hot-observable `EventEmitter` wrapping:
  * - every `subscribe` results in immediate `addListener` call;
  * - every `cancel` results in immediate `removeListener` call.
  *
@@ -22,7 +22,7 @@ export function fromEmitter(source: EventEmitter, event: string | symbol): SubEv
 }
 
 /**
- * Example of sharing a named event from `EventEmitter`:
+ * Example of sharing a named 1-to-1 hot observable from `EventEmitter`:
  * - we call `addListener` whenever the first subscriber has been registered;
  * - we call `removeListener` after the last subscription has been cancelled.
  *

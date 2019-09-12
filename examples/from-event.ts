@@ -1,7 +1,7 @@
 import {SubEvent, ISubContext, SubEventCount} from '../src';
 
 /**
- * Example of one-to-one DOM `Event` wrapping:
+ * Example of 1-to-1 hot observable DOM `Event` wrapping:
  * - every `subscribe` results in immediate `addEventListener` call;
  * - every `cancel` results in immediate `removeEventListener` call.
  */
@@ -18,7 +18,7 @@ export function fromEvent(source: Node, event: string): SubEvent<Event> {
 }
 
 /**
- * Example of sharing Event-s, based on their subscription count:
+ * Example of sharing hot-observable Event-s, based on their subscription count:
  * - we call `addEventListener` whenever the first subscriber has been registered;
  * - we call `removeEventListener` after the last subscription has been cancelled.
  */

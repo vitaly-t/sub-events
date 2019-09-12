@@ -107,7 +107,8 @@ export interface IEventOptions<T> {
     maxSubs?: number;
 
     /**
-     * Notification of a new subscriber being registered.
+     * Notification of a new subscriber being registered,
+     * to allow implementation of 1-to-1 hot observables.
      *
      * ```js
      * (ctx: ISubContext<T>) => void;
@@ -119,7 +120,8 @@ export interface IEventOptions<T> {
     onSubscribe?: (ctx: ISubContext<T>) => void;
 
     /**
-     * Notification about a cancelled subscription.
+     * Notification about a cancelled subscription,
+     * to allow implementation of 1-to-1 hot observables.
      *
      * ```js
      * (ctx: ISubContext<T>) => void;
