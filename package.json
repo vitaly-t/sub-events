@@ -25,7 +25,7 @@
     "name": "Vitaly Tomilov",
     "email": "vitaly.tomilov@gmail.com"
   },
-  "license": "ISC",
+  "license": "MIT",
   "engines": {
     "node": ">=4.5",
     "npm": ">=2.15"
