@@ -2482,7 +2482,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">max<wbr>Subs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/d6f463b/src/event.ts#L107">src/event.ts:107</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f049b63/src/event.ts#L107">src/event.ts:107</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2500,12 +2500,13 @@ img {
 				<div class="tsd-signature tsd-kind-icon">on<wbr>Cancel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/d6f463b/src/event.ts#L131">src/event.ts:131</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f049b63/src/event.ts#L133">src/event.ts:133</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Notification about a cancelled subscription.</p>
+						<p>Notification about a cancelled subscription,
+						to allow implementation of 1-to-1 hot observables.</p>
 					</div>
 					<pre><code class="language-js">(ctx: ISubContext&lt;T&gt;) =&gt; <span class="hljs-keyword">void</span>;</code></pre>
 					<dl class="tsd-comment-tags">
@@ -2521,12 +2522,13 @@ img {
 				<div class="tsd-signature tsd-kind-icon">on<wbr>Subscribe<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/d6f463b/src/event.ts#L119">src/event.ts:119</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f049b63/src/event.ts#L120">src/event.ts:120</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Notification of a new subscriber being registered.</p>
+						<p>Notification of a new subscriber being registered,
+						to allow implementation of 1-to-1 hot observables.</p>
 					</div>
 					<pre><code class="language-js">(ctx: ISubContext&lt;T&gt;) =&gt; <span class="hljs-keyword">void</span>;</code></pre>
 					<dl class="tsd-comment-tags">

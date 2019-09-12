@@ -2464,7 +2464,13 @@ sub.cancel();</code></pre>
 e.onCount.subscribe(<span class="hljs-function">(<span class="hljs-params">info: ISubCountChange</span>) =&gt;</span> {
     <span class="hljs-comment">// number of subscriptions has changed;</span>
     <span class="hljs-comment">// info = {newCount, prevCount} </span>
-});</code></pre>
+});
+
+<span class="hljs-comment">// any subscription will trigger event onCount:</span>
+<span class="hljs-keyword">const</span> sub = e.subscribe(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {});
+
+<span class="hljs-comment">// cancelling a subscription will trigger onCount:</span>
+sub.cancel();</code></pre>
 			<p><strong>API:</strong> <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a></p>
 			<a href="#browser" id="browser" style="color: inherit; text-decoration: none;">
 				<h3>Browser</h3>
@@ -2526,7 +2532,7 @@ e.onCount.subscribe(<span class="hljs-function">(<span class="hljs-params">info:
 				<div class="tsd-signature tsd-kind-icon">Sub<wbr>Function&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/d6f463b/src/event.ts#L185">src/event.ts:185</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/f049b63/src/event.ts#L187">src/event.ts:187</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
