@@ -22,7 +22,7 @@ export function fromEmitter(source: EventEmitter, event: string | symbol): SubEv
 }
 
 /**
- * Example of sharing a named 1-to-1 hot observable from `EventEmitter`:
+ * Example of sharing a named hot observable from `EventEmitter`:
  * - we call `addListener` whenever the first subscriber has been registered;
  * - we call `removeListener` after the last subscription has been cancelled.
  *
