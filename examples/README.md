@@ -1,11 +1,13 @@
 Examples
 --------
 
-Examples of wrapping existing event objects ([hot observables]) into [SubEvent]: 
+Practical examples of wrapping [hot observables] into [SubEvent]: 
 
 * [from-emitter] - create [SubEvent] from [EventEmitter]
 * [from-event] - create [SubEvent] from DOM [Event]
+* [from-interval] - create [SubEvent] from a time interval
 
+[from-interval]:./from-interval.ts
 [from-emitter]:./from-emitter.ts
 [from-event]:./from-event.ts
 [EventEmitter]:https://nodejs.org/api/events.html#events_class_eventemitter
