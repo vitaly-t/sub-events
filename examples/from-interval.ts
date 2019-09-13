@@ -1,7 +1,7 @@
 import {ISubContext, SubEvent, SubEventCount} from '../src';
 
 /**
- * Example of 1-to-1 hot-observable time-interval wrapping:
+ * Example of 1-to-1 hot-observable time interval wrapping:
  * - every `subscribe` results in `setInterval` call;
  * - every `cancel` results in `clearInterval` call.
  *
@@ -21,7 +21,7 @@ export function fromInterval(timeout: number): SubEvent<number> {
 }
 
 /**
- * Example of sharing hot-observable time-interval, based on the subscription count:
+ * Example of sharing hot-observable time interval, based on the subscription count:
  * - we call `setInterval` whenever the first subscriber has been registered;
  * - we call `clearInterval` after the last subscription has been cancelled.
  *
@@ -40,7 +40,7 @@ export function fromSharedInterval(timeout: number): SubEvent<number> {
         } else {
             if (stop) {
                 clearInterval(timer);
-                count = 0; // resetting count
+                count = 0; // resetting shared counter
             }
         }
     });
