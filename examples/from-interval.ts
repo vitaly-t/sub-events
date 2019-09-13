@@ -24,6 +24,8 @@ export function fromInterval(timeout: number): SubEvent<number> {
  * Example of sharing hot-observable time-interval, based on the subscription count:
  * - we call `setInterval` whenever the first subscriber has been registered;
  * - we call `clearInterval` after the last subscription has been cancelled.
+ *
+ * The event is parameterized with its shared counter.
  */
 export function fromSharedInterval(timeout: number): SubEvent<number> {
     const sec: SubEventCount<number> = new SubEventCount();
