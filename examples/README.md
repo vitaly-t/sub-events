@@ -1,10 +1,10 @@
 Examples
 --------
 
-Practical examples of wrapping [hot observables] into [SubEvent]: 
+Practical examples of creating [SubEvent] from popular [hot observables]: 
 
-* [from-emitter] - create [SubEvent] from [EventEmitter]
 * [from-event] - create [SubEvent] from DOM [Event]
+* [from-emitter] - create [SubEvent] from [EventEmitter]
 * [from-interval] - create [SubEvent] from a time interval
 
 **NOTE:** These are all fully functioning examples, to be copied into your code whenever you need them.
