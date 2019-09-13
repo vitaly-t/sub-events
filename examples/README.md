@@ -8,7 +8,7 @@ Practical examples of wrapping [hot observables] into [SubEvent]:
 * [from-interval] - create [SubEvent] from a time interval
 
 **NOTE:** These are all fully functioning examples, to be copied into your code whenever you need them.
-But they are not included in distribution.
+However, files in this folder are not distributed with the library.
 
 [from-interval]:./from-interval.ts
 [from-emitter]:./from-emitter.ts
