@@ -9,7 +9,7 @@ Practical examples of creating [SubEvent] from popular hot observables:
 * [from-timeout] - create [SubEvent] from a time-out
 
 **NOTE:** These are all fully functioning examples, to be copied into your code whenever you need them.
-However, files in this folder are not distributed with the library.
+However, these files are excluded from the official distribution.
 
 For more examples, see [WiKi] pages.
 
