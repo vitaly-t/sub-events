@@ -22,7 +22,7 @@ export class TimeoutEvent extends SubEvent<void> {
     subscribe(cb: SubFunction<void>, options?: ISubOptions): Subscription {
         const sub = super.subscribe(() => {
             sub.cancel(); // cancel subscription
-            cb.call(options && options.thisArg);
+            return cb.call(options && options.thisArg);
         }, options);
         return sub;
     }
