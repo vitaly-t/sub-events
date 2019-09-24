@@ -1,4 +1,4 @@
-import {ISubContext, ISubOptions, SubEvent, SubFunction, Subscription} from '../src';
+import {IEmitOptions, ISubContext, ISubOptions, SubEvent, SubFunction, Subscription} from '../src';
 
 /**
  * Returns a new TimeoutEvent that triggers a fresh setTimeout on each subscribe,
@@ -6,7 +6,7 @@ import {ISubContext, ISubOptions, SubEvent, SubFunction, Subscription} from '../
  *
  * And if the client cancels the subscription first, the event won't happen.
  */
-export function fromTimeout(timeout: number = 0): TimeoutEvent {
+export function fromTimeout(timeout: number = 0, options?: IEmitOptions): TimeoutEvent {
     return new TimeoutEvent(timeout);
 }
 
@@ -17,10 +17,10 @@ export function fromTimeout(timeout: number = 0): TimeoutEvent {
  * self-cancel subscription logic.
  */
 export class TimeoutEvent extends SubEvent<void> {
-    constructor(timeout: number = 0) {
+    constructor(timeout: number = 0, options?: IEmitOptions) {
         const onSubscribe = (ctx: ISubContext<void>) => {
             ctx.data = setTimeout(() => {
-                ctx.event.emit();
+                ctx.event.emit(undefined, options);
             }, timeout);
         };
         const onCancel = (ctx: ISubContext<void>) => {

@@ -1,4 +1,4 @@
-import {ISubContext, SubEvent, SubEventCount} from '../src';
+import {IEmitOptions, ISubContext, SubEvent, SubEventCount} from '../src';
 import EventEmitter = NodeJS.EventEmitter;
 
 /**
@@ -9,9 +9,9 @@ import EventEmitter = NodeJS.EventEmitter;
  * Variable number of arguments emitted with the event become an array
  * of values when they arrive into `subscribe` callback function.
  */
-export function fromEmitter(source: EventEmitter, event: string | symbol): SubEvent<any[]> {
+export function fromEmitter(source: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEvent<any[]> {
     const onSubscribe = (ctx: ISubContext<any[]>) => {
-        const handler = (...args: any[]) => ctx.event.emit(args);
+        const handler = (...args: any[]) => ctx.event.emit(args, options);
         source.addListener(event, handler);
         ctx.data = handler; // context for the event's lifecycle
     };
@@ -29,9 +29,9 @@ export function fromEmitter(source: EventEmitter, event: string | symbol): SubEv
  * Variable number of arguments emitted with the event become an array
  * of values when they arrive into `subscribe` callback function.
  */
-export function fromSharedEmitter(source: EventEmitter, event: string | symbol): SubEventCount<any[]> {
+export function fromSharedEmitter(source: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<any[]> {
     const sec: SubEventCount<any[]> = new SubEventCount();
-    const handler = (...args: any[]) => sec.emit(args);
+    const handler = (...args: any[]) => sec.emit(args, options);
     sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left
