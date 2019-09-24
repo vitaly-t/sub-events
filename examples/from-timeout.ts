@@ -7,7 +7,7 @@ import {IEmitOptions, ISubContext, ISubOptions, SubEvent, SubFunction, Subscript
  * And if the client cancels the subscription first, the event won't happen.
  */
 export function fromTimeout(timeout: number = 0, options?: IEmitOptions): TimeoutEvent {
-    return new TimeoutEvent(timeout);
+    return new TimeoutEvent(timeout, options);
 }
 
 /**
