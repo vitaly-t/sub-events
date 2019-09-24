@@ -1,6 +1,16 @@
 import {ISubContext, ISubOptions, SubEvent, SubFunction, Subscription} from '../src';
 
 /**
+ * Returns a new TimeoutEvent that triggers a fresh setTimeout on each subscribe,
+ * and cancels the subscription after the timer event.
+ *
+ * And if the client cancels the subscription first, the event won't happen.
+ */
+export function fromTimeout(timeout: number = 0): TimeoutEvent {
+    return new TimeoutEvent(timeout);
+}
+
+/**
  * Implements timeout event, with automatically cancelled subscriptions.
  *
  * It also illustrates the general approach to implementing events with
@@ -26,14 +36,4 @@ export class TimeoutEvent extends SubEvent<void> {
         }, options);
         return sub;
     }
-}
-
-/**
- * Returns a new TimeoutEvent that triggers a fresh setTimeout on each subscribe,
- * and cancels the subscription after the timer event.
- *
- * And if the client cancels the subscription first, the event won't happen.
- */
-export function fromTimeout(timeout: number = 0): TimeoutEvent {
-    return new TimeoutEvent(timeout);
 }
