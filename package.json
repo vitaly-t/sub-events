@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -35,8 +35,12 @@
   },
   "keywords": [
     "event",
+    "listen",
+    "listener",
     "strong",
+    "strongly",
     "typed",
+    "pubsub",
     "count",
     "monitoring",
     "subscription",
