@@ -14,7 +14,7 @@ export enum EmitSchedule {
     sync = 'sync',
 
     /**
-     * Data is sent asynchronously. Each subscriber will be receiving the event
+     * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
     async = 'async',
