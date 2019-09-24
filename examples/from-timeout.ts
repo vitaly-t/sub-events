@@ -22,7 +22,7 @@ export class TimeoutEvent extends SubEvent<void> {
     subscribe(cb: SubFunction<void>, options?: ISubOptions): Subscription {
         const sub = super.subscribe(() => {
             sub.cancel(); // cancel subscription
-            cb();
+            cb.call(options && options.thisArg);
         }, options);
         return sub;
     }
@@ -30,7 +30,7 @@ export class TimeoutEvent extends SubEvent<void> {
 
 /**
  * Returns a new TimeoutEvent that triggers a fresh setTimeout on each subscribe,
- * and cancels the subscription on the timer event.
+ * and cancels the subscription after the timer event.
  *
  * And if the client cancels the subscription first, the event won't happen.
  */
