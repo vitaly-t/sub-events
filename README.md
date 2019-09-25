@@ -5,7 +5,7 @@
 
 Lightweight, strongly-typed events, with monitored subscriptions. 
 
-Documentation: [API] + [WiKi] + [Examples].
+Documentation: [API] + [WiKi].
 
 ## Install
 
@@ -81,7 +81,6 @@ When including directly from HTML, you can access all types under `subEvents` na
 </script>
 ``` 
 
-[Examples]:./examples
 [API]:https://vitaly-t.github.io/sub-events
 [WiKi]:https://github.com/vitaly-t/sub-events/wiki
 [Subscription]:https://vitaly-t.github.io/sub-events/classes/subscription.html
