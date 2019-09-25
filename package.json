@@ -15,9 +15,8 @@
     "travis": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
-    "dist",
-    "ext",
-    "index.js"
+    "dist/src",
+    "dist/index.js"
   ],
   "repository": {
     "type": "git",
