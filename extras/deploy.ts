@@ -1,5 +1,5 @@
 /*
-* Deploys all the extra recipes.
+* Deployment script for all the extras.
 */
 
 import * as fs from 'fs';
@@ -14,7 +14,8 @@ if (!fs.existsSync(destFolder)) {
 
 fs.readdirSync(srcFolder).forEach(f => {
     if (f.endsWith('.d.ts') || f.endsWith('.js')) {
-        const text = fs.readFileSync(path.join(srcFolder, f)).toString().replace(/\.\.\/\.\.\/src/g, '\.\.\/dist\/src');
+        const text = fs.readFileSync(path.join(srcFolder, f)).toString()
+            .replace(/\.\.\/\.\.\/src/g, '\.\.\/dist\/src');
         fs.writeFileSync(path.join(destFolder, f), text);
     }
 });
