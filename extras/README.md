@@ -1,3 +1,6 @@
+Extras
+------
+
 Extra recipes for creating [SubEvent] from popular hot observables: 
 
 * [src/from-event] - create [SubEvent] from DOM [Event]
@@ -10,13 +13,13 @@ All these reside inside `ext` sub-path, as shown below:
 * TypeScript
 
 ```ts
-import {fromEvent, fromEmitter} from 'sub-events/ext';
+import {fromEvent, fromEmitter, fromInterval, fromTimeout} from 'sub-events/ext';
 ```
 
 * Node.js
 
 ```js
-const {fromInterval, fromTimeout} = require('sub-events/ext');
+const {fromEvent, fromEmitter, fromInterval, fromTimeout} = require('sub-events/ext');
 ```
 
 Or you can include individual files, if you want to bundle only what's used.
