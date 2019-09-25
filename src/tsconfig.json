@@ -1,0 +1,11 @@
+{
+  "extends": "..",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "../dist/src",
+    "outDir": "../dist/src"
+  },
+  "include": [
+    "*.ts"
+  ]
+}
