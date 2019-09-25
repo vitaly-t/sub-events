@@ -1,4 +1,4 @@
-import {IEmitOptions, ISubContext, ISubOptions, SubEvent, SubFunction, Subscription} from '../src';
+import {IEmitOptions, ISubContext, ISubOptions, SubEvent, SubFunction, Subscription} from '../../src';
 
 /**
  * Returns a new TimeoutEvent that triggers a fresh setTimeout on each subscribe,

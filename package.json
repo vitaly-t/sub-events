@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "1.1.0",
+  "version": "1.1.0-Beta.0",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -8,7 +8,7 @@
   "scripts": {
     "all": "npm run compile && npm run lint && npm test && npm run build",
     "build": "browserify dist/src/index.js -s subEvents -o dist/index.js",
-    "compile": "tsc -p src && tsc -p examples && tsc -p test",
+    "compile": "tsc -p src && tsc -p extras/src && tsc -p test",
     "doc": "./node_modules/.bin/typedoc",
     "lint": "./node_modules/.bin/tslint --fix ./src/**/*.ts ./test/**/*.ts",
     "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
@@ -16,7 +16,8 @@
   },
   "files": [
     "dist/src",
-    "dist/index.js"
+    "dist/index.js",
+    "ext"
   ],
   "repository": {
     "type": "git",

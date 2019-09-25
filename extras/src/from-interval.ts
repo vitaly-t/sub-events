@@ -1,4 +1,4 @@
-import {IEmitOptions, ISubContext, SubEvent, SubEventCount} from '../src';
+import {IEmitOptions, ISubContext, SubEvent, SubEventCount} from '../../src';
 
 /**
  * Example of 1-to-1 hot-observable time interval wrapping:

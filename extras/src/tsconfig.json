@@ -1,6 +1,7 @@
 {
-  "extends": "..",
+  "extends": "../../tsconfig",
   "compilerOptions": {
+    "declaration": true
   },
   "include": [
     "*.ts"

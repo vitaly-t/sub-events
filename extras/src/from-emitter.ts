@@ -1,4 +1,4 @@
-import {IEmitOptions, ISubContext, SubEvent, SubEventCount} from '../src';
+import {IEmitOptions, ISubContext, SubEvent, SubEventCount} from '../../src';
 import {EventEmitter} from 'events';
 
 /**

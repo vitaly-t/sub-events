@@ -1,4 +1,4 @@
-import {SubEvent, ISubContext, SubEventCount, IEmitOptions} from '../src';
+import {SubEvent, ISubContext, SubEventCount, IEmitOptions} from '../../src';
 
 /**
  * Example of 1-to-1 hot observable DOM `Event` wrapping:
