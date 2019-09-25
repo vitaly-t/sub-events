@@ -82,7 +82,7 @@ When including directly from HTML, you can access all types under `subEvents` na
 ``` 
 
 Note that pre-built script includes only the core library, without the [Extras],
-which you can browserify and/or bundle as needed. 
+which you can bundle yourself as needed. 
 
 [Extras]:https://github.com/vitaly-t/sub-events/tree/master/extras
 [API]:https://vitaly-t.github.io/sub-events
