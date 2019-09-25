@@ -3,6 +3,7 @@
 node_modules/
 coverage/
 package-lock.json
+deploy/
 dist/
 ext/
 docs/
