@@ -4,6 +4,7 @@ node_modules/
 coverage/
 package-lock.json
 dist/
+ext/
 docs/
 **/*.js
 **/*.d.ts

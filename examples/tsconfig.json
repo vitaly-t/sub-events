@@ -1,7 +1,6 @@
 {
   "extends": "..",
   "compilerOptions": {
-    "noEmit": true
   },
   "include": [
     "*.ts"
