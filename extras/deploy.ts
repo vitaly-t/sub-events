@@ -1,5 +1,5 @@
 /*
-* Manually deploys all the extras.
+* Deploys all the extra recipes.
 */
 
 import * as fs from 'fs';
@@ -8,7 +8,6 @@ import * as path from 'path';
 const srcFolder = path.join(__dirname, '../deploy/extras/src');
 const destFolder = path.join(__dirname, '../ext');
 
-// Create destination folder, if it doesn't exist:
 if (!fs.existsSync(destFolder)) {
     fs.mkdirSync(destFolder);
 }
