@@ -1,5 +1,5 @@
 import {IEmitOptions, ISubContext, SubEvent, SubEventCount} from '../src';
-import EventEmitter = NodeJS.EventEmitter;
+import {EventEmitter} from 'events';
 
 /**
  * Example of 1-to-1 hot-observable `EventEmitter` wrapping:
