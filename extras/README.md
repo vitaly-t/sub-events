@@ -8,10 +8,18 @@ Extra recipes for creating [SubEvent] from popular hot observables:
 * [from-interval] - create [SubEvent] from a time interval
 * [from-timeout] - create [SubEvent] from a time-out
 
-These are all reside inside `ext` path:
+All these reside inside `ext` sub-path, as shown below:
+
+* TypeScript
 
 ```ts
 import {fromEvent, fromEmitter} from 'sub-events/ext';
+```
+
+* Node.js
+
+```js
+const {fromInterval, fromTimeout} = require('sub-events/ext');
 ```
 
 For more examples, see [WiKi] pages.
