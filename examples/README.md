@@ -9,10 +9,11 @@ Practical examples of creating [SubEvent] from popular hot observables:
 * [from-timeout] - create [SubEvent] from a time-out
 
 **NOTE:** These are all fully functioning examples, ready to be copied into your code when you need them.
-However, these files are not in the official distribution.
+However, these files are not in the official distribution. See also - [Examples Distribution].
 
 For more examples, see [WiKi] pages.
 
+[Examples Distribution]:https://github.com/vitaly-t/sub-events/issues/17
 [WiKi]:https://github.com/vitaly-t/sub-events/wiki
 [from-timeout]:./from-timeout.ts
 [from-interval]:./from-interval.ts
