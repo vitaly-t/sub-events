@@ -1,6 +1,3 @@
-Extras
-------
-
 Extra recipes for creating [SubEvent] from popular hot observables: 
 
 * [src/from-event] - create [SubEvent] from DOM [Event]
