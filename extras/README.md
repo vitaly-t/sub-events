@@ -84,8 +84,8 @@ const sub = onTimeout.subscribe(() => {
 sub.cancel();
 ```
 
-All that function `fromTimeout` does - it simply creates and returns class `TimeoutEvent`,
-which means you alternatively can do the same, like this:
+All that function `fromTimeout` does - creates and returns class `TimeoutEvent`,
+which means you can do the same:
 
 ```ts
 const onTimeout = new TimeoutEvent(1000); // creating 1-second timeout event
