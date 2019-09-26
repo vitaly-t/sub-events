@@ -20,7 +20,7 @@ const sub = onClick.subscribe((e:Event) => {
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-And to share the event across all subscribers, use `fromSharedEvent` instead.
+And to share events across all subscribers, use `fromSharedEvent` instead.
 </details>
 
 <details>
@@ -43,7 +43,7 @@ e.emit('receive', 1, 2, 3); // source emitter sends data
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-And to share the event across all subscribers, use `fromSharedEmitter` instead.
+And to share events across all subscribers, use `fromSharedEmitter` instead.
 </details>
 
 <details>
@@ -62,7 +62,7 @@ const sub = onInterval.subscribe((count: number) => {
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-And to share the event across all subscribers, use `fromSharedInterval` instead.
+And to share events across all subscribers, use `fromSharedInterval` instead.
 </details>
 
 <details>
@@ -73,7 +73,7 @@ Implemented in [src/from-timeout].
 ```ts
 import {fromTimeout, TimeoutEvent} from 'sub-events/ext';
 
-const onTimeout: TimeoutEvent = fromTimeout(1000); // creating 1-second timeout event
+const onTimeout = fromTimeout(1000); // creating 1-second timeout event
 
 const sub = onTimeout.subscribe(() => {
     // handling the timeout event
@@ -83,6 +83,14 @@ const sub = onTimeout.subscribe(() => {
 // 'cancel' yourself, if you want to stop the event from happening:
 sub.cancel();
 ```
+
+Function `fromTimeout` simply initiates and returns class `TimeoutEvent`,
+which means you can alternatively do the same directly, like this:
+
+```ts
+const onTimeout = new TimeoutEvent(1000); // creating 1-second timeout event
+```
+
 </details>
 
 [src/from-timeout]:./src/from-timeout.ts
