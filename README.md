@@ -1,11 +1,12 @@
-# sub-events
+# Strongly-Typed Events
 
 [![Build Status](https://travis-ci.org/vitaly-t/sub-events.svg?branch=master)](https://travis-ci.org/vitaly-t/sub-events)
 [![Coverage Status](https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/sub-events?branch=master)
 
 Lightweight, strongly-typed events, with monitored subscriptions. 
 
-Documentation: [API] + [WiKi].
+* Documentation: [API] + [WiKi].
+* Supports all existing events - see [Extras]. 
 
 ## Install
 

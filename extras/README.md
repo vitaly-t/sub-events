@@ -1,7 +1,8 @@
 Extras
 ------
 
-Extra recipes for creating [SubEvent] from popular hot observables:
+Extra recipes for creating [SubEvent] from popular hot observables. They are all available
+from sub-path `sub-events/ext`, or via individual files, if you want to bundle them based on usage.
 
 <details>
 <summary><b>From DOM Event</b></summary>
