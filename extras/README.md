@@ -6,8 +6,9 @@ Extra recipes for creating [SubEvent] from popular hot observables:
 <details>
 <summary><b>From DOM Event</b></summary>
 <br/>
-Implemented in [src/from-event].
 
+Implemented in [src/from-event].
+<br/>
 ```ts
 import {fromEvent, fromSharedEvent} from 'sub-events/ext';
 
@@ -23,10 +24,10 @@ And to share the event across all subscribers, use `fromSharedEvent` instead.
 </details>
 
 <details>
-<summary><b>From EventEmitter</b></summary>
-<br/>
-Implemented in [src/from-emitter].
+<summary><b>From EventEmitter</b></summary><br/>
 
+Implemented in [src/from-emitter].
+<br/>
 ```ts
 import {fromEmitter, fromSharedEmitter} from 'sub-events/ext';
 
@@ -46,10 +47,10 @@ And to share the event across all subscribers, use `fromSharedEmitter` instead.
 </details>
 
 <details>
-<summary><b>From Interval</b></summary>
-<br/>
-Implemented in [src/from-interval].
+<summary><b>From Interval</b></summary><br/>
 
+Implemented in [src/from-interval].
+<br/>
 ```ts
 import {fromInterval} from 'sub-events/ext';
 
@@ -65,10 +66,10 @@ And to share the event across all subscribers, use `fromSharedInterval` instead.
 </details>
 
 <details>
-<summary><b>From Timeout</b></summary>
-<br/>
-Implemented in [src/from-timeout].
+<summary><b>From Timeout</b></summary><br/>
 
+Implemented in [src/from-timeout].
+<br/>
 ```ts
 import {fromTimeout, TimeoutEvent} from 'sub-events/ext';
 
@@ -83,7 +84,6 @@ const sub = onTimeout.subscribe(() => {
 sub.cancel();
 ```
 </details>
-
 
 [src/from-timeout]:./src/from-timeout.ts
 [src/from-interval]:./src/from-interval.ts
