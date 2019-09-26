@@ -4,7 +4,9 @@ Extras
 Extra recipes for creating [SubEvent] from popular hot observables:
 
 <details>
-<summary><b>From DOM Event</b> (source in [src/from-event.ts])</summary>
+<summary><b>From DOM Event</b></summary>
+
+Implemented in [src/from-event].
 
 ```ts
 import {fromEvent} from 'sub-events/ext';
@@ -20,7 +22,9 @@ sub.cancel(); // cancel subscription when no longer needed
 </details>
 
 <details>
-<summary><b>From EventEmitter</b> (source in [src/from-emitter.ts])</summary>
+<summary><b>From EventEmitter</b></summary>
+
+Implemented in [src/from-emitter].
 
 ```ts
 import {fromEmitter} from 'sub-events/ext';
@@ -40,7 +44,9 @@ sub.cancel(); // cancel subscription when no longer needed
 </details>
 
 <details>
-<summary><b>From Interval</b> (source in [src/from-interval.ts])</summary>
+<summary><b>From Interval</b></summary>
+
+Implemented in [src/from-interval].
 
 ```ts
 import {fromInterval} from 'sub-events/ext';
@@ -56,7 +62,9 @@ sub.cancel(); // cancel subscription when no longer needed
 </details>
 
 <details>
-<summary><b>From Timeout</b> (source in [src/from-timeout.ts])</summary>
+<summary><b>From Timeout</b></summary>
+
+Implemented in [src/from-timeout].
 
 ```ts
 import {fromTimeout, TimeoutEvent} from 'sub-events/ext';
