@@ -58,7 +58,7 @@ Implemented in [src/from-interval].
 ```ts
 import {fromInterval, fromSharedInterval} from 'sub-events/ext';
 
-const onInterval = fromInterval(1000); // creating interval event
+const onInterval = fromInterval(1000); // creating 1-second interval event
 
 const sub = onInterval.subscribe((count: number) => {
     // handling the interval event
