@@ -52,7 +52,7 @@ And to share events across all subscribers, use `fromSharedEmitter` instead.
 Implemented in [src/from-interval].
 <br/>
 ```ts
-import {fromInterval} from 'sub-events/ext';
+import {fromInterval, fromSharedInterval} from 'sub-events/ext';
 
 const onInterval = fromInterval(1000); // creating interval event
 
@@ -84,8 +84,8 @@ const sub = onTimeout.subscribe(() => {
 sub.cancel();
 ```
 
-Function `fromTimeout` simply initiates and returns class `TimeoutEvent`,
-which means you can alternatively do the same directly, like this:
+All that function `fromTimeout` does - it simply creates and returns class `TimeoutEvent`,
+which means you alternatively can do the same, like this:
 
 ```ts
 const onTimeout = new TimeoutEvent(1000); // creating 1-second timeout event
