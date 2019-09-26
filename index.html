@@ -2424,16 +2424,16 @@ img {
 			<a href="globals.html#frominterval" class="tsd-kind-icon">from<wbr>Interval</a>
 		</li>
 		<li class=" tsd-kind-function">
-			<a href="globals.html#fromsharedemitter" class="tsd-kind-icon">from<wbr>Shared<wbr>Emitter</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="globals.html#fromsharedevent" class="tsd-kind-icon">from<wbr>Shared<wbr>Event</a>
-		</li>
-		<li class=" tsd-kind-function">
-			<a href="globals.html#fromsharedinterval" class="tsd-kind-icon">from<wbr>Shared<wbr>Interval</a>
-		</li>
-		<li class=" tsd-kind-function">
 			<a href="globals.html#fromtimeout" class="tsd-kind-icon">from<wbr>Timeout</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#shareemitter" class="tsd-kind-icon">share<wbr>Emitter</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#shareevent" class="tsd-kind-icon">share<wbr>Event</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#shareinterval" class="tsd-kind-icon">share<wbr>Interval</a>
 		</li>
 	</ul>
 </nav>
@@ -2557,10 +2557,10 @@ sub.cancel();</code></pre>
 							<li class="tsd-kind-function"><a href="globals.html#fromemitter" class="tsd-kind-icon">from<wbr>Emitter</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#fromevent" class="tsd-kind-icon">from<wbr>Event</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#frominterval" class="tsd-kind-icon">from<wbr>Interval</a></li>
-							<li class="tsd-kind-function"><a href="globals.html#fromsharedemitter" class="tsd-kind-icon">from<wbr>Shared<wbr>Emitter</a></li>
-							<li class="tsd-kind-function"><a href="globals.html#fromsharedevent" class="tsd-kind-icon">from<wbr>Shared<wbr>Event</a></li>
-							<li class="tsd-kind-function"><a href="globals.html#fromsharedinterval" class="tsd-kind-icon">from<wbr>Shared<wbr>Interval</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#fromtimeout" class="tsd-kind-icon">from<wbr>Timeout</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#shareemitter" class="tsd-kind-icon">share<wbr>Emitter</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#shareevent" class="tsd-kind-icon">share<wbr>Event</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#shareinterval" class="tsd-kind-icon">share<wbr>Interval</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2574,7 +2574,7 @@ sub.cancel();</code></pre>
 				<div class="tsd-signature tsd-kind-icon">Sub<wbr>Function&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/src/event.ts#L187">src/event.ts:187</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/src/event.ts#L187">src/event.ts:187</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2623,7 +2623,7 @@ sub.cancel();</code></pre>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/extras/src/from-emitter.ts#L12">extras/src/from-emitter.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/extras/src/from-emitter.ts#L12">extras/src/from-emitter.ts:12</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2663,7 +2663,7 @@ sub.cancel();</code></pre>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/extras/src/from-event.ts#L8">extras/src/from-event.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/extras/src/from-event.ts#L8">extras/src/from-event.ts:8</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2701,7 +2701,7 @@ sub.cancel();</code></pre>
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/extras/src/from-interval.ts#L10">extras/src/from-interval.ts:10</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/extras/src/from-interval.ts#L10">extras/src/from-interval.ts:10</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2728,16 +2728,49 @@ sub.cancel();</code></pre>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="fromsharedemitter" class="tsd-anchor"></a>
-				<h3>from<wbr>Shared<wbr>Emitter</h3>
+				<a name="fromtimeout" class="tsd-anchor"></a>
+				<h3>from<wbr>Timeout</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">from<wbr>Shared<wbr>Emitter<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subeventcount.html" class="tsd-signature-type">SubEventCount</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">from<wbr>Timeout<span class="tsd-signature-symbol">(</span>timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/timeoutevent.html" class="tsd-signature-type">TimeoutEvent</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/extras/src/from-emitter.ts#L32">extras/src/from-emitter.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/extras/src/from-timeout.ts#L9">extras/src/from-timeout.ts:9</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Returns a new TimeoutEvent that triggers a fresh setTimeout on each subscribe,
+								and cancels the subscription after the timer event.</p>
+							</div>
+							<p>And if the client cancels the subscription first, the event won&#39;t happen.</p>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> timeout: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="classes/timeoutevent.html" class="tsd-signature-type">TimeoutEvent</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="shareemitter" class="tsd-anchor"></a>
+				<h3>share<wbr>Emitter</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">share<wbr>Emitter<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subeventcount.html" class="tsd-signature-type">SubEventCount</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/extras/src/from-emitter.ts#L32">extras/src/from-emitter.ts:32</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2768,16 +2801,16 @@ sub.cancel();</code></pre>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="fromsharedevent" class="tsd-anchor"></a>
-				<h3>from<wbr>Shared<wbr>Event</h3>
+				<a name="shareevent" class="tsd-anchor"></a>
+				<h3>share<wbr>Event</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">from<wbr>Shared<wbr>Event<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subeventcount.html" class="tsd-signature-type">SubEventCount</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">share<wbr>Event<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Node</span>, event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subeventcount.html" class="tsd-signature-type">SubEventCount</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/extras/src/from-event.ts#L25">extras/src/from-event.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/extras/src/from-event.ts#L25">extras/src/from-event.ts:25</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2806,16 +2839,16 @@ sub.cancel();</code></pre>
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="fromsharedinterval" class="tsd-anchor"></a>
-				<h3>from<wbr>Shared<wbr>Interval</h3>
+				<a name="shareinterval" class="tsd-anchor"></a>
+				<h3>share<wbr>Interval</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">from<wbr>Shared<wbr>Interval<span class="tsd-signature-symbol">(</span>timeout<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">share<wbr>Interval<span class="tsd-signature-symbol">(</span>timeout<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/subeventcount.html" class="tsd-signature-type">SubEventCount</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/extras/src/from-interval.ts#L30">extras/src/from-interval.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1376c03/extras/src/from-interval.ts#L30">extras/src/from-interval.ts:30</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2837,40 +2870,7 @@ sub.cancel();</code></pre>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="classes/subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function">
-				<a name="fromtimeout" class="tsd-anchor"></a>
-				<h3>from<wbr>Timeout</h3>
-				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">from<wbr>Timeout<span class="tsd-signature-symbol">(</span>timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, options<span class="tsd-signature-symbol">?: </span><a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/timeoutevent.html" class="tsd-signature-type">TimeoutEvent</a></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b933a34/extras/src/from-timeout.ts#L9">extras/src/from-timeout.ts:9</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Returns a new TimeoutEvent that triggers a fresh setTimeout on each subscribe,
-								and cancels the subscription after the timer event.</p>
-							</div>
-							<p>And if the client cancels the subscription first, the event won&#39;t happen.</p>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> timeout: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="classes/timeoutevent.html" class="tsd-signature-type">TimeoutEvent</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="classes/subeventcount.html" class="tsd-signature-type">SubEventCount</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
