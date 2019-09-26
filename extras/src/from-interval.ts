@@ -27,7 +27,7 @@ export function fromInterval(timeout: number, options?: IEmitOptions): SubEvent<
  *
  * The event is parameterized with its shared counter.
  */
-export function fromSharedInterval(timeout: number, options?: IEmitOptions): SubEvent<number> {
+export function fromSharedInterval(timeout: number, options?: IEmitOptions): SubEventCount<number> {
     const sec: SubEventCount<number> = new SubEventCount();
     let timer: any, count = 0; // shared event counter
     sec.onCount.subscribe(info => {
