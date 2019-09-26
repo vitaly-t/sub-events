@@ -1,7 +1,7 @@
 Extras
 ------
 
-Extra recipes for creating [SubEvent] from popular hot observables. They are all available
+Extra recipes for creating [SubEvent] from popular event sources. They are all available
 from sub-path `sub-events/ext`, or via individual files, if you want to bundle them based on usage.
 
 These represent essential examples of wrapping well-known types of events, based on which you can
@@ -24,7 +24,9 @@ const sub = onClick.subscribe((e:Event) => {
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-And to share events across all subscribers, use `shareEvent` instead.
+
+And to share the event among subscribers, simply replace `fromEvent` with `shareEvent`.
+
 </details>
 
 <details>
@@ -47,7 +49,9 @@ e.emit('receive', 1, 2, 3); // source emitter sends data
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-And to share events across all subscribers, use `shareEmitter` instead.
+
+And to share the event among subscribers, simply replace `fromEmitter` with `shareEmitter`.
+
 </details>
 
 <details>
@@ -66,7 +70,9 @@ const sub = onInterval.subscribe((count: number) => {
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-And to share events across all subscribers, use `shareInterval` instead.
+
+And to share the event among subscribers, simply replace `fromInterval` with `shareInterval`.
+
 </details>
 
 <details>
@@ -92,7 +98,7 @@ All that function `fromTimeout` does - creates and returns class `TimeoutEvent`,
 which means you can do the same:
 
 ```ts
-const onTimeout = new TimeoutEvent(1000); // creating 1-second timeout event
+const onTimeout = new TimeoutEvent(1000); // the same result
 ```
 
 </details>

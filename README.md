@@ -6,7 +6,7 @@
 Lightweight, strongly-typed events, with monitored subscriptions. 
 
 * Documentation: [API] + [WiKi].
-* Supports all existing events - see [Extras]. 
+* Compatible with all existing events - see [Extras]. 
 
 ## Install
 
