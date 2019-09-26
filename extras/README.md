@@ -5,11 +5,11 @@ Extra recipes for creating [SubEvent] from popular hot observables:
 
 <details>
 <summary><b>From DOM Event</b></summary>
-
+<br/>
 Implemented in [src/from-event].
 
 ```ts
-import {fromEvent} from 'sub-events/ext';
+import {fromEvent, fromSharedEvent} from 'sub-events/ext';
 
 const onClick = fromEvent(document, 'click'); // creating 'click' event
 
@@ -19,15 +19,16 @@ const sub = onClick.subscribe((e:Event) => {
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
+And to share the event across all subscribers, use `fromSharedEvent` instead.
 </details>
 
 <details>
 <summary><b>From EventEmitter</b></summary>
-
+<br/>
 Implemented in [src/from-emitter].
 
 ```ts
-import {fromEmitter} from 'sub-events/ext';
+import {fromEmitter, fromSharedEmitter} from 'sub-events/ext';
 
 const e = new EventEmitter(); // our test emitter
 
@@ -41,11 +42,12 @@ e.emit('receive', 1, 2, 3); // source emitter sends data
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
+And to share the event across all subscribers, use `fromSharedEmitter` instead.
 </details>
 
 <details>
 <summary><b>From Interval</b></summary>
-
+<br/>
 Implemented in [src/from-interval].
 
 ```ts
@@ -59,11 +61,12 @@ const sub = onInterval.subscribe((count: number) => {
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
+And to share the event across all subscribers, use `fromSharedInterval` instead.
 </details>
 
 <details>
 <summary><b>From Timeout</b></summary>
-
+<br/>
 Implemented in [src/from-timeout].
 
 ```ts
@@ -82,11 +85,8 @@ sub.cancel();
 </details>
 
 
-[WiKi]:https://github.com/vitaly-t/sub-events/wiki
 [src/from-timeout]:./src/from-timeout.ts
 [src/from-interval]:./src/from-interval.ts
 [src/from-emitter]:./src/from-emitter.ts
 [src/from-event]:./src/from-event.ts
-[EventEmitter]:https://nodejs.org/api/events.html#events_class_eventemitter
-[Event]:https://developer.mozilla.org/en-US/docs/Web/API/Event
 [SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
