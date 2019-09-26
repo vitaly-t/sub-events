@@ -1,4 +1,4 @@
-export {fromEvent, fromSharedEvent} from './from-event';
-export {fromEmitter, fromSharedEmitter} from './from-emitter';
-export {fromInterval, fromSharedInterval} from './from-interval';
+export {fromEvent, shareEvent} from './from-event';
+export {fromEmitter, shareEmitter} from './from-emitter';
+export {fromInterval, shareInterval} from './from-interval';
 export {TimeoutEvent, fromTimeout} from './from-timeout';

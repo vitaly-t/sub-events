@@ -22,7 +22,7 @@ export function fromEvent(source: Node, event: string, options?: IEmitOptions): 
  * - we call `addEventListener` whenever the first subscriber has been registered;
  * - we call `removeEventListener` after the last subscription has been cancelled.
  */
-export function fromSharedEvent(source: Node, event: string, options?: IEmitOptions): SubEventCount<Event> {
+export function shareEvent(source: Node, event: string, options?: IEmitOptions): SubEventCount<Event> {
     const sec: SubEventCount<Event> = new SubEventCount();
     const handler: EventListener = e => sec.emit(e, options);
     sec.onCount.subscribe(info => {

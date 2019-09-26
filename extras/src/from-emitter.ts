@@ -29,7 +29,7 @@ export function fromEmitter(source: EventEmitter, event: string | symbol, option
  * Variable number of arguments emitted with the event become an array
  * of values when they arrive into `subscribe` callback function.
  */
-export function fromSharedEmitter(source: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<any[]> {
+export function shareEmitter(source: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<any[]> {
     const sec: SubEventCount<any[]> = new SubEventCount();
     const handler = (...args: any[]) => sec.emit(args, options);
     sec.onCount.subscribe(info => {
