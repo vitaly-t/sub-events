@@ -9,6 +9,6 @@
   "excludeNotExported": true,
   "disableOutputCheck": true,
   "exclude": [
-    "./examples/*.ts"
+    "./extras/**/*.ts"
   ]
 }
