@@ -14,7 +14,7 @@ easily do the same for any other type of event or resource in your project.
 Implemented in [src/from-event].
 <br/>
 ```ts
-import {fromEvent, shareEvent} from 'sub-events/ext';
+import {fromEvent} from 'sub-events/ext';
 
 const onClick = fromEvent(document, 'click'); // creating 'click' event
 
@@ -25,7 +25,8 @@ const sub = onClick.subscribe((e:Event) => {
 sub.cancel(); // cancel subscription when no longer needed
 ```
 
-And to share the event among subscribers, simply replace `fromEvent` with `shareEvent`.
+* To share the event among subscribers, simply replace `fromEvent` with `shareEvent`.
+* You can also specify template type for `fromEvent` and `shareEvent` when needed.
 
 </details>
 
@@ -35,22 +36,23 @@ And to share the event among subscribers, simply replace `fromEvent` with `share
 Implemented in [src/from-emitter].
 <br/>
 ```ts
-import {fromEmitter, shareEmitter} from 'sub-events/ext';
+import {fromEmitter} from 'sub-events/ext';
 
 const e = new EventEmitter(); // our test emitter
 
-const onReceive = fromEmitter(e, 'receive'); // creating 'receive' event
+const onReceive = fromEmitter<string>(e, 'receive'); // creating 'receive' event
 
-const sub = onReceive.subscribe(([one, two, three]) => {
-    // will get one = 1, two = 2, three = 3
+const sub = onReceive.subscribe((message: string) => {
+    // message = 'hello!'
 });
 
-e.emit('receive', 1, 2, 3); // source emitter sends data
+e.emit('receive', 'hello!'); // source emitter sends data
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
 
-And to share the event among subscribers, simply replace `fromEmitter` with `shareEmitter`.
+* To share the event among subscribers, simply replace `fromEmitter` with `shareEmitter`.
+* To support complete list of event arguments, see `fromEmitterArgs` and `shareEmitterArgs`.
 
 </details>
 
@@ -60,7 +62,7 @@ And to share the event among subscribers, simply replace `fromEmitter` with `sha
 Implemented in [src/from-interval].
 <br/>
 ```ts
-import {fromInterval, shareInterval} from 'sub-events/ext';
+import {fromInterval} from 'sub-events/ext';
 
 const onInterval = fromInterval(1000); // creating 1-second interval event
 
