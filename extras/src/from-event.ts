@@ -5,16 +5,16 @@ import {SubEvent, ISubContext, SubEventCount, IEmitOptions} from '../../src';
  * - every `subscribe` results in immediate `addEventListener` call;
  * - every `cancel` results in immediate `removeEventListener` call.
  */
-export function fromEvent(source: Node, event: string, options?: IEmitOptions): SubEvent<Event> {
-    const onSubscribe = (ctx: ISubContext<Event>) => {
-        const handler: EventListener = e => ctx.event.emit(e, options);
+export function fromEvent<T extends Event>(source: Node, event: string, options?: IEmitOptions): SubEvent<T> {
+    const onSubscribe = (ctx: ISubContext<T>) => {
+        const handler: EventListener = e => ctx.event.emit(<T>e, options);
         source.addEventListener(event, handler, false);
         ctx.data = handler; // context for the event's lifecycle
     };
-    const onCancel = (ctx: ISubContext<Event>) => {
+    const onCancel = (ctx: ISubContext<T>) => {
         source.removeEventListener(event, <EventListener>ctx.data, false);
     };
-    return new SubEvent<Event>({onSubscribe, onCancel});
+    return new SubEvent<T>({onSubscribe, onCancel});
 }
 
 /**
@@ -22,9 +22,9 @@ export function fromEvent(source: Node, event: string, options?: IEmitOptions): 
  * - we call `addEventListener` whenever the first subscriber has been registered;
  * - we call `removeEventListener` after the last subscription has been cancelled.
  */
-export function shareEvent(source: Node, event: string, options?: IEmitOptions): SubEventCount<Event> {
-    const sec: SubEventCount<Event> = new SubEventCount();
-    const handler: EventListener = e => sec.emit(e, options);
+export function shareEvent<T extends Event>(source: Node, event: string, options?: IEmitOptions): SubEventCount<T> {
+    const sec: SubEventCount<T> = new SubEventCount();
+    const handler: EventListener = e => sec.emit(<T>e, options);
     sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left
