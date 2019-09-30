@@ -1,7 +1,7 @@
 import {SubEvent, ISubContext, SubEventCount, IEmitOptions} from '../../src';
 
 /**
- * Example of 1-to-1 DOM `Event` wrapping:
+ * Example of 1-to-1 generic `Event` wrapping:
  * - every `subscribe` results in immediate `addEventListener` call;
  * - every `cancel` results in immediate `removeEventListener` call.
  */
@@ -18,7 +18,7 @@ export function fromEvent<T extends Event>(source: Node, event: string, options?
 }
 
 /**
- * Example of sharing an Event, based on the subscription count:
+ * Example of sharing a generic Event, based on the subscription count:
  * - we call `addEventListener` whenever the first subscriber has been registered;
  * - we call `removeEventListener` after the last subscription has been cancelled.
  */
