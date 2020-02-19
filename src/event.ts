@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -256,7 +256,7 @@ export class SubEvent<T = unknown> {
             // Subscription replaces it with actual cancellation
         };
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
-        const name = options && options.name;
+        const name = options?.name;
         const sub: ISubscriber<T> = {event: this, data: undefined, cb, cancel, name};
         if (typeof this.options.onSubscribe === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
@@ -281,9 +281,9 @@ export class SubEvent<T = unknown> {
      * Number of subscribers to receive the data.
      */
     public emit(data: T, options?: IEmitOptions): number {
-        const schedule: EmitSchedule = (options && options.schedule) || EmitSchedule.sync;
-        const onFinished = options && typeof options.onFinished === 'function' && options.onFinished;
-        const onError = options && typeof options.onError === 'function' && options.onError;
+        const schedule: EmitSchedule = options?.schedule ?? EmitSchedule.sync;
+        const onFinished = typeof options?.onFinished === 'function' && options.onFinished;
+        const onError = typeof options?.onError === 'function' && options.onError;
         const start = schedule === EmitSchedule.next ? SubEvent._callNext : SubEvent._callNow;
         const middle = schedule === EmitSchedule.async ? SubEvent._callNext : SubEvent._callNow;
         const r = this._getRecipients();
@@ -292,7 +292,7 @@ export class SubEvent<T = unknown> {
                 if (onError) {
                     try {
                         const res = sub.cb && sub.cb(data);
-                        if (res && typeof res.catch === 'function') {
+                        if (typeof res?.catch === 'function') {
                             res.catch((err: any) => onError(err, sub.name));
                         }
                     } catch (e) {
@@ -328,7 +328,7 @@ export class SubEvent<T = unknown> {
      * It can only be set with the [[constructor]].
      */
     public get maxSubs(): number {
-        return this.options.maxSubs || 0;
+        return this.options.maxSubs ?? 0;
     }
 
     /**
@@ -357,7 +357,7 @@ export class SubEvent<T = unknown> {
                 stat.unnamed++;
             }
         });
-        const minUse = (options && options.minUse) || 0;
+        const minUse = options?.minUse ?? 0;
         if (minUse > 1) {
             for (const a in stat.named) {
                 if (stat.named[a] < minUse) {

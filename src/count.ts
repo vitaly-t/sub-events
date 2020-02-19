@@ -56,7 +56,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
      */
     constructor(options?: ICountOptions<T>) {
         super(options);
-        const eo = options && options.emitOptions;
+        const eo = options?.emitOptions;
         this._notify = (data: ISubCountChange) => this.onCount.emit(data, eo);
     }
 
