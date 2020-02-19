@@ -231,7 +231,7 @@ export class SubEvent<T = unknown> {
      * Configuration Options.
      */
     constructor(options?: IEventOptions<T>) {
-        this.options = options || {};
+        this.options = options ?? {};
     }
 
     /**
