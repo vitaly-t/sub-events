@@ -2,7 +2,7 @@ import {Subscription} from './sub';
 
 /**
  * Schedule for emitting / broadcasting data to subscribers, to be used by method [[emit]].
- * It represents a concurrency strategy for delivering event data to subscribers.
+ * It represents a concurrency strategy for delivering event to subscribers.
  */
 export enum EmitSchedule {
 
@@ -33,7 +33,7 @@ export enum EmitSchedule {
  */
 export interface IEmitOptions {
     /**
-     * Event emitting schedule. Default is `sync`.
+     * Event-emitting schedule. Default is `sync`.
      */
     schedule?: EmitSchedule;
 
@@ -275,7 +275,7 @@ export class SubEvent<T = unknown> {
      * Data to be sent, according to the type template.
      *
      * @param options
-     * Event emitting options.
+     * Event-emitting options.
      *
      * @returns
      * Number of subscribers to receive the data.

@@ -16,7 +16,7 @@ npm i sub-events
 
 ## Usage
 
-* On provider side:
+* On event-provider side:
 
 ```ts
 import {SubEvent} from 'sub-events';
@@ -30,7 +30,7 @@ e.emit('hello');
 
 **API:** [SubEvent], [emit]
 
-* On consumer side:
+* On event-consumer side:
 
 ```ts
 // subscribing to the event:
