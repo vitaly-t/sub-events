@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -291,7 +291,7 @@ export class SubEvent<T = unknown> {
             r.forEach((sub, index) => middle(() => {
                 if (onError) {
                     try {
-                        const res = sub.cb && sub.cb(data);
+                        const res = sub.cb?.(data);
                         if (typeof res?.catch === 'function') {
                             res.catch((err: any) => onError(err, sub.name));
                         }
@@ -299,9 +299,7 @@ export class SubEvent<T = unknown> {
                         onError(e, sub.name);
                     }
                 } else {
-                    if (sub.cb) {
-                        sub.cb(data);
-                    }
+                    sub.cb?.(data);
                 }
                 if (onFinished && index === r.length - 1) {
                     onFinished(r.length); // finished sending
