@@ -79,7 +79,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     }
 
     /**
-     * Overrides base implementation to trigger event [[onCount]] during
+     * Overrides base implementation, to trigger event [[onCount]] during
      * `subscribe` and `cancel` calls.
      * @hidden
      */
