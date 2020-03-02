@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-        async = 'async',
+    async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -231,6 +231,9 @@ export class SubEvent<T = unknown> {
      * Configuration Options.
      */
     constructor(options?: IEventOptions<T>) {
+        if (typeof (options ?? {}) !== 'object') {
+            throw new TypeError(errInvalidOptions);
+        }
         this.options = options ?? {};
     }
 
@@ -251,6 +254,9 @@ export class SubEvent<T = unknown> {
      * Object for cancelling the subscription safely.
      */
     public subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
+        if (typeof (options ?? {}) !== 'object') {
+            throw new TypeError(errInvalidOptions);
+        }
         // istanbul ignore next
         const cancel = () => {
             // Subscription replaces it with actual cancellation
@@ -281,11 +287,14 @@ export class SubEvent<T = unknown> {
      * Number of subscribers to receive the data.
      */
     public emit(data: T, options?: IEmitOptions): number {
+        if (typeof (options ?? {}) !== 'object') {
+            throw new TypeError(errInvalidOptions);
+        }
         const schedule: EmitSchedule = options?.schedule ?? EmitSchedule.sync;
         const onFinished = typeof options?.onFinished === 'function' && options.onFinished;
         const onError = typeof options?.onError === 'function' && options.onError;
-        const start = schedule === EmitSchedule.next ? SubEvent._callNext : SubEvent._callNow;
-        const middle = schedule === EmitSchedule.async ? SubEvent._callNext : SubEvent._callNow;
+        const start = schedule === EmitSchedule.next ? callNext : callNow;
+        const middle = schedule === EmitSchedule.async ? callNext : callNow;
         const r = this._getRecipients();
         start(() => {
             r.forEach((sub, index) => middle(() => {
@@ -435,17 +444,13 @@ export class SubEvent<T = unknown> {
             this.options.onCancel(ctx);
         }
     }
-
-    // istanbul ignore next: we are not auto-testing in the browser
-    /**
-     * For compatibility with web browsers.
-     *
-     * @hidden
-     */
-    protected static _callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
-
-    /**
-     * @hidden
-     */
-    protected static _callNow = (callback: Function) => callback();
 }
+
+const errInvalidOptions = `Invalid "options" parameter.`;
+
+// istanbul ignore next: we are not auto-testing in the browser
+/**
+ * For compatibility with web browsers.
+ */
+const callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
+const callNow = (callback: Function) => callback();

@@ -4,7 +4,14 @@ import {EmitSchedule, ISubContext, SubEvent} from '../src';
 const dummy = () => {
 };
 
+const errInvalidOptions = `Invalid "options" parameter.`;
+
 describe('SubEvent', () => {
+    it('must throw on invalid options', () => {
+        expect(() => {
+            new SubEvent(0 as any);
+        }).to.throw(errInvalidOptions);
+    });
     it('must initialize correctly', () => {
         const a = new SubEvent();
         expect(a.count).to.eq(0);
@@ -234,6 +241,25 @@ describe('SubEvent', () => {
             expect(res).to.be.null;
         });
     });
+
+    describe('subscribe', () => {
+        it('must throw on invalid options', () => {
+            const s = new SubEvent();
+            expect(() => {
+                s.subscribe(dummy, 0 as any);
+            }).to.throw(errInvalidOptions);
+        });
+    });
+
+    describe('emit', () => {
+        it('must throw on invalid options', () => {
+            const s = new SubEvent();
+            expect(() => {
+                s.emit(null, 0 as any);
+            }).to.throw(errInvalidOptions);
+        });
+    });
+
     describe('cancelAll', () => {
         it('must cancel all current subscriptions', () => {
             const received: string[] = [];
