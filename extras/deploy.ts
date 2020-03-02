@@ -1,21 +1,22 @@
 /*
-* Deployment script for all the extras.
+* Deployment script for Extras.
 */
 
-import * as fs from 'fs';
-import * as path from 'path';
+import {existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync} from 'fs';
+import {join} from 'path';
 
-const srcFolder = path.join(__dirname, '../deploy/extras/src');
-const destFolder = path.join(__dirname, '../ext');
+const srcFolder = join(__dirname, '../deploy/extras/src');
+const destFolder = join(__dirname, '../ext');
 
-if (!fs.existsSync(destFolder)) {
-    fs.mkdirSync(destFolder);
+if (!existsSync(destFolder)) {
+    mkdirSync(destFolder);
 }
 
-fs.readdirSync(srcFolder).forEach(f => {
+readdirSync(srcFolder).forEach(f => {
     if (f.endsWith('.d.ts') || f.endsWith('.js')) {
-        const text = fs.readFileSync(path.join(srcFolder, f)).toString()
+        const text = readFileSync(join(srcFolder, f)).toString()
             .replace(/\.\.\/\.\.\/src/g, '\.\.\/dist\/src');
-        fs.writeFileSync(path.join(destFolder, f), text);
+
+        writeFileSync(join(destFolder, f), text);
     }
 });

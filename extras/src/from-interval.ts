@@ -15,7 +15,7 @@ export function fromInterval(timeout: number, options?: IEmitOptions): SubEvent<
         }, timeout);
     };
     const onCancel = (ctx: ISubContext<number>) => {
-        clearInterval(<any>ctx.data);
+        clearInterval(ctx.data);
     };
     return new SubEvent<number>({onSubscribe, onCancel});
 }

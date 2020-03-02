@@ -88,7 +88,7 @@ export interface ISubContext<T = unknown> {
      * Unknown-type data to let event wrappers persist any
      * context they need within the event's lifecycle.
      */
-    data: unknown;
+    data?: any;
 }
 
 /**
@@ -257,7 +257,7 @@ export class SubEvent<T = unknown> {
         };
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
         const name = options?.name;
-        const sub: ISubscriber<T> = {event: this, data: undefined, cb, cancel, name};
+        const sub: ISubscriber<T> = {event: this, cb, cancel, name};
         if (typeof this.options.onSubscribe === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
             this.options.onSubscribe(ctx);

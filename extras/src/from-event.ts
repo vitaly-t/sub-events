@@ -12,7 +12,7 @@ export function fromEvent<T extends Event>(target: EventTarget, event: string, o
         ctx.data = handler; // context for the event's lifecycle
     };
     const onCancel = (ctx: ISubContext<T>) => {
-        target.removeEventListener(event, <EventListener>ctx.data, false);
+        target.removeEventListener(event, ctx.data, false);
     };
     return new SubEvent<T>({onSubscribe, onCancel});
 }

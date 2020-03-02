@@ -16,7 +16,7 @@ export function fromEmitter<T = unknown>(target: EventEmitter, event: string | s
         ctx.data = handler; // context for the event's lifecycle
     };
     const onCancel = (ctx: ISubContext<T>) => {
-        target.removeListener(event, <() => void>ctx.data);
+        target.removeListener(event, ctx.data);
     };
     return new SubEvent<T>({onSubscribe, onCancel});
 }
@@ -36,7 +36,7 @@ export function fromEmitterArgs(target: EventEmitter, event: string | symbol, op
         ctx.data = handler; // context for the event's lifecycle
     };
     const onCancel = (ctx: ISubContext<any[]>) => {
-        target.removeListener(event, <() => void>ctx.data);
+        target.removeListener(event, ctx.data);
     };
     return new SubEvent<any[]>({onSubscribe, onCancel});
 }
