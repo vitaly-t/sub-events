@@ -33,7 +33,7 @@ describe('SubEvent', () => {
         });
         a.emit(1, {schedule: EmitSchedule.async});
         a.emit(2, {schedule: EmitSchedule.async});
-        a.emit(3, {schedule: EmitSchedule.async});
+        a.emit(3, {schedule: EmitSchedule.async, onError: dummy});
         setTimeout(() => {
             expect(values).to.eql([1]);
             done();
