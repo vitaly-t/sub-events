@@ -257,13 +257,9 @@ export class SubEvent<T = unknown> {
         if (typeof (options ?? {}) !== 'object') {
             throw new TypeError(errInvalidOptions);
         }
-        // istanbul ignore next
-        const cancel = () => {
-            // Subscription replaces it with actual cancellation
-        };
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
         const name = options?.name;
-        const sub: ISubscriber<T> = {event: this, cb, cancel, name};
+        const sub: ISubscriber<T> = {event: this, cb, cancel: null as any, name};
         if (typeof this.options.onSubscribe === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
             this.options.onSubscribe(ctx);
@@ -392,8 +388,7 @@ export class SubEvent<T = unknown> {
         this._subs.length = 0;
         if (onCancel) {
             copy.forEach(c => {
-                const ctx: ISubContext<T> = {event: c.event, name: c.name, data: c.data};
-                onCancel(ctx);
+                onCancel({event: c.event, name: c.name, data: c.data});
             });
         }
         return n;
