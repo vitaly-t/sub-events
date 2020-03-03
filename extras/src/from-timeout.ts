@@ -24,7 +24,7 @@ export class TimeoutEvent extends SubEvent<void> {
             }, timeout);
         };
         const onCancel = (ctx: ISubContext<void>) => {
-            clearInterval(ctx.data);
+            clearTimeout(ctx.data);
         };
         super({onSubscribe, onCancel});
     }
