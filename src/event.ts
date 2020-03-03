@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -390,6 +390,47 @@ export class SubEvent<T = unknown> {
             });
         }
         return n;
+    }
+
+    /**
+     * Creates a new subscription as a promise, to resolve with the next received value,
+     * and cancel the subscription.
+     *
+     * @param options
+     * Subscription options:
+     *
+     * - `name` - for the internal subscription name. See `name` in [[ISubOptions]].
+     *
+     * - `timeout` - sets timeout, to auto-reject with `Event timed out` error.
+     *    If not specified, and no event happens, the returned promise will never resolve.
+     */
+    public toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
+        if (typeof (options ?? {}) !== 'object') {
+            throw new TypeError(Stat.errInvalidOptions);
+        }
+        const {name, timeout} = options || {};
+        let timer: any;
+        return new Promise((resolve, reject) => {
+            const sub = this.subscribe(data => {
+                if (timer) {
+                    clearTimeout(timer);
+                }
+                sub.cancel();
+                resolve(data);
+            }, {name});
+            if (typeof timeout === 'number') {
+                timer = setTimeout(() => {
+                    let errMsg;
+                    if (sub.live) {
+                        sub.cancel();
+                        errMsg = name ? `Event "${name}" timed out.` : `Event timed out.`;
+                    } else {
+                        errMsg = name ? `Event "${name}" cancelled.` : `Event cancelled.`;
+                    }
+                    reject(new Error(errMsg));
+                }, timeout);
+            }
+        });
     }
 
     /**
