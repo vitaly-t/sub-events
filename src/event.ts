@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -395,6 +395,9 @@ export class SubEvent<T = unknown> {
     /**
      * Creates a new subscription as a promise, to resolve with the next received value,
      * and cancel the subscription. It can only reject when option `timeout` is specified.
+     *
+     * Note that if you use this method in a loop, it can miss events, as the subscription
+     * is cancelled after receiving the first event.
      *
      * @param options
      * Subscription options:
