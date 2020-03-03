@@ -2,12 +2,9 @@ import {IEmitOptions, SubEventCount} from '../../src';
 import {EventEmitter} from 'events';
 
 /**
- * Example of sharing a generic EventEmitter, based on the subscription count:
- * - we call `addListener` whenever the first subscriber has been registered;
- * - we call `removeListener` after the last subscription has been cancelled.
+ * Creates event from emitter, for one-argument, strongly-typed events.
  *
- * This wrapper is simplified to support only the first emitted argument,
- * type for which therefore can be specified, for strongly-typed events.
+ * If your event takes multiple arguments, see fromEmitterArgs below.
  */
 export function fromEmitter<T = unknown>(target: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<T> {
     const sec: SubEventCount<T> = new SubEventCount();
@@ -27,12 +24,9 @@ export function fromEmitter<T = unknown>(target: EventEmitter, event: string | s
 }
 
 /**
- * Example of sharing a generic EventEmitter, based on the subscription count:
- * - we call `addListener` whenever the first subscriber has been registered;
- * - we call `removeListener` after the last subscription has been cancelled.
+ * Creates event from emitter, for multi-argument, any-type events.
  *
- * It supports full array of arguments emitted with the event,
- * which are then passed into the handler as an array of values.
+ * The emitted arguments are passed into the handler as an array.
  */
 export function fromEmitterArgs(target: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<any[]> {
     const sec: SubEventCount<any[]> = new SubEventCount();
