@@ -25,9 +25,6 @@ const sub = onClick.subscribe((e:Event) => {
 sub.cancel(); // cancel subscription when no longer needed
 ```
 
-* To share the event among subscribers, simply replace `fromEvent` with `shareEvent`.
-* You can also specify template type for `fromEvent` and `shareEvent` when needed.
-
 </details>
 
 <details>
@@ -51,9 +48,6 @@ e.emit('receive', 'hello!'); // source emitter sends data
 sub.cancel(); // cancel subscription when no longer needed
 ```
 
-* To share the event among subscribers, simply replace `fromEmitter` with `shareEmitter`.
-* To support complete list of event arguments, see `fromEmitterArgs` and `shareEmitterArgs`.
-
 </details>
 
 <details>
@@ -72,8 +66,6 @@ const sub = onInterval.subscribe((count: number) => {
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-
-And to share the event among subscribers, simply replace `fromInterval` with `shareInterval`.
 
 </details>
 

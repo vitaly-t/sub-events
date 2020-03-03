@@ -1,24 +1,4 @@
-import {IEmitOptions, ISubContext, SubEvent, SubEventCount} from '../../src';
-
-/**
- * Example of 1-to-1 time interval wrapping:
- * - every `subscribe` results in `setInterval` call;
- * - every `cancel` results in `clearInterval` call.
- *
- * The event is parameterized with its counter.
- */
-export function fromInterval(timeout: number, options?: IEmitOptions): SubEvent<number> {
-    let count = 0; // event counter
-    const onSubscribe = (ctx: ISubContext<number>) => {
-        ctx.data = setInterval(() => {
-            ctx.event.emit(++count, options);
-        }, timeout);
-    };
-    const onCancel = (ctx: ISubContext<number>) => {
-        clearInterval(ctx.data);
-    };
-    return new SubEvent<number>({onSubscribe, onCancel});
-}
+import {IEmitOptions, SubEventCount} from '../../src';
 
 /**
  * Example of sharing a time interval, based on the subscription count:
@@ -27,7 +7,7 @@ export function fromInterval(timeout: number, options?: IEmitOptions): SubEvent<
  *
  * The event is parameterized with its shared counter.
  */
-export function shareInterval(timeout: number, options?: IEmitOptions): SubEventCount<number> {
+export function fromInterval(timeout: number, options?: IEmitOptions): SubEventCount<number> {
     const sec: SubEventCount<number> = new SubEventCount();
     let timer: any, count = 0; // shared event counter
     sec.onCount.subscribe(info => {
