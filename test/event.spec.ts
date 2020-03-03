@@ -319,4 +319,72 @@ describe('SubEvent', () => {
             });
         });
     });
+    describe('toPromise', () => {
+        it('must throw on invalid options', () => {
+            const a = new SubEvent();
+            expect(() => {
+                a.toPromise(0 as any);
+            }).to.throw(errInvalidOptions);
+        });
+        it('must resolve normally', async () => {
+            const a = new SubEvent<number>();
+            setTimeout(() => {
+                a.emit(123);
+            });
+            expect(await a.toPromise()).to.equal(123);
+        });
+        it('must resolve when before timeout', async () => {
+            const a = new SubEvent<number>();
+            setTimeout(() => {
+                a.emit(456);
+            });
+            expect(await a.toPromise({timeout: 10})).to.equal(456);
+        });
+        it('must reject on timeout', async () => {
+            const a = new SubEvent<number>();
+            let err;
+            try {
+                await a.toPromise({timeout: 0});
+            } catch (e) {
+                err = e;
+            }
+            expect(err && err.message).to.equal('Event timed out.');
+        });
+        it('must reject on timeout, with name', async () => {
+            const a = new SubEvent<number>();
+            let err;
+            try {
+                await a.toPromise({name: 'first', timeout: 0});
+            } catch (e) {
+                err = e;
+            }
+            expect(err && err.message).to.equal('Event "first" timed out.');
+        });
+        it('must reject when cancelled', async () => {
+            const a = new SubEvent<number>();
+            let err;
+            try {
+                setTimeout(() => {
+                    a.cancelAll();
+                });
+                await a.toPromise({timeout: 10});
+            } catch (e) {
+                err = e;
+            }
+            expect(err && err.message).to.equal('Event cancelled.');
+        });
+        it('must reject when cancelled, with name', async () => {
+            const a = new SubEvent<number>();
+            let err;
+            try {
+                setTimeout(() => {
+                    a.cancelAll();
+                });
+                await a.toPromise({name: 'second', timeout: 10});
+            } catch (e) {
+                err = e;
+            }
+            expect(err && err.message).to.equal('Event "second" cancelled.');
+        });
+    });
 });

@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-        async = 'async',
+    async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -394,14 +394,18 @@ export class SubEvent<T = unknown> {
 
     /**
      * Creates a new subscription as a promise, to resolve with the next received value,
-     * and cancel the subscription.
+     * and cancel the subscription. It can only reject when option `timeout` is specified.
      *
      * @param options
      * Subscription options:
      *
      * - `name` - for the internal subscription name. See `name` in [[ISubOptions]].
+     *    In this context it is also reported with any rejection error.
      *
-     * - `timeout` - sets timeout, to auto-reject with `Event timed out` error.
+     * - `timeout` - sets timeout (ms), to auto-reject with `Event timed out` error.
+     *    But if the event was cancelled externally during that time, it rejects with
+     *    `Event cancelled` error.
+     *
      *    If not specified, and no event happens, the returned promise will never resolve.
      */
     public toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
