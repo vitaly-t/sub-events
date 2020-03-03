@@ -1,26 +1,24 @@
 import {IEmitOptions, SubEventCount} from '../../src';
 
 /**
- * Example of sharing a time interval, based on the subscription count:
- * - we call `setInterval` whenever the first subscriber has been registered;
- * - we call `clearInterval` after the last subscription has been cancelled.
+ * Creates a time-interval event:
  *
- * The event is parameterized with its shared counter.
+ * - The interval re-starts when the first subscriber registers;
+ * - The interval stops when the last subscription is cancelled.
  */
-export function fromInterval(timeout: number, options?: IEmitOptions): SubEventCount<number> {
-    const sec: SubEventCount<number> = new SubEventCount();
-    let timer: any, count = 0; // shared event counter
+export function fromInterval(timeout: number, options?: IEmitOptions): SubEventCount<void> {
+    const sec: SubEventCount<void> = new SubEventCount();
+    let timer: any;
     sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left
         if (start) {
             timer = setInterval(() => {
-                sec.emit(++count, options);
+                sec.emit(undefined, options);
             }, timeout);
         } else {
             if (stop) {
                 clearInterval(timer);
-                count = 0; // resetting shared counter
             }
         }
     });
