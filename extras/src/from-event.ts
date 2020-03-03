@@ -1,9 +1,7 @@
 import {SubEventCount, IEmitOptions} from '../../src';
 
 /**
- * Example of sharing a generic Event, based on the subscription count:
- * - we call `addEventListener` whenever the first subscriber has been registered;
- * - we call `removeEventListener` after the last subscription has been cancelled.
+ * Creates a strongly-typed, named DOM Event wrapper.
  */
 export function fromEvent<T extends Event>(target: EventTarget, event: string, options?: IEmitOptions): SubEventCount<T> {
     const sec: SubEventCount<T> = new SubEventCount();

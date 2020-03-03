@@ -60,7 +60,7 @@ import {fromInterval} from 'sub-events/ext';
 
 const onInterval = fromInterval(1000); // creating 1-second interval event
 
-const sub = onInterval.subscribe((count: number) => {
+const sub = onInterval.subscribe(() => {
     // handling the interval event
 });
 

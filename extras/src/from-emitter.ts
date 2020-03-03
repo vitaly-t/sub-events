@@ -2,7 +2,7 @@ import {IEmitOptions, SubEventCount} from '../../src';
 import {EventEmitter} from 'events';
 
 /**
- * Creates event from emitter, for one-argument, strongly-typed events.
+ * Creates a named event from emitter, for one-argument, strongly-typed events.
  *
  * If your event takes multiple arguments, see fromEmitterArgs below.
  */
@@ -24,7 +24,7 @@ export function fromEmitter<T = unknown>(target: EventEmitter, event: string | s
 }
 
 /**
- * Creates event from emitter, for multi-argument, any-type events.
+ * Creates a named event from emitter, for multi-argument, any-type events.
  *
  * The emitted arguments are passed into the handler as an array.
  */
