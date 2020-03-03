@@ -107,8 +107,7 @@ export interface IEventOptions<T> {
     maxSubs?: number;
 
     /**
-     * Notification of a new subscriber being registered,
-     * to allow implementation of 1-to-1 hot observables.
+     * Notification of a new subscriber being registered.
      *
      * ```js
      * (ctx: ISubContext<T>) => void;
@@ -120,8 +119,7 @@ export interface IEventOptions<T> {
     onSubscribe?: (ctx: ISubContext<T>) => void;
 
     /**
-     * Notification about a cancelled subscription,
-     * to allow implementation of 1-to-1 hot observables.
+     * Notification about a cancelled subscription.
      *
      * ```js
      * (ctx: ISubContext<T>) => void;
@@ -232,7 +230,7 @@ export class SubEvent<T = unknown> {
      */
     constructor(options?: IEventOptions<T>) {
         if (typeof (options ?? {}) !== 'object') {
-            throw new TypeError(errInvalidOptions);
+            throw new TypeError(Stat.errInvalidOptions);
         }
         this.options = options ?? {};
     }
@@ -255,7 +253,7 @@ export class SubEvent<T = unknown> {
      */
     public subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         if (typeof (options ?? {}) !== 'object') {
-            throw new TypeError(errInvalidOptions);
+            throw new TypeError(Stat.errInvalidOptions);
         }
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
         const name = options?.name;
@@ -284,13 +282,13 @@ export class SubEvent<T = unknown> {
      */
     public emit(data: T, options?: IEmitOptions): number {
         if (typeof (options ?? {}) !== 'object') {
-            throw new TypeError(errInvalidOptions);
+            throw new TypeError(Stat.errInvalidOptions);
         }
         const schedule: EmitSchedule = options?.schedule ?? EmitSchedule.sync;
         const onFinished = typeof options?.onFinished === 'function' && options.onFinished;
         const onError = typeof options?.onError === 'function' && options.onError;
-        const start = schedule === EmitSchedule.next ? callNext : callNow;
-        const middle = schedule === EmitSchedule.async ? callNext : callNow;
+        const start = schedule === EmitSchedule.next ? Stat.callNext : Stat.callNow;
+        const middle = schedule === EmitSchedule.async ? Stat.callNext : Stat.callNow;
         const r = this._getRecipients();
         start(() => {
             r.forEach((sub, index) => middle(() => {
@@ -441,11 +439,19 @@ export class SubEvent<T = unknown> {
     }
 }
 
-const errInvalidOptions = `Invalid "options" parameter.`;
-
-// istanbul ignore next: we are not auto-testing in the browser
 /**
- * For compatibility with web browsers.
+ * Static isolated methods and properties.
+ *
+ * @hidden
  */
-const callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
-const callNow = (callback: Function) => callback();
+class Stat {
+
+    static errInvalidOptions = `Invalid "options" parameter.`;
+
+    // istanbul ignore next: we are not auto-testing in the browser
+    /**
+     * For compatibility with web browsers.
+     */
+    static callNext = typeof process === 'undefined' ? setTimeout : process.nextTick;
+    static callNow = (callback: Function) => callback();
+}
