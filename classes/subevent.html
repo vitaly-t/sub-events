@@ -2728,7 +2728,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L429">event.ts:429</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L428">event.ts:428</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2736,8 +2736,11 @@ img {
 								<p>Creates a new subscription as a promise, to resolve with the next received value,
 								and cancel the subscription.</p>
 							</div>
-							<p>It rejects either when <a href="subevent.html#cancelall">cancelAll</a> in called on the event object, or when the timeout
-							has been reached (when set via option <code>timeout</code>).</p>
+							<p>The method can reject in two cases:</p>
+							<ul>
+								<li>when <a href="subevent.html#cancelall">cancelAll</a> in called on the event object, it rejects with <code>Event timed out</code> error;</li>
+								<li>when timeout reached (if set via option <code>timeout</code>), it rejects with <code>Event cancelled</code> error.</li>
+							</ul>
 							<p>Note that if you use this method consecutively, you can miss events in between,
 							because the subscription is auto-cancelled after receiving the first event.</p>
 						</div>
@@ -2751,9 +2754,7 @@ img {
 										<li><p><code>name</code> - for the internal subscription name. See <code>name</code> in <a href="../interfaces/isuboptions.html">ISubOptions</a>.
 											In this context it is also reported with any rejection error.</p>
 										</li>
-										<li><p><code>timeout</code> - sets timeout (ms), to auto-reject with <code>Event timed out</code> error.
-												But if <a href="subevent.html#cancelall">cancelAll</a> is called on the event, the method rejects with
-											<code>Event cancelled</code> error.</p>
+										<li><p><code>timeout</code> - sets timeout (ms), to auto-reject with <code>Event timed out</code> error.</p>
 										</li>
 									</ul>
 								</div>
