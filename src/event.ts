@@ -410,8 +410,9 @@ export class SubEvent<T = unknown> {
      * Creates a new subscription as a promise, to resolve with the next received value,
      * and cancel the subscription.
      *
-     * It rejects either when [[cancelAll]] in called on the event object, or when the timeout
-     * has been reached (when set via option `timeout`).
+     * The method can reject in two cases:
+     *  - when [[cancelAll]] in called on the event object, it rejects with `Event cancelled` error;
+     *  - when timeout reached (if set via option `timeout`), it rejects with `Event timed out` error.
      *
      * Note that if you use this method consecutively, you can miss events in between,
      * because the subscription is auto-cancelled after receiving the first event.
@@ -423,8 +424,6 @@ export class SubEvent<T = unknown> {
      *    In this context it is also reported with any rejection error.
      *
      * - `timeout` - sets timeout (ms), to auto-reject with `Event timed out` error.
-     *    But if [[cancelAll]] is called on the event, the method rejects with
-     *    `Event cancelled` error.
      */
     public toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
         if (typeof (options ?? {}) !== 'object') {
