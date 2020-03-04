@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -160,6 +160,11 @@ export interface ISubOptions {
      * ```
      */
     thisArg?: any;
+
+    /**
+     * Inline on-cancel notifier.
+     */
+    onCancel?: () => void;
 }
 
 /**
@@ -264,7 +269,17 @@ export class SubEvent<T = unknown> {
             sub.data = ctx.data;
         }
         this._subs.push(sub);
-        return new Subscription({cancel: this._createCancel(sub), sub});
+        let cancel = this._createCancel(sub);
+        if (typeof options?.onCancel === 'function') {
+            const notify = options.onCancel;
+            const cc = cancel;
+            cancel = () => {
+                console.log('### Cancelling:', options?.name);
+                cc();
+                notify();
+            };
+        }
+        return new Subscription({cancel, sub});
     }
 
     /**
@@ -416,25 +431,33 @@ export class SubEvent<T = unknown> {
             throw new TypeError(Stat.errInvalidOptions);
         }
         const {name, timeout} = options || {};
-        let timer: any;
+        let timer: any, finished = false;
         return new Promise((resolve, reject) => {
             const sub = this.subscribe(data => {
+                console.log('### OnData:', name);
+                finished = true;
                 if (timer) {
                     clearTimeout(timer);
                 }
                 sub.cancel();
                 resolve(data);
-            }, {name});
+            }, {
+                name, onCancel: () => {
+                    console.log('### OnCancel:', name);
+                    if (!finished) {
+                        if (timer) {
+                            clearTimeout(timer);
+                        }
+                        reject(new Error(name ? `Event "${name}" cancelled.` : `Event cancelled.`));
+                    }
+                }
+            });
             if (typeof timeout === 'number') {
                 timer = setTimeout(() => {
-                    let errMsg;
-                    if (sub.live) {
-                        sub.cancel();
-                        errMsg = name ? `Event "${name}" timed out.` : `Event timed out.`;
-                    } else {
-                        errMsg = name ? `Event "${name}" cancelled.` : `Event cancelled.`;
-                    }
-                    reject(new Error(errMsg));
+                    console.log('### OnTimeout:', name, finished);
+                    finished = true;
+                    sub.cancel();
+                    reject(new Error(name ? `Event "${name}" timed out.` : `Event timed out.`));
                 }, timeout);
             }
         });

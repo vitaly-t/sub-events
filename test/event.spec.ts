@@ -354,12 +354,12 @@ describe('SubEvent', () => {
             const a = new SubEvent<number>();
             let err;
             try {
-                await a.toPromise({name: 'first', timeout: 0});
+                await a.toPromise({name: 'first', timeout: 10});
             } catch (e) {
                 err = e;
             }
             expect(err && err.message).to.equal('Event "first" timed out.');
-        });
+        });/*
         it('must reject when cancelled', async () => {
             const a = new SubEvent<number>();
             let err;
@@ -374,17 +374,45 @@ describe('SubEvent', () => {
             expect(err && err.message).to.equal('Event cancelled.');
         });
         it('must reject when cancelled, with name', async () => {
-            const a = new SubEvent<number>();
+            const a = new SubEvent();
             let err;
             try {
                 setTimeout(() => {
                     a.cancelAll();
-                });
-                await a.toPromise({name: 'second', timeout: 10});
+                }, 10);
+                await a.toPromise({name: 'second', timeout: 1000});
             } catch (e) {
                 err = e;
             }
             expect(err && err.message).to.equal('Event "second" cancelled.');
+        });*/
+        it('must invoke onCancel when cancelled manually', done => {
+            const a = new SubEvent();
+            let invoked = 0;
+            const sub = a.subscribe(dummy, {
+                onCancel: () => {
+                    invoked++;
+                    done();
+                }
+            });
+            sub.cancel();
+            sub.cancel();
+            expect(invoked).to.equal(1);
         });
+
+        it('must invoke onCancel when all cancelled', done => {
+            const a = new SubEvent();
+            let invoked = 0;
+            a.subscribe(dummy, {
+                onCancel: () => {
+                    invoked++;
+                    done();
+                },
+                name: 'all-cancel-event'
+            });
+            a.cancelAll();
+            expect(invoked).to.equal(1);
+        });
+
     });
 });
