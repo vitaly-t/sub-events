@@ -261,25 +261,20 @@ export class SubEvent<T = unknown> {
             throw new TypeError(Stat.errInvalidOptions);
         }
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
+        const cancel = () => {
+            if (typeof options?.onCancel === 'function') {
+                options.onCancel();
+            }
+        };
         const name = options?.name;
-        const sub: ISubscriber<T> = {event: this, cb, cancel: null as any, name};
+        const sub: ISubscriber<T> = {event: this, cb, cancel, name};
         if (typeof this.options.onSubscribe === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
             this.options.onSubscribe(ctx);
             sub.data = ctx.data;
         }
         this._subs.push(sub);
-        let cancel = this._createCancel(sub);
-        if (typeof options?.onCancel === 'function') {
-            const notify = options.onCancel;
-            const cc = cancel;
-            cancel = () => {
-                console.log('### Cancelling:', options?.name);
-                cc();
-                notify();
-            };
-        }
-        return new Subscription({cancel, sub});
+        return new Subscription({cancel: this._createCancel(sub), sub});
     }
 
     /**
@@ -431,20 +426,18 @@ export class SubEvent<T = unknown> {
             throw new TypeError(Stat.errInvalidOptions);
         }
         const {name, timeout} = options || {};
-        let timer: any, finished = false;
+        let timer: any, selfCancel = false;
         return new Promise((resolve, reject) => {
             const sub = this.subscribe(data => {
-                console.log('### OnData:', name);
-                finished = true;
                 if (timer) {
                     clearTimeout(timer);
                 }
+                selfCancel = true;
                 sub.cancel();
                 resolve(data);
             }, {
                 name, onCancel: () => {
-                    console.log('### OnCancel:', name);
-                    if (!finished) {
+                    if (!selfCancel) {
                         if (timer) {
                             clearTimeout(timer);
                         }
@@ -454,8 +447,7 @@ export class SubEvent<T = unknown> {
             });
             if (typeof timeout === 'number') {
                 timer = setTimeout(() => {
-                    console.log('### OnTimeout:', name, finished);
-                    finished = true;
+                    selfCancel = true;
                     sub.cancel();
                     reject(new Error(name ? `Event "${name}" timed out.` : `Event timed out.`));
                 }, timeout);

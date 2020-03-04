@@ -1,4 +1,4 @@
-import {expect} from './';
+import {dummy, expect} from './';
 import {SubEvent} from '../src';
 
 describe('Subscription', () => {
@@ -18,5 +18,18 @@ describe('Subscription', () => {
         const res2 = sub.cancel();
         expect(res1).to.be.true;
         expect(res2).to.be.false;
+    });
+    it('must invoke onCancel once when specified', done => {
+        const a = new SubEvent();
+        let invoked = 0;
+        const sub = a.subscribe(dummy, {
+            onCancel: () => {
+                invoked++;
+                done();
+            }
+        });
+        sub.cancel();
+        sub.cancel();
+        expect(invoked).to.equal(1);
     });
 });

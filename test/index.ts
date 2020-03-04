@@ -7,4 +7,7 @@ chai.use(spies);
 const expect = chai.expect;
 const should = chai.should();
 
-export {describe, expect, should, chai};
+const dummy = () => {
+};
+
+export {describe, expect, should, chai, dummy};

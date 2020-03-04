@@ -1,8 +1,5 @@
-import {chai, expect} from './';
+import {chai, dummy, expect} from './';
 import {EmitSchedule, ISubContext, SubEvent} from '../src';
-
-const dummy = () => {
-};
 
 const errInvalidOptions = `Invalid "options" parameter.`;
 
@@ -287,6 +284,19 @@ describe('SubEvent', () => {
             a.cancelAll();
             expect(data).to.eq(123);
         });
+        it('must invoke onCancel once when specified', done => {
+            const a = new SubEvent();
+            let invoked = 0;
+            a.subscribe(dummy, {
+                onCancel: () => {
+                    invoked++;
+                    done();
+                }
+            });
+            a.cancelAll();
+            a.cancelAll();
+            expect(invoked).to.equal(1);
+        });
     });
     describe('getStat', () => {
         it('must report all subscriptions correctly', () => {
@@ -359,7 +369,7 @@ describe('SubEvent', () => {
                 err = e;
             }
             expect(err && err.message).to.equal('Event "first" timed out.');
-        });/*
+        });
         it('must reject when cancelled', async () => {
             const a = new SubEvent<number>();
             let err;
@@ -385,34 +395,6 @@ describe('SubEvent', () => {
                 err = e;
             }
             expect(err && err.message).to.equal('Event "second" cancelled.');
-        });*/
-        it('must invoke onCancel when cancelled manually', done => {
-            const a = new SubEvent();
-            let invoked = 0;
-            const sub = a.subscribe(dummy, {
-                onCancel: () => {
-                    invoked++;
-                    done();
-                }
-            });
-            sub.cancel();
-            sub.cancel();
-            expect(invoked).to.equal(1);
         });
-
-        it('must invoke onCancel when all cancelled', done => {
-            const a = new SubEvent();
-            let invoked = 0;
-            a.subscribe(dummy, {
-                onCancel: () => {
-                    invoked++;
-                    done();
-                },
-                name: 'all-cancel-event'
-            });
-            a.cancelAll();
-            expect(invoked).to.equal(1);
-        });
-
     });
 });
