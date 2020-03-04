@@ -2762,7 +2762,7 @@ img {
 						<aside class="tsd-sources">
 							<p>Inherited from <a href="subevent.html">SubEvent</a>.<a href="subevent.html#topromise">toPromise</a></p>
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L429">event.ts:429</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L433">event.ts:433</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2770,6 +2770,11 @@ img {
 								<p>Creates a new subscription as a promise, to resolve with the next received value,
 								and cancel the subscription.</p>
 							</div>
+							<p>Examples of where it can be useful include:</p>
+							<ul>
+								<li>verify that a fast-pace subscription keeps receiving data;</li>
+								<li>peek at fast-pace subscription data for throttled updates;</li>
+							</ul>
 							<p>The method can reject in two cases:</p>
 							<ul>
 								<li>when <a href="subeventcount.html#cancelall">cancelAll</a> in called on the event object, it rejects with <code>Event cancelled</code> error;</li>
