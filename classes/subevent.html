@@ -2504,7 +2504,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L222">event.ts:222</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L231">event.ts:231</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2537,7 +2537,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L318">event.ts:318</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L332">event.ts:332</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2559,7 +2559,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L331">event.ts:331</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L345">event.ts:345</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2588,7 +2588,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L378">event.ts:378</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L392">event.ts:392</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2611,7 +2611,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L283">event.ts:283</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L297">event.ts:297</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2650,7 +2650,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L348">event.ts:348</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L362">event.ts:362</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2687,7 +2687,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L254">event.ts:254</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L263">event.ts:263</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2728,14 +2728,16 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5248fce/src/event.ts#L414">event.ts:414</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/1b580d1/src/event.ts#L429">event.ts:429</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
 								<p>Creates a new subscription as a promise, to resolve with the next received value,
-								and cancel the subscription. It can only reject when option <code>timeout</code> is specified.</p>
+								and cancel the subscription.</p>
 							</div>
+							<p>It rejects either when <a href="subevent.html#cancelall">cancelAll</a> in called on the event object, or when the timeout
+							has been reached (when set via option <code>timeout</code>).</p>
 							<p>Note that if you use this method consecutively, you can miss events in between,
 							because the subscription is auto-cancelled after receiving the first event.</p>
 						</div>
@@ -2750,9 +2752,8 @@ img {
 											In this context it is also reported with any rejection error.</p>
 										</li>
 										<li><p><code>timeout</code> - sets timeout (ms), to auto-reject with <code>Event timed out</code> error.
-												But if the event was cancelled externally during that time, it rejects with
+												But if <a href="subevent.html#cancelall">cancelAll</a> is called on the event, the method rejects with
 											<code>Event cancelled</code> error.</p>
-											<p> If not specified, and no event happens, the returned promise will never resolve.</p>
 										</li>
 									</ul>
 								</div>
