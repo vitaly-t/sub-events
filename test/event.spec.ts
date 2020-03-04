@@ -370,7 +370,7 @@ describe('SubEvent', () => {
             }
             expect(err && err.message).to.equal('Event "first" timed out.');
         });
-        it('must reject when cancelled', async () => {
+        it('must reject when cancelled with timer', async () => {
             const a = new SubEvent<number>();
             let err;
             try {
@@ -383,6 +383,20 @@ describe('SubEvent', () => {
             }
             expect(err && err.message).to.equal('Event cancelled.');
         });
+        it('must reject when cancelled without timer', async () => {
+            const a = new SubEvent<number>();
+            let err;
+            try {
+                setTimeout(() => {
+                    a.cancelAll();
+                });
+                await a.toPromise();
+            } catch (e) {
+                err = e;
+            }
+            expect(err && err.message).to.equal('Event cancelled.');
+        });
+
         it('must reject when cancelled, with name', async () => {
             const a = new SubEvent();
             let err;
