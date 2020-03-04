@@ -160,6 +160,11 @@ export interface ISubOptions {
      * ```
      */
     thisArg?: any;
+
+    /**
+     * Subscription-cancel callback.
+     */
+    onCancel?: () => void;
 }
 
 /**
@@ -256,8 +261,13 @@ export class SubEvent<T = unknown> {
             throw new TypeError(Stat.errInvalidOptions);
         }
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
+        const cancel = () => {
+            if (typeof options?.onCancel === 'function') {
+                options.onCancel();
+            }
+        };
         const name = options?.name;
-        const sub: ISubscriber<T> = {event: this, cb, cancel: null as any, name};
+        const sub: ISubscriber<T> = {event: this, cb, name, cancel};
         if (typeof this.options.onSubscribe === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
             this.options.onSubscribe(ctx);
@@ -394,7 +404,10 @@ export class SubEvent<T = unknown> {
 
     /**
      * Creates a new subscription as a promise, to resolve with the next received value,
-     * and cancel the subscription. It can only reject when option `timeout` is specified.
+     * and cancel the subscription.
+     *
+     * It rejects either when [[cancelAll]] in called on the event object, or when the timeout
+     * has been reached (when set via option `timeout`).
      *
      * Note that if you use this method consecutively, you can miss events in between,
      * because the subscription is auto-cancelled after receiving the first event.
@@ -406,35 +419,37 @@ export class SubEvent<T = unknown> {
      *    In this context it is also reported with any rejection error.
      *
      * - `timeout` - sets timeout (ms), to auto-reject with `Event timed out` error.
-     *    But if the event was cancelled externally during that time, it rejects with
+     *    But if [[cancelAll]] is called on the event, the method rejects with
      *    `Event cancelled` error.
-     *
-     *    If not specified, and no event happens, the returned promise will never resolve.
      */
     public toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
         if (typeof (options ?? {}) !== 'object') {
             throw new TypeError(Stat.errInvalidOptions);
         }
         const {name, timeout} = options || {};
-        let timer: any;
+        let timer: any, selfCancel = false;
         return new Promise((resolve, reject) => {
+            const onCancel = () => {
+                if (!selfCancel) {
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                    reject(new Error(name ? `Event "${name}" cancelled.` : `Event cancelled.`));
+                }
+            };
             const sub = this.subscribe(data => {
                 if (timer) {
                     clearTimeout(timer);
                 }
+                selfCancel = true;
                 sub.cancel();
                 resolve(data);
-            }, {name});
+            }, {name, onCancel});
             if (typeof timeout === 'number') {
                 timer = setTimeout(() => {
-                    let errMsg;
-                    if (sub.live) {
-                        sub.cancel();
-                        errMsg = name ? `Event "${name}" timed out.` : `Event timed out.`;
-                    } else {
-                        errMsg = name ? `Event "${name}" cancelled.` : `Event cancelled.`;
-                    }
-                    reject(new Error(errMsg));
+                    selfCancel = true;
+                    sub.cancel();
+                    reject(new Error(name ? `Event "${name}" timed out.` : `Event timed out.`));
                 }, timeout);
             }
         });

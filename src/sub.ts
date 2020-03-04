@@ -19,11 +19,13 @@ export class Subscription {
     /**
      * @hidden
      */
-    constructor(init: { cancel: () => void, sub: { cancel?: () => void, name?: string } }) {
+    constructor(init: { cancel: () => void, sub: { cancel: () => void, name?: string } }) {
         this._cancel = init.cancel;
         this.name = init.sub.name;
+        const cc = init.sub.cancel;
         init.sub.cancel = () => {
             this._cancel = null;
+            cc();
         };
     }
 

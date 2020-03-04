@@ -1,8 +1,5 @@
-import {chai, expect} from './';
+import {chai, dummy, expect} from './';
 import {EmitSchedule, ISubContext, SubEvent} from '../src';
-
-const dummy = () => {
-};
 
 const errInvalidOptions = `Invalid "options" parameter.`;
 
@@ -287,6 +284,19 @@ describe('SubEvent', () => {
             a.cancelAll();
             expect(data).to.eq(123);
         });
+        it('must invoke onCancel once when specified', done => {
+            const a = new SubEvent();
+            let invoked = 0;
+            a.subscribe(dummy, {
+                onCancel: () => {
+                    invoked++;
+                    done();
+                }
+            });
+            a.cancelAll();
+            a.cancelAll();
+            expect(invoked).to.equal(1);
+        });
     });
     describe('getStat', () => {
         it('must report all subscriptions correctly', () => {
@@ -354,13 +364,13 @@ describe('SubEvent', () => {
             const a = new SubEvent<number>();
             let err;
             try {
-                await a.toPromise({name: 'first', timeout: 0});
+                await a.toPromise({name: 'first', timeout: 10});
             } catch (e) {
                 err = e;
             }
             expect(err && err.message).to.equal('Event "first" timed out.');
         });
-        it('must reject when cancelled', async () => {
+        it('must reject when cancelled with timer', async () => {
             const a = new SubEvent<number>();
             let err;
             try {
@@ -373,14 +383,28 @@ describe('SubEvent', () => {
             }
             expect(err && err.message).to.equal('Event cancelled.');
         });
-        it('must reject when cancelled, with name', async () => {
+        it('must reject when cancelled without timer', async () => {
             const a = new SubEvent<number>();
             let err;
             try {
                 setTimeout(() => {
                     a.cancelAll();
                 });
-                await a.toPromise({name: 'second', timeout: 10});
+                await a.toPromise();
+            } catch (e) {
+                err = e;
+            }
+            expect(err && err.message).to.equal('Event cancelled.');
+        });
+
+        it('must reject when cancelled, with name', async () => {
+            const a = new SubEvent();
+            let err;
+            try {
+                setTimeout(() => {
+                    a.cancelAll();
+                }, 10);
+                await a.toPromise({name: 'second', timeout: 1000});
             } catch (e) {
                 err = e;
             }
