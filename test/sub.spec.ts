@@ -25,11 +25,13 @@ describe('Subscription', () => {
         const sub = a.subscribe(dummy, {
             onCancel: () => {
                 invoked++;
-                done();
             }
         });
         sub.cancel();
         sub.cancel();
-        expect(invoked).to.equal(1);
+        setTimeout(() => {
+            expect(invoked).to.equal(1);
+            done();
+        });
     });
 });

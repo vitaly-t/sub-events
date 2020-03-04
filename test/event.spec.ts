@@ -290,12 +290,14 @@ describe('SubEvent', () => {
             a.subscribe(dummy, {
                 onCancel: () => {
                     invoked++;
-                    done();
                 }
             });
             a.cancelAll();
             a.cancelAll();
-            expect(invoked).to.equal(1);
+            setTimeout(() => {
+                expect(invoked).to.equal(1);
+                done();
+            });
         });
     });
     describe('getStat', () => {

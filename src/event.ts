@@ -162,7 +162,11 @@ export interface ISubOptions {
     thisArg?: any;
 
     /**
-     * Subscription-cancel callback.
+     * Subscription-cancel callback, to be notified when the subscription
+     * is cancelled either explicitly, or implicitly (via [[cancelAll]]).
+     *
+     * This is mostly for internal usage, and it has no protection against
+     * errors, should the handler throw any.
      */
     onCancel?: () => void;
 }
