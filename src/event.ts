@@ -162,10 +162,10 @@ export interface ISubOptions {
     thisArg?: any;
 
     /**
-     * Subscription-cancel callback, to be notified when the subscription
-     * is cancelled either explicitly, or implicitly (via [[cancelAll]]).
+     * Subscription-cancel callback, to be notified on subscription explicit
+     * [[cancel]] call, or when cancelled implicitly via [[cancelAll]].
      *
-     * This is mostly for internal usage, and it has no protection against
+     * This is mostly for internal usage, and has no protection against
      * errors, should the handler throw any.
      */
     onCancel?: () => void;
@@ -249,6 +249,7 @@ export class SubEvent<T = unknown> {
      *
      * When subscription is no longer needed, method [[cancel]] should be called
      * on the returned object, to avoid memory leaks and performance degradation.
+     *
      * Method [[getStat]] can help with diagnosing leaked subscriptions.
      *
      * @param cb
@@ -384,7 +385,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Cancels all subscriptions.
+     * Cancels all existing subscriptions that were created for this event.
      *
      * @returns
      * Number of subscriptions cancelled.
