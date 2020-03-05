@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-        async = 'async',
+    async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -287,13 +287,13 @@ export class SubEvent<T = unknown> {
      * which is synchronous by default.
      *
      * @param data
-     * Data to be sent, according to the type template.
+     * Data to be sent, according to the template type.
      *
      * @param options
      * Event-emitting options.
      *
      * @returns
-     * Number of subscribers to receive the data.
+     * Number of subscribers that will receive the data.
      */
     public emit(data: T, options?: IEmitOptions): number {
         if (typeof (options ?? {}) !== 'object') {
@@ -387,6 +387,8 @@ export class SubEvent<T = unknown> {
     /**
      * Cancels all existing subscriptions that were created for this event.
      *
+     * This is a convenience method, to shut down all subscribers at once.
+     *
      * @returns
      * Number of subscriptions cancelled.
      */
@@ -426,17 +428,17 @@ export class SubEvent<T = unknown> {
      * ```
      *
      * The method can reject in two cases:
-     *  - when [[cancelAll]] is called on the event object, it rejects with `Event cancelled` error;
-     *  - when timeout reached (if set via option `timeout`), it rejects with `Event timed out` error.
+     *  - when timeout reached (if set via option `timeout`), it rejects with `Event timed out` error;
+     *  - when [[cancelAll]] is called on the event object, it rejects with `Event cancelled` error.
      *
      * Note that if you use this method consecutively, you can miss events in between,
      * because the subscription is auto-cancelled after receiving the first event.
      *
      * @param options
-     * Subscription options:
+     * Subscription Options:
      *
      * - `name` - for the internal subscription name. See `name` in [[ISubOptions]].
-     *    In this context it is also reported alongside any rejection error.
+     *    In this context, it is also included within any rejection error.
      *
      * - `timeout` - sets timeout in ms (when `timeout` >= 0), to auto-reject with
      *    `Event timed out` error.
