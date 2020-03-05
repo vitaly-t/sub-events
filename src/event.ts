@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -408,8 +408,21 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Creates a new subscription as a promise, to resolve with the next received value,
+     * Creates a new subscription as a promise, to resolve with the next received event value,
      * and cancel the subscription.
+     *
+     * Examples of where it can be useful include:
+     * - verify that a fast-pace subscription keeps receiving data;
+     * - peek at fast-pace subscription data for throttled updates.
+     *
+     * ```ts
+     * try {
+     *     const nextValue = await myEvent.toPromise({timeout: 1000});
+     * } catch(e) {
+     *     // Either subscription didn't produce any event after 1 second,
+     *     // or myEvent.cancelAll() was called somewhere.
+     * }
+     * ```
      *
      * The method can reject in two cases:
      *  - when [[cancelAll]] in called on the event object, it rejects with `Event cancelled` error;
@@ -422,15 +435,16 @@ export class SubEvent<T = unknown> {
      * Subscription options:
      *
      * - `name` - for the internal subscription name. See `name` in [[ISubOptions]].
-     *    In this context it is also reported with any rejection error.
+     *    In this context it is also reported alongside any rejection error.
      *
-     * - `timeout` - sets timeout (ms), to auto-reject with `Event timed out` error.
+     * - `timeout` - sets timeout in ms (when `timeout` >= 0), to auto-reject with
+     *    `Event timed out` error.
      */
     public toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
         if (typeof (options ?? {}) !== 'object') {
             throw new TypeError(Stat.errInvalidOptions);
         }
-        const {name, timeout} = options || {};
+        const {name, timeout = -1} = options || {};
         let timer: any, selfCancel = false;
         return new Promise((resolve, reject) => {
             const onCancel = () => {
@@ -449,7 +463,7 @@ export class SubEvent<T = unknown> {
                 sub.cancel();
                 resolve(data);
             }, {name, onCancel});
-            if (typeof timeout === 'number') {
+            if (Number.isInteger(timeout) && timeout >= 0) {
                 timer = setTimeout(() => {
                     selfCancel = true;
                     sub.cancel();
