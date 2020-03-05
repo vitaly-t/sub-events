@@ -426,7 +426,7 @@ export class SubEvent<T = unknown> {
      * ```
      *
      * The method can reject in two cases:
-     *  - when [[cancelAll]] in called on the event object, it rejects with `Event cancelled` error;
+     *  - when [[cancelAll]] is called on the event object, it rejects with `Event cancelled` error;
      *  - when timeout reached (if set via option `timeout`), it rejects with `Event timed out` error.
      *
      * Note that if you use this method consecutively, you can miss events in between,
