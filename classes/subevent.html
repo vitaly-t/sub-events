@@ -2504,7 +2504,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L231">event.ts:231</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L231">event.ts:231</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2537,7 +2537,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L333">event.ts:333</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L333">event.ts:333</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2559,7 +2559,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L346">event.ts:346</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L346">event.ts:346</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2588,7 +2588,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L393">event.ts:393</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L393">event.ts:393</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2611,7 +2611,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L298">event.ts:298</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L298">event.ts:298</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2650,7 +2650,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L363">event.ts:363</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L363">event.ts:363</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2687,7 +2687,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L264">event.ts:264</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L264">event.ts:264</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2728,19 +2728,25 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/2358e94/src/event.ts#L433">event.ts:433</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/00001bd/src/event.ts#L443">event.ts:443</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Creates a new subscription as a promise, to resolve with the next received value,
+								<p>Creates a new subscription as a promise, to resolve with the next received event value,
 								and cancel the subscription.</p>
 							</div>
 							<p>Examples of where it can be useful include:</p>
 							<ul>
 								<li>verify that a fast-pace subscription keeps receiving data;</li>
-								<li>peek at fast-pace subscription data for throttled updates;</li>
+								<li>peek at fast-pace subscription data for throttled updates.</li>
 							</ul>
+							<pre><code class="language-ts"><span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> nextValue = <span class="hljs-keyword">await</span> myEvent.toPromise({timeout: <span class="hljs-number">1000</span>});
+} <span class="hljs-keyword">catch</span>(e) {
+    <span class="hljs-comment">// Either subscription didn't produce any event after 1 second,</span>
+    <span class="hljs-comment">// or myEvent.cancelAll() was called somewhere.</span>
+}</code></pre>
 							<p>The method can reject in two cases:</p>
 							<ul>
 								<li>when <a href="subevent.html#cancelall">cancelAll</a> in called on the event object, it rejects with <code>Event cancelled</code> error;</li>
@@ -2757,9 +2763,10 @@ img {
 									<p>Subscription options:</p>
 									<ul>
 										<li><p><code>name</code> - for the internal subscription name. See <code>name</code> in <a href="../interfaces/isuboptions.html">ISubOptions</a>.
-											In this context it is also reported with any rejection error.</p>
+											In this context it is also reported alongside any rejection error.</p>
 										</li>
-										<li><p><code>timeout</code> - sets timeout (ms), to auto-reject with <code>Event timed out</code> error.</p>
+										<li><p><code>timeout</code> - sets timeout in ms (when <code>timeout</code> &gt;= 0), to auto-reject with
+											<code>Event timed out</code> error.</p>
 										</li>
 									</ul>
 								</div>
