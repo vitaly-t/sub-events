@@ -413,7 +413,8 @@ export class SubEvent<T = unknown> {
      *
      * Examples of where it can be useful include:
      * - verify that a fast-pace subscription keeps receiving data;
-     * - peek at fast-pace subscription data for throttled updates.
+     * - peek at fast-pace subscription data for throttled updates;
+     * - for simpler receive-once / signal async processing logic.
      *
      * ```ts
      * try {

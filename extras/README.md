@@ -4,8 +4,8 @@ Extras
 Extra recipes for creating [SubEvent] from popular event sources. They are all available
 from sub-path `sub-events/ext`, or via individual files, if you want to bundle them based on usage.
 
-These represent essential examples of wrapping well-known types of events, based on which you can
-easily do the same for any other type of event or resource in your project.
+These represent essential hands-on examples of wrapping well-known types of events, based on which you can
+easily do the same for any other events or resources in your project.
 
 <details>
 <summary><b>From DOM Event</b></summary>
