@@ -328,7 +328,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Current number of subscriptions.
+     * Current number of live subscriptions.
      */
     public get count(): number {
         return this._subs.length;
@@ -385,9 +385,11 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Cancels all existing subscriptions that were created for this event.
+     * Cancels all existing subscriptions for the event.
      *
-     * This is a convenience method, to shut down all subscribers at once.
+     * This is a convenience method for some special cases, when you want to cancel
+     * all subscriptions for the event at once. Usually, subscribers just call
+     * [[cancel]] when they want to cancel their own subscription.
      *
      * @returns
      * Number of subscriptions cancelled.
