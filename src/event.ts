@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -280,6 +280,19 @@ export class SubEvent<T = unknown> {
         }
         this._subs.push(sub);
         return new Subscription({cancel: this._createCancel(sub), sub});
+    }
+
+    /**
+     * Hello!
+     * @param cb
+     * @param options
+     */
+    public once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
+        const sub = this.subscribe((data: T) => {
+            sub.cancel();
+            return cb.call(options?.thisArg, data);
+        }, options);
+        return sub;
     }
 
     /**

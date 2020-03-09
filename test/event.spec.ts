@@ -43,19 +43,6 @@ describe('SubEvent', () => {
             done();
         });
     });
-    it('must pass subscription options correctly', () => {
-        const a = new SubEvent<void>();
-        let context;
-
-        function onEvent(this: any) {
-            context = this;
-        }
-
-        const sub = a.subscribe(onEvent, {thisArg: a, name: 'my-sub'});
-        a.emit();
-        expect(context).to.eq(a);
-        expect(sub.name).to.eq('my-sub');
-    });
     it('must track subscription count', () => {
         const a = new SubEvent();
         expect(a.count).to.eq(0);
@@ -93,19 +80,6 @@ describe('SubEvent', () => {
             }
         });
     });
-    it('must call onSubscribe during subscription', () => {
-        let context: ISubContext | undefined;
-        const onSubscribe = (ctx: ISubContext) => {
-            context = ctx;
-        };
-        const a = new SubEvent({onSubscribe});
-        expect(context).to.be.undefined;
-        a.subscribe(dummy, {name: 'hello'});
-        expect(!!context).to.be.true;
-        if (context) {
-            expect(context.name).to.eq('hello');
-        }
-    });
     it('must call onCancel during cancellation', () => {
         let data, called = false;
         const onSubscribe = (ctx: ISubContext) => {
@@ -139,7 +113,128 @@ describe('SubEvent', () => {
             done();
         });
     });
-    describe('emit with error handler', () => {
+
+});
+
+describe('subscribe', () => {
+    it('must throw on invalid options', () => {
+        const s = new SubEvent();
+        expect(() => {
+            s.subscribe(dummy, 0 as any);
+        }).to.throw(errInvalidOptions);
+    });
+    it('must pass subscription options correctly', () => {
+        const a = new SubEvent<void>();
+        let context;
+
+        function onEvent(this: any) {
+            context = this;
+        }
+
+        const sub = a.subscribe(onEvent, {thisArg: a, name: 'my-sub'});
+        a.emit();
+        expect(context).to.eq(a);
+        expect(sub.name).to.eq('my-sub');
+    });
+    it('must call onSubscribe when specified', () => {
+        let context: ISubContext | undefined;
+        const onSubscribe = (ctx: ISubContext) => {
+            context = ctx;
+        };
+        const a = new SubEvent({onSubscribe});
+        expect(context).to.be.undefined;
+        a.subscribe(dummy, {name: 'hello'});
+        expect(!!context).to.be.true;
+        if (context) {
+            expect(context.name).to.eq('hello');
+        }
+    });
+});
+
+describe('cancelAll', () => {
+    it('must cancel all current subscriptions', () => {
+        const received: string[] = [];
+        const a = new SubEvent<string>();
+        const sub = a.subscribe(value => {
+            received.push(value);
+        });
+        a.emit('first');
+        a.cancelAll();
+        a.emit('second');
+        expect(received).to.eql(['first']);
+        expect(sub.live).to.be.false;
+    });
+    it('must invoke onCancel for each subscription', () => {
+        let data;
+        const onSubscribe = (ctx: ISubContext<string>) => {
+            ctx.data = 123;
+        };
+        const onCancel = (ctx: ISubContext<string>) => {
+            data = ctx.data;
+        };
+        const a = new SubEvent<string>({onSubscribe, onCancel});
+        a.subscribe(dummy);
+        expect(data).to.be.undefined;
+        a.cancelAll();
+        expect(data).to.eq(123);
+    });
+    it('must invoke onCancel once when specified', done => {
+        const a = new SubEvent();
+        let invoked = 0;
+        a.subscribe(dummy, {
+            onCancel: () => {
+                invoked++;
+            }
+        });
+        a.cancelAll();
+        a.cancelAll();
+        setTimeout(() => {
+            expect(invoked).to.equal(1);
+            done();
+        });
+    });
+});
+
+describe('getStat', () => {
+    it('must report all subscriptions correctly', () => {
+        const a = new SubEvent();
+        a.subscribe(dummy);
+        a.subscribe(dummy);
+        a.subscribe(dummy, {name: 'first'});
+        a.subscribe(dummy, {name: 'second'});
+        a.subscribe(dummy, {name: 'third'});
+        a.subscribe(dummy, {name: 'third'});
+        expect(a.getStat()).to.eql({
+            named: {
+                first: 1,
+                second: 1,
+                third: 2
+            },
+            unnamed: 2
+        });
+    });
+    it('must limit occurrences according to minUse option', () => {
+        const a = new SubEvent();
+        a.subscribe(dummy, {name: 'first'});
+        a.subscribe(dummy, {name: 'second'});
+        a.subscribe(dummy, {name: 'second'});
+        expect(a.getStat({minUse: 2})).to.eql({
+            named: {
+                second: 2
+            },
+            unnamed: 0
+        });
+    });
+});
+
+describe('emit', () => {
+    it('must throw on invalid options', () => {
+        const s = new SubEvent();
+        expect(() => {
+            s.emit(null, 0 as any);
+        }).to.throw(errInvalidOptions);
+    });
+    describe('with error handler', () => {
         const err = new Error('Ops!');
         it('must handle errors from synchronous subscribers', done => {
             const a = new SubEvent();
@@ -183,7 +278,7 @@ describe('SubEvent', () => {
             });
         });
     });
-    describe('sync emit with error handler', () => {
+    describe('sync with error handler', () => {
         it('must send data to all clients', () => {
             const a = new SubEvent<number>();
             let res = 0;
@@ -221,7 +316,7 @@ describe('SubEvent', () => {
             }, 10);
         });
     });
-    describe('next emit', () => {
+    describe('next', () => {
         it('must delay event broadcast', done => {
             let res: string | null = null;
             const e = new SubEvent<string>();
@@ -238,179 +333,113 @@ describe('SubEvent', () => {
             expect(res).to.be.null;
         });
     });
+});
 
-    describe('subscribe', () => {
-        it('must throw on invalid options', () => {
-            const s = new SubEvent();
-            expect(() => {
-                s.subscribe(dummy, 0 as any);
-            }).to.throw(errInvalidOptions);
-        });
+describe('toPromise', () => {
+    it('must throw on invalid options', () => {
+        const a = new SubEvent();
+        expect(() => {
+            a.toPromise(0 as any);
+        }).to.throw(errInvalidOptions);
     });
-
-    describe('emit', () => {
-        it('must throw on invalid options', () => {
-            const s = new SubEvent();
-            expect(() => {
-                s.emit(null, 0 as any);
-            }).to.throw(errInvalidOptions);
+    it('must resolve normally', async () => {
+        const a = new SubEvent<number>();
+        setTimeout(() => {
+            a.emit(123);
         });
+        expect(await a.toPromise()).to.equal(123);
     });
-
-    describe('cancelAll', () => {
-        it('must cancel all current subscriptions', () => {
-            const received: string[] = [];
-            const a = new SubEvent<string>();
-            const sub = a.subscribe(value => {
-                received.push(value);
-            });
-            a.emit('first');
-            a.cancelAll();
-            a.emit('second');
-            expect(received).to.eql(['first']);
-            expect(sub.live).to.be.false;
+    it('must resolve when before timeout', async () => {
+        const a = new SubEvent<number>();
+        setTimeout(() => {
+            a.emit(456);
         });
-        it('must invoke onCancel for each subscription', () => {
-            let data;
-            const onSubscribe = (ctx: ISubContext<string>) => {
-                ctx.data = 123;
-            };
-            const onCancel = (ctx: ISubContext<string>) => {
-                data = ctx.data;
-            };
-            const a = new SubEvent<string>({onSubscribe, onCancel});
-            a.subscribe(dummy);
-            expect(data).to.be.undefined;
-            a.cancelAll();
-            expect(data).to.eq(123);
-        });
-        it('must invoke onCancel once when specified', done => {
-            const a = new SubEvent();
-            let invoked = 0;
-            a.subscribe(dummy, {
-                onCancel: () => {
-                    invoked++;
-                }
-            });
-            a.cancelAll();
-            a.cancelAll();
+        expect(await a.toPromise({timeout: 10})).to.equal(456);
+    });
+    it('must reject on timeout', async () => {
+        const a = new SubEvent<number>();
+        let err;
+        try {
+            await a.toPromise({timeout: 0});
+        } catch (e) {
+            err = e;
+        }
+        expect(err && err.message).to.equal('Event timed out.');
+    });
+    it('must reject on timeout, with name', async () => {
+        const a = new SubEvent<number>();
+        let err;
+        try {
+            await a.toPromise({name: 'first', timeout: 10});
+        } catch (e) {
+            err = e;
+        }
+        expect(err && err.message).to.equal('Event "first" timed out.');
+    });
+    it('must reject when cancelled with timer', async () => {
+        const a = new SubEvent<number>();
+        let err;
+        try {
             setTimeout(() => {
-                expect(invoked).to.equal(1);
-                done();
+                a.cancelAll();
             });
-        });
+            await a.toPromise({timeout: 10});
+        } catch (e) {
+            err = e;
+        }
+        expect(err && err.message).to.equal('Event cancelled.');
     });
-    describe('getStat', () => {
-        it('must report all subscriptions correctly', () => {
-            const a = new SubEvent();
-            a.subscribe(dummy);
-            a.subscribe(dummy);
-            a.subscribe(dummy, {name: 'first'});
-            a.subscribe(dummy, {name: 'second'});
-            a.subscribe(dummy, {name: 'third'});
-            a.subscribe(dummy, {name: 'third'});
-            expect(a.getStat()).to.eql({
-                named: {
-                    first: 1,
-                    second: 1,
-                    third: 2
-                },
-                unnamed: 2
+    it('must reject when cancelled without timer', async () => {
+        const a = new SubEvent<number>();
+        let err;
+        try {
+            setTimeout(() => {
+                a.cancelAll();
             });
-        });
-        it('must limit occurrences according to minUse option', () => {
-            const a = new SubEvent();
-            a.subscribe(dummy, {name: 'first'});
-            a.subscribe(dummy, {name: 'second'});
-            a.subscribe(dummy, {name: 'second'});
-            expect(a.getStat({minUse: 2})).to.eql({
-                named: {
-                    second: 2
-                },
-                unnamed: 0
-            });
-        });
+            await a.toPromise();
+        } catch (e) {
+            err = e;
+        }
+        expect(err && err.message).to.equal('Event cancelled.');
     });
-    describe('toPromise', () => {
-        it('must throw on invalid options', () => {
-            const a = new SubEvent();
-            expect(() => {
-                a.toPromise(0 as any);
-            }).to.throw(errInvalidOptions);
-        });
-        it('must resolve normally', async () => {
-            const a = new SubEvent<number>();
-            setTimeout(() => {
-                a.emit(123);
-            });
-            expect(await a.toPromise()).to.equal(123);
-        });
-        it('must resolve when before timeout', async () => {
-            const a = new SubEvent<number>();
-            setTimeout(() => {
-                a.emit(456);
-            });
-            expect(await a.toPromise({timeout: 10})).to.equal(456);
-        });
-        it('must reject on timeout', async () => {
-            const a = new SubEvent<number>();
-            let err;
-            try {
-                await a.toPromise({timeout: 0});
-            } catch (e) {
-                err = e;
-            }
-            expect(err && err.message).to.equal('Event timed out.');
-        });
-        it('must reject on timeout, with name', async () => {
-            const a = new SubEvent<number>();
-            let err;
-            try {
-                await a.toPromise({name: 'first', timeout: 10});
-            } catch (e) {
-                err = e;
-            }
-            expect(err && err.message).to.equal('Event "first" timed out.');
-        });
-        it('must reject when cancelled with timer', async () => {
-            const a = new SubEvent<number>();
-            let err;
-            try {
-                setTimeout(() => {
-                    a.cancelAll();
-                });
-                await a.toPromise({timeout: 10});
-            } catch (e) {
-                err = e;
-            }
-            expect(err && err.message).to.equal('Event cancelled.');
-        });
-        it('must reject when cancelled without timer', async () => {
-            const a = new SubEvent<number>();
-            let err;
-            try {
-                setTimeout(() => {
-                    a.cancelAll();
-                });
-                await a.toPromise();
-            } catch (e) {
-                err = e;
-            }
-            expect(err && err.message).to.equal('Event cancelled.');
-        });
 
-        it('must reject when cancelled, with name', async () => {
-            const a = new SubEvent();
-            let err;
-            try {
-                setTimeout(() => {
-                    a.cancelAll();
-                }, 10);
-                await a.toPromise({name: 'second', timeout: 1000});
-            } catch (e) {
-                err = e;
-            }
-            expect(err && err.message).to.equal('Event "second" cancelled.');
+    it('must reject when cancelled, with name', async () => {
+        const a = new SubEvent();
+        let err;
+        try {
+            setTimeout(() => {
+                a.cancelAll();
+            }, 10);
+            await a.toPromise({name: 'second', timeout: 1000});
+        } catch (e) {
+            err = e;
+        }
+        expect(err && err.message).to.equal('Event "second" cancelled.');
+    });
+});
+
+describe('once', () => {
+    it('must cancel subscription after one event', () => {
+        const a = new SubEvent<string>();
+        let liveEnd, msg;
+        const sub = a.once(data => {
+            liveEnd = sub.live;
+            msg = data;
         });
+        const liveStart = sub.live;
+        a.emit('hello');
+        expect(liveStart).to.be.true;
+        expect(liveEnd).to.be.false;
+        expect(msg).to.equal('hello');
+    });
+    it('must pass in options correctly', () => {
+        const a = new SubEvent<string>();
+        const contextIn = 123;
+        let contextOut: any;
+        a.once(function (this: number) {
+            contextOut = this;
+        }, {thisArg: contextIn});
+        a.emit('hello');
+        expect(contextOut).to.equal(contextIn);
     });
 });
