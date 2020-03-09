@@ -32,7 +32,7 @@ export class Subscription {
     /**
      * Indicates whether the subscription is live / active.
      *
-     * It can be useful to subscribers when [[cancel]] or [[cancelAll]] are used without their knowledge.
+     * It can be useful to subscribers when [[cancelAll]] is used without their knowledge.
      */
     public get live(): boolean {
         return !!this._cancel;
