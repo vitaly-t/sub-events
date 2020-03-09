@@ -13,7 +13,7 @@ export function fromTimeout(timeout: number = 0, options?: IEmitOptions): Timeou
 /**
  * Implements a timeout event, with automatically cancelled subscriptions.
  *
- * A new timeout is started for every subscriber.
+ * A new timeout is started for every fresh subscriber.
  */
 export class TimeoutEvent extends SubEvent<void> {
     constructor(timeout: number = 0, options?: IEmitOptions) {
