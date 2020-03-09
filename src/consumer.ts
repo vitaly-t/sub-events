@@ -10,8 +10,9 @@ import {Subscription} from './sub';
  * The class has the same signature as [[SubEvent]], minus methods [[emit]] and [[cancelAll]].
  *
  * ```ts
- *
  * // Example of using EventConsumer inside a component.
+ *
+ * import {SubEvent, EventConsumer} from 'sub-events';
  *
  * class MyComponent {
  *
