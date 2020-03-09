@@ -3,10 +3,10 @@
     ".ts"
   ],
   "include": [
-    "src"
+    "src/*.js"
   ],
   "exclude": [
-    "./src/consumer.ts"
+    "src/consumer.js"
   ],
   "require": [
     "ts-node/register"
