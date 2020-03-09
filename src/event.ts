@@ -260,6 +260,8 @@ export class SubEvent<T = unknown> {
      *
      * @returns
      * Object for cancelling the subscription safely.
+     *
+     * @see [[once]]
      */
     public subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         if (typeof (options ?? {}) !== 'object') {
@@ -297,6 +299,8 @@ export class SubEvent<T = unknown> {
      *
      * @returns
      * Object for cancelling the subscription safely.
+     *
+     * @see [[toPromise]]
      */
     public once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         const sub = this.subscribe((data: T) => {
@@ -383,6 +387,8 @@ export class SubEvent<T = unknown> {
      *
      *  - `minUse: number` - Minimum subscription usage/count to be included into the list of named
      *     subscriptions. If subscription is used less times, it will be excluded from the `named` list.
+     *
+     * @see [[ISubStat]]
      */
     public getStat(options?: { minUse?: number }): ISubStat {
         const stat: ISubStat = {named: {}, unnamed: 0};
@@ -417,6 +423,8 @@ export class SubEvent<T = unknown> {
      *
      * @returns
      * Number of subscriptions cancelled.
+     *
+     * @see [[cancel]]
      */
     public cancelAll(): number {
         const onCancel = typeof this.options.onCancel === 'function' && this.options.onCancel;
@@ -468,6 +476,8 @@ export class SubEvent<T = unknown> {
      *
      * - `timeout` - sets timeout in ms (when `timeout` >= 0), to auto-reject with
      *    `Event timed out` error.
+     *
+     * @see [[once]]
      */
     public toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
         if (typeof (options ?? {}) !== 'object') {

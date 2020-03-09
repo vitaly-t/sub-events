@@ -68,6 +68,8 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
      *
      * @returns
      * Number of subscriptions cancelled.
+     *
+     * @see [[cancel]]
      */
     public cancelAll(): number {
         const prevCount = this.count;

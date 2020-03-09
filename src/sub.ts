@@ -46,6 +46,8 @@ export class Subscription {
      * @returns
      * - `true` - subscription has been successfully cancelled
      * - `false` - nothing happened, as subscription wasn't live
+     *
+     * @see [[cancelAll]]
      */
     public cancel(): boolean {
         if (this._cancel) {
