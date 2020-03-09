@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SubEvent | SUB-EVENTS v1.7</title>
+	<title>EventConsumer | SUB-EVENTS v1.7</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2366,40 +2366,34 @@ img {
 		<li class=" tsd-kind-enum">
 			<a href="../enums/emitschedule.html" class="tsd-kind-icon">Emit<wbr>Schedule</a>
 		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="eventconsumer.html" class="tsd-kind-icon">Event<wbr>Consumer</a>
-		</li>
 		<li class="current tsd-kind-class tsd-has-type-parameter">
-			<a href="subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
+			<a href="eventconsumer.html" class="tsd-kind-icon">Event<wbr>Consumer</a>
 			<ul>
 				<li class=" tsd-kind-constructor tsd-parent-kind-class">
-					<a href="subevent.html#constructor" class="tsd-kind-icon">constructor</a>
+					<a href="eventconsumer.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-					<a href="subevent.html#count" class="tsd-kind-icon">count</a>
+					<a href="eventconsumer.html#count" class="tsd-kind-icon">count</a>
 				</li>
 				<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-					<a href="subevent.html#maxsubs" class="tsd-kind-icon">max<wbr>Subs</a>
+					<a href="eventconsumer.html#maxsubs" class="tsd-kind-icon">max<wbr>Subs</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#cancelall" class="tsd-kind-icon">cancel<wbr>All</a>
+					<a href="eventconsumer.html#getstat" class="tsd-kind-icon">get<wbr>Stat</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#emit" class="tsd-kind-icon">emit</a>
+					<a href="eventconsumer.html#once" class="tsd-kind-icon">once</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#getstat" class="tsd-kind-icon">get<wbr>Stat</a>
+					<a href="eventconsumer.html#subscribe" class="tsd-kind-icon">subscribe</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#once" class="tsd-kind-icon">once</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#subscribe" class="tsd-kind-icon">subscribe</a>
-				</li>
-				<li class=" tsd-kind-method tsd-parent-kind-class">
-					<a href="subevent.html#topromise" class="tsd-kind-icon">to<wbr>Promise</a>
+					<a href="eventconsumer.html#topromise" class="tsd-kind-icon">to<wbr>Promise</a>
 				</li>
 			</ul>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
 			<a href="subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a>
@@ -2438,18 +2432,30 @@ img {
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
 				<div class="lead">
-					<a href="#class-subeventltt--unknowngt" id="class-subeventltt--unknowngt" style="color: inherit; text-decoration: none;">
-						<h4>class SubEvent&lt;T = unknown&gt;</h4>
+					<a href="#class-eventconsumerltt--unknown-e-extends-subeventlttgt--subeventlttgtgt" id="class-eventconsumerltt--unknown-e-extends-subeventlttgt--subeventlttgtgt" style="color: inherit; text-decoration: none;">
+						<h4>class EventConsumer&lt;T = unknown, E extends SubEvent&lt;T&gt; = SubEvent&lt;T&gt;&gt;</h4>
 					</a>
 				</div>
-				<dl class="tsd-comment-tags">
-					<dt>description</dt>
-					<dd><p>Core class, implementing event subscription + emitting the event.</p>
-					</dd>
-					<dt>see</dt>
-					<dd><p><a href="subevent.html#subscribe">subscribe</a>, <a href="subevent.html#emit">emit</a></p>
-					</dd>
-				</dl>
+				<p>Encapsulates an event, in order to hide its methods <a href="subevent.html#emit">emit</a> and <a href="subevent.html#cancelall">cancelAll</a>, so the event
+				consumer can only read/receive data, but cannot emit it, or cancel other subscriptions.</p>
+				<p>The class has the same signature as <a href="subevent.html">SubEvent</a>, minus methods <a href="subevent.html#emit">emit</a> and <a href="subevent.html#cancelall">cancelAll</a>.</p>
+				<pre><code class="language-ts"><span class="hljs-comment">// Example of using EventConsumer inside a component.</span>
+
+<span class="hljs-keyword">import</span> {SubEvent, EventConsumer} <span class="hljs-keyword">from</span> <span class="hljs-string">'sub-events'</span>;
+
+<span class="hljs-keyword">class</span> MyComponent {
+
+    <span class="hljs-keyword">private</span> event: SubEvent&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEvent(); <span class="hljs-comment">// internal, read-write event</span>
+
+    readonly safeEvent: EventConsumer&lt;<span class="hljs-built_in">string</span>&gt;; <span class="hljs-comment">// public, read-only event container</span>
+
+    <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
+       <span class="hljs-keyword">this</span>.safeEvent = <span class="hljs-keyword">new</span> EventConsumer(<span class="hljs-keyword">this</span>.event);
+
+       <span class="hljs-comment">// clients can only receive data from such safeEvent,</span>
+       <span class="hljs-comment">// they cannot emit data or cancel other subscriptions.</span>
+    }
+}</code></pre>
 			</div>
 		</section>
 		<section class="tsd-panel tsd-type-parameters">
@@ -2458,18 +2464,16 @@ img {
 				<li>
 					<h4>T</h4>
 				</li>
+				<li>
+					<h4>E<span class="tsd-signature-symbol">: </span><a href="subevent.html" class="tsd-signature-type">SubEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+				</li>
 			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">SubEvent</span>
-					<ul class="tsd-hierarchy">
-						<li>
-							<a href="subeventcount.html" class="tsd-signature-type">SubEventCount</a>
-						</li>
-					</ul>
+					<span class="target">EventConsumer</span>
 				</li>
 			</ul>
 		</section>
@@ -2480,25 +2484,23 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="subevent.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="eventconsumer.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Accessors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="subevent.html#count" class="tsd-kind-icon">count</a></li>
-							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="subevent.html#maxsubs" class="tsd-kind-icon">max<wbr>Subs</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eventconsumer.html#count" class="tsd-kind-icon">count</a></li>
+							<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="eventconsumer.html#maxsubs" class="tsd-kind-icon">max<wbr>Subs</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#cancelall" class="tsd-kind-icon">cancel<wbr>All</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#emit" class="tsd-kind-icon">emit</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#getstat" class="tsd-kind-icon">get<wbr>Stat</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#once" class="tsd-kind-icon">once</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class"><a href="subevent.html#topromise" class="tsd-kind-icon">to<wbr>Promise</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eventconsumer.html#getstat" class="tsd-kind-icon">get<wbr>Stat</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eventconsumer.html#once" class="tsd-kind-icon">once</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eventconsumer.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="eventconsumer.html#topromise" class="tsd-kind-icon">to<wbr>Promise</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2510,29 +2512,32 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Sub<wbr>Event<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ieventoptions.html" class="tsd-signature-type">IEventOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="subevent.html" class="tsd-signature-type">SubEvent</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Event<wbr>Consumer<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="eventconsumer.html" class="tsd-signature-type">EventConsumer</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L233">event.ts:233</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L38">consumer.ts:38</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Class Constructor.</p>
+							</div>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/ieventoptions.html" class="tsd-signature-type">IEventOptions</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								<h5>event: <span class="tsd-signature-type">E</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<div class="lead">
-										<p>Configuration Options.</p>
+										<p>Event object to be encapsulated.</p>
 									</div>
 								</div>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="subevent.html" class="tsd-signature-type">SubEvent</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="eventconsumer.html" class="tsd-signature-type">EventConsumer</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -2549,12 +2554,12 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L363">event.ts:363</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L53">consumer.ts:53</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Current number of live subscriptions.</p>
+								<p>Forwards into <a href="subevent.html#count">SubEvent.count</a> of the contained event.</p>
 							</div>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -2571,17 +2576,13 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L376">event.ts:376</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L60">consumer.ts:60</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Maximum number of subscribers that can receive events.
-								Default is 0, meaning <code>no limit applies</code>.</p>
+								<p>Forwards into <a href="subevent.html#maxsubs">SubEvent.maxSubs</a> of the contained event.</p>
 							</div>
-							<p>Newer subscriptions outside of the maximum quota will start
-							receiving events when the older subscriptions get cancelled.</p>
-							<p>It can only be set with the <a href="subevent.html#constructor">constructor</a>.</p>
 						</div>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 					</li>
@@ -2590,76 +2591,6 @@ img {
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Methods</h2>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="cancelall" class="tsd-anchor"></a>
-				<h3>cancel<wbr>All</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">cancel<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L431">event.ts:431</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Cancels all existing subscriptions for the event.</p>
-							</div>
-							<p>This is a convenience method for some special cases, when you want to cancel
-								all subscriptions for the event at once. Usually, subscribers just call
-							<a href="subscription.html#cancel">cancel</a> when they want to cancel their own subscription.</p>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subscription.html#cancel">cancel</a></p>
-								</dd>
-							</dl>
-						</div>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						<p>Number of subscriptions cancelled.</p>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-				<a name="emit" class="tsd-anchor"></a>
-				<h3>emit</h3>
-				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">emit<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L328">event.ts:328</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Broadcasts data to all subscribers, according to the emit schedule,
-								which is synchronous by default.</p>
-							</div>
-						</div>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>data: <span class="tsd-signature-type">T</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Data to be sent, according to the template type.</p>
-								</div>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/iemitoptions.html" class="tsd-signature-type">IEmitOptions</a></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Event-emitting options.</p>
-								</div>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-						<p>Number of subscribers that will receive the data.</p>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 				<a name="getstat" class="tsd-anchor"></a>
 				<h3>get<wbr>Stat</h3>
@@ -2670,32 +2601,18 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L395">event.ts:395</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L88">consumer.ts:88</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Retrieves subscriptions statistics, to help with diagnosing subscription leaks.</p>
+								<p>Forwards into <a href="subevent.html#getstat">SubEvent.getStat</a> of the contained event.</p>
 							</div>
-							<p>For this method to be useful, you need to set option <code>name</code> when calling <a href="subevent.html#subscribe">subscribe</a>.</p>
-							<p>See also: <a href="https://github.com/vitaly-t/sub-events/wiki/Diagnostics" class="external">Diagnostics</a></p>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="../interfaces/isubstat.html">ISubStat</a></p>
-								</dd>
-							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>minUse<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Statistics Options:</p>
-									<ul>
-										<li><code>minUse: number</code> - Minimum subscription usage/count to be included into the list of named
-										subscriptions. If subscription is used less times, it will be excluded from the <code>named</code> list.</li>
-									</ul>
-								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="../interfaces/isubstat.html" class="tsd-signature-type">ISubStat</a></h4>
@@ -2712,39 +2629,24 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L307">event.ts:307</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L74">consumer.ts:74</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Subscribes to receive just one event, and cancel the subscription immediately.</p>
+								<p>Forwards into <a href="subevent.html#once">SubEvent.once</a> of the contained event.</p>
 							</div>
-							<p>You may still want to call <a href="subscription.html#cancel">cancel</a> on the returned <a href="subscription.html">Subscription</a> object,
-								if you suddenly need to prevent the first event, or to avoid dead once-off
-							subscriptions that never received their event, and thus were not cancelled.</p>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subevent.html#topromise">toPromise</a></p>
-								</dd>
-							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
 								<h5>cb: <a href="../globals.html#subfunction" class="tsd-signature-type">SubFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Event notification function, invoked after self-cancelling the subscription.</p>
-								</div>
 							</li>
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/isuboptions.html" class="tsd-signature-type">ISubOptions</a></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Subscription Options.</p>
-								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="subscription.html" class="tsd-signature-type">Subscription</a></h4>
-						<p>Object for cancelling the subscription safely.</p>
 					</li>
 				</ul>
 			</section>
@@ -2758,39 +2660,24 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L268">event.ts:268</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L67">consumer.ts:67</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Subscribes to the event.</p>
+								<p>Forwards into <a href="subevent.html#subscribe">SubEvent.subscribe</a> of the contained event.</p>
 							</div>
-							<p>When subscription is no longer needed, method <a href="subscription.html#cancel">cancel</a> should be called on the
-							returned object, to avoid performance degradation caused by abandoned subscribers.</p>
-							<p>Method <a href="subevent.html#getstat">getStat</a> can help with diagnosing leaked subscriptions.</p>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subevent.html#once">once</a></p>
-								</dd>
-							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
 								<h5>cb: <a href="../globals.html#subfunction" class="tsd-signature-type">SubFunction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Event notification callback function.</p>
-								</div>
 							</li>
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/isuboptions.html" class="tsd-signature-type">ISubOptions</a></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Subscription Options.</p>
-								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="subscription.html" class="tsd-signature-type">Subscription</a></h4>
-						<p>Object for cancelling the subscription safely.</p>
 					</li>
 				</ul>
 			</section>
@@ -2804,54 +2691,18 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/event.ts#L484">event.ts:484</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L81">consumer.ts:81</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<div class="lead">
-								<p>Creates a new subscription as a promise, to resolve with the next received event value,
-								and cancel the subscription.</p>
+								<p>Forwards into <a href="subevent.html#topromise">SubEvent.toPromise</a> of the contained event.</p>
 							</div>
-							<p>Examples of where it can be useful include:</p>
-							<ul>
-								<li>verify that a fast-pace subscription keeps receiving data;</li>
-								<li>peek at fast-pace subscription data for throttled updates;</li>
-								<li>for simpler receive-once / signal async processing logic.</li>
-							</ul>
-							<pre><code class="language-ts"><span class="hljs-keyword">try</span> {
-    <span class="hljs-keyword">const</span> nextValue = <span class="hljs-keyword">await</span> myEvent.toPromise({timeout: <span class="hljs-number">1000</span>});
-} <span class="hljs-keyword">catch</span>(e) {
-    <span class="hljs-comment">// Either subscription didn't produce any event after 1 second,</span>
-    <span class="hljs-comment">// or myEvent.cancelAll() was called somewhere.</span>
-}</code></pre>
-							<p>The method can reject in two cases:</p>
-							<ul>
-								<li>when the timeout has been reached (if set via option <code>timeout</code>), it rejects with <code>Event timed out</code> error;</li>
-								<li>when <a href="subevent.html#cancelall">cancelAll</a> is called on the event object, it rejects with <code>Event cancelled</code> error.</li>
-							</ul>
-							<p>Note that if you use this method consecutively, you can miss events in between,
-							because the subscription is auto-cancelled after receiving the first event.</p>
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="subevent.html#once">once</a></p>
-								</dd>
-							</dl>
 						</div>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>timeout<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> }</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<p>Subscription Options:</p>
-									<ul>
-										<li><p><code>name</code> - for the internal subscription name. See <code>name</code> in <a href="../interfaces/isuboptions.html">ISubOptions</a>.
-											In this context, it is also included within any rejection error.</p>
-										</li>
-										<li><p><code>timeout</code> - sets timeout in ms (when <code>timeout</code> &gt;= 0), to auto-reject with
-											<code>Event timed out</code> error.</p>
-										</li>
-									</ul>
-								</div>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
