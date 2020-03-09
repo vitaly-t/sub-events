@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -35,23 +35,17 @@
     "url": "https://github.com/vitaly-t/sub-events/issues"
   },
   "keywords": [
-    "event",
-    "listen",
-    "listener",
-    "strong",
     "strongly",
     "typed",
-    "pubsub",
-    "count",
-    "monitoring",
-    "subscription",
+    "events",
+    "subscribe",
     "typescript"
   ],
   "devDependencies": {
     "@types/chai": "4.2.10",
     "@types/chai-spies": "1.0.1",
     "@types/mocha": "7.0.2",
-    "@types/node": "13.7.7",
+    "@types/node": "13.9.0",
     "browserify": "16.5.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
