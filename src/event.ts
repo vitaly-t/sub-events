@@ -211,6 +211,8 @@ export interface ISubscriber<T> extends ISubContext<T> {
 }
 
 /**
+ * #### class SubEvent\<T = unknown\>
+ *
  * @class SubEvent
  * @description
  * Core class, implementing event subscription + emitting the event.

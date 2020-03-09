@@ -2,9 +2,32 @@ import {ISubOptions, ISubStat, SubEvent, SubFunction} from './event';
 import {Subscription} from './sub';
 
 /**
- * Encapsulates an event, in order to hide its methods [[emit]] and [[cancelAll]],
- * so the event consumer can only read/receive data, but cannot emit it, or cancel
- * other subscriptions.
+ * #### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
+ *
+ * Encapsulates an event, in order to hide its methods [[emit]] and [[cancelAll]], so the event
+ * consumer can only read/receive data, but cannot emit it, or cancel other subscriptions.
+ *
+ * The class has the same signature as [[SubEvent]], minus methods [[emit]] and [[cancelAll]].
+ *
+ * ```ts
+ *
+ * // Example of using EventConsumer inside a component.
+ *
+ * class MyComponent {
+ *
+ *     private event: SubEvent<string> = new SubEvent(); // internal, read-write event
+ *
+ *     readonly safeEvent: EventConsumer<string>; // public, read-only event container
+ *
+ *     constructor() {
+ *        this.safeEvent = new EventConsumer(this.event);
+ *
+ *        // clients can only receive data from such safeEvent,
+ *        // they cannot emit data or cancel other subscriptions.
+ *     }
+ * }
+ * ```
+ *
  */
 export class EventConsumer<T = unknown, E extends SubEvent<T> = SubEvent<T>> {
 
