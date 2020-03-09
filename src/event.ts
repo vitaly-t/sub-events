@@ -256,7 +256,7 @@ export class SubEvent<T = unknown> {
      * Event notification callback function.
      *
      * @param options
-     * Subscription options.
+     * Subscription Options.
      *
      * @returns
      * Object for cancelling the subscription safely.
@@ -283,9 +283,20 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Hello!
+     * Subscribes to receive just one event, and cancel the subscription immediately.
+     *
+     * You may still want to call [[cancel]] on the returned [[Subscription]] object,
+     * if you suddenly need to prevent the first event, or to avoid dead once-off
+     * subscriptions that never received their event, and thus were not cancelled.
+     *
      * @param cb
+     * Event notification callback function.
+     *
      * @param options
+     * Subscription Options.
+     *
+     * @returns
+     * Object for cancelling the subscription safely.
      */
     public once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         const sub = this.subscribe((data: T) => {
