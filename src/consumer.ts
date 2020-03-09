@@ -1,3 +1,5 @@
+// istanbul ignore next: there is nothing here for test coverage.
+
 import {ISubOptions, ISubStat, SubEvent, SubFunction} from './event';
 import {Subscription} from './sub';
 
