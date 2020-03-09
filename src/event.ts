@@ -17,7 +17,7 @@ export enum EmitSchedule {
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
      */
-    async = 'async',
+        async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
@@ -256,7 +256,7 @@ export class SubEvent<T = unknown> {
      * Event notification callback function.
      *
      * @param options
-     * Subscription options.
+     * Subscription Options.
      *
      * @returns
      * Object for cancelling the subscription safely.
@@ -280,6 +280,30 @@ export class SubEvent<T = unknown> {
         }
         this._subs.push(sub);
         return new Subscription({cancel: this._createCancel(sub), sub});
+    }
+
+    /**
+     * Subscribes to receive just one event, and cancel the subscription immediately.
+     *
+     * You may still want to call [[cancel]] on the returned [[Subscription]] object,
+     * if you suddenly need to prevent the first event, or to avoid dead once-off
+     * subscriptions that never received their event, and thus were not cancelled.
+     *
+     * @param cb
+     * Event notification callback function.
+     *
+     * @param options
+     * Subscription Options.
+     *
+     * @returns
+     * Object for cancelling the subscription safely.
+     */
+    public once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
+        const sub = this.subscribe((data: T) => {
+            sub.cancel();
+            return cb.call(options?.thisArg, data);
+        }, options);
+        return sub;
     }
 
     /**
