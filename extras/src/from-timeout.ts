@@ -11,9 +11,9 @@ export function fromTimeout(timeout: number = 0, options?: IEmitOptions): Timeou
 }
 
 /**
- * Implements timeout event, with automatically cancelled subscriptions.
+ * Implements a timeout event, with automatically cancelled subscriptions.
  *
- * A new timeout is automatically created for every subscriber.
+ * A new timeout is started for every subscriber.
  */
 export class TimeoutEvent extends SubEvent<void> {
     constructor(timeout: number = 0, options?: IEmitOptions) {
@@ -29,10 +29,6 @@ export class TimeoutEvent extends SubEvent<void> {
     }
 
     subscribe(cb: SubFunction<void>, options?: ISubOptions): Subscription {
-        const sub = super.subscribe(() => {
-            sub.cancel(); // cancel subscription
-            return cb.call(options?.thisArg);
-        }, options);
-        return sub;
+        return this.once(cb, options);
     }
 }
