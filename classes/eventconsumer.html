@@ -2445,14 +2445,14 @@ img {
 
 <span class="hljs-keyword">class</span> MyComponent {
 
-    <span class="hljs-keyword">private</span> event: SubEvent&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEvent(); <span class="hljs-comment">// internal, read-write event</span>
+    <span class="hljs-keyword">private</span> event: SubEvent&lt;<span class="hljs-built_in">string</span>&gt; = <span class="hljs-keyword">new</span> SubEvent(); <span class="hljs-comment">// internal, send-receive event</span>
 
-    readonly safeEvent: EventConsumer&lt;<span class="hljs-built_in">string</span>&gt;; <span class="hljs-comment">// public, read-only event container</span>
+    readonly safeEvent: EventConsumer&lt;<span class="hljs-built_in">string</span>&gt;; <span class="hljs-comment">// public, receive-only event container</span>
 
     <span class="hljs-keyword">constructor</span>(<span class="hljs-params"></span>) {
        <span class="hljs-keyword">this</span>.safeEvent = <span class="hljs-keyword">new</span> EventConsumer(<span class="hljs-keyword">this</span>.event);
 
-       <span class="hljs-comment">// clients can only receive data from such safeEvent,</span>
+       <span class="hljs-comment">// clients can only receive data from such "safeEvent",</span>
        <span class="hljs-comment">// they cannot emit data or cancel other subscriptions.</span>
     }
 }</code></pre>
@@ -2518,7 +2518,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L38">consumer.ts:38</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b63ffec/src/consumer.ts#L38">consumer.ts:38</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2554,7 +2554,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L53">consumer.ts:53</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b63ffec/src/consumer.ts#L53">consumer.ts:53</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2576,7 +2576,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L60">consumer.ts:60</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b63ffec/src/consumer.ts#L60">consumer.ts:60</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2601,7 +2601,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L88">consumer.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b63ffec/src/consumer.ts#L88">consumer.ts:88</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2629,7 +2629,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L74">consumer.ts:74</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b63ffec/src/consumer.ts#L74">consumer.ts:74</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2660,7 +2660,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L67">consumer.ts:67</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b63ffec/src/consumer.ts#L67">consumer.ts:67</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -2691,7 +2691,7 @@ img {
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/dfc7149/src/consumer.ts#L81">consumer.ts:81</a></li>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/b63ffec/src/consumer.ts#L81">consumer.ts:81</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
