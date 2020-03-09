@@ -419,18 +419,18 @@ describe('toPromise', () => {
 });
 
 describe('once', () => {
-    it('must cancel subscription after one event', () => {
+    it('must cancel subscription before the callback', () => {
         const a = new SubEvent<string>();
         let liveEnd, msg;
         const sub = a.once(data => {
-            liveEnd = sub.live;
+            liveEnd = sub.live; // must be cancelled at this point
             msg = data;
         });
         const liveStart = sub.live;
         a.emit('hello');
+        expect(msg).to.equal('hello');
         expect(liveStart).to.be.true;
         expect(liveEnd).to.be.false;
-        expect(msg).to.equal('hello');
     });
     it('must pass in options correctly', () => {
         const a = new SubEvent<string>();
