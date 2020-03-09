@@ -4,8 +4,8 @@ import {Subscription} from './sub';
 /**
  * #### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
  *
- * Encapsulates an event, in order to hide its methods [[emit]] and [[cancelAll]], so the event
- * consumer can only read/receive data, but cannot emit it, or cancel other subscriptions.
+ * Encapsulates an event object, in order to hide its methods [[emit]] and [[cancelAll]], so the event
+ * consumer can only receive the event, but cannot emit it, or cancel other subscriptions.
  *
  * The class has the same signature as [[SubEvent]], minus methods [[emit]] and [[cancelAll]].
  *
