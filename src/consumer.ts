@@ -16,14 +16,14 @@ import {Subscription} from './sub';
  *
  * class MyComponent {
  *
- *     private event: SubEvent<string> = new SubEvent(); // internal, read-write event
+ *     private event: SubEvent<string> = new SubEvent(); // internal, send-receive event
  *
- *     readonly safeEvent: EventConsumer<string>; // public, read-only event container
+ *     readonly safeEvent: EventConsumer<string>; // public, receive-only event container
  *
  *     constructor() {
  *        this.safeEvent = new EventConsumer(this.event);
  *
- *        // clients can only receive data from such safeEvent,
+ *        // clients can only receive data from such "safeEvent",
  *        // they cannot emit data or cancel other subscriptions.
  *     }
  * }
