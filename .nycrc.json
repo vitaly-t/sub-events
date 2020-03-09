@@ -2,6 +2,12 @@
   "extension": [
     ".ts"
   ],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "./src/consumer.ts"
+  ],
   "require": [
     "ts-node/register"
   ],
