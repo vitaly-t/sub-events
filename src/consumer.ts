@@ -33,9 +33,14 @@ import {Subscription} from './sub';
 export class EventConsumer<T = unknown, E extends SubEvent<T> = SubEvent<T>> {
 
     /**
-     * Encapsulated an event object.
+     * Encapsulated event object.
+     *
+     * It has protected access, to be accessible from a derived class,
+     * in case you want to contain a custom event that offers properties and methods
+     * to be exposed to event listeners. You would just have your derived consumer
+     * class re-declare those and forward into the contained event.
      */
-    private event: E;
+    protected event: E;
 
     /**
      * Class Constructor.

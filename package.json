@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
