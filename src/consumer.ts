@@ -1,9 +1,15 @@
 import {ISubOptions, ISubStat, SubEvent, SubFunction} from './event';
 import {Subscription} from './sub';
 
+/**
+ * @hidden
+ */
 const eventMap: WeakMap<object, SubEvent<any>> = new WeakMap();
 
-const consume = (obj: EventConsumer) => eventMap.get(obj)!;
+/**
+ * @hidden
+ */
+const consume = <T>(obj: EventConsumer) => eventMap.get(obj) as SubEvent<T>;
 
 /**
  * #### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
@@ -50,42 +56,42 @@ export class EventConsumer<T = unknown, E extends SubEvent<T> = SubEvent<T>> {
      * Forwards into [[SubEvent.count]] of the contained event.
      */
     get count(): number {
-        return consume(this).count;
+        return consume<T>(this).count;
     }
 
     /**
      * Forwards into [[SubEvent.maxSubs]] of the contained event.
      */
     get maxSubs(): number {
-        return consume(this).maxSubs;
+        return consume<T>(this).maxSubs;
     }
 
     /**
      * Forwards into [[SubEvent.subscribe]] of the contained event.
      */
     subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
-        return consume(this).subscribe(cb, options);
+        return consume<T>(this).subscribe(cb, options);
     }
 
     /**
      * Forwards into [[SubEvent.once]] of the contained event.
      */
     once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
-        return consume(this).once(cb, options);
+        return consume<T>(this).once(cb, options);
     }
 
     /**
      * Forwards into [[SubEvent.toPromise]] of the contained event.
      */
     toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
-        return consume(this).toPromise(options);
+        return consume<T>(this).toPromise(options);
     }
 
     /**
      * Forwards into [[SubEvent.getStat]] of the contained event.
      */
     getStat(options?: { minUse?: number }): ISubStat {
-        return consume(this).getStat(options);
+        return consume<T>(this).getStat(options);
     }
 
 }
