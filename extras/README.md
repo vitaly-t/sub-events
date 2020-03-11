@@ -48,7 +48,7 @@ e.emit('receive', 'hello!'); // source emitter sends data
 sub.cancel(); // cancel subscription when no longer needed
 ```
 
-For multi-argument events, use `fromEmitterArgs` instead, as it can accept
+For multi-argument events, use `fromEmitterArgs` instead, which accepts
 an optional tuple type for the list of event arguments:
 
 ```ts
