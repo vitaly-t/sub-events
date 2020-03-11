@@ -2,14 +2,16 @@ import {ISubOptions, ISubStat, SubEvent, SubFunction} from './event';
 import {Subscription} from './sub';
 
 /**
+ * This is for private property implementation.
+ *
  * @hidden
  */
-const eventMap: WeakMap<object, SubEvent<any>> = new WeakMap();
+const eventsMap: WeakMap<object, SubEvent<any>> = new WeakMap();
 
 /**
  * @hidden
  */
-const consume = <T>(obj: EventConsumer) => eventMap.get(obj) as SubEvent<T>;
+const consume = <T>(obj: EventConsumer) => eventsMap.get(obj) as SubEvent<T>;
 
 /**
  * #### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
@@ -17,7 +19,7 @@ const consume = <T>(obj: EventConsumer) => eventMap.get(obj) as SubEvent<T>;
  * Encapsulates an event object, in order to hide its methods [[emit]] and [[cancelAll]], so the event
  * consumer can only receive the event, but cannot emit it, or cancel other subscriptions.
  *
- * The class has the same signature as [[SubEvent]], minus methods [[emit]] and [[cancelAll]].
+ * It is a non-extendable class, with the same signature as [[SubEvent]], minus methods [[emit]] and [[cancelAll]].
  *
  * ```ts
  * // Example of using EventConsumer inside a component.
@@ -49,7 +51,7 @@ export class EventConsumer<T = unknown, E extends SubEvent<T> = SubEvent<T>> {
      * Event object to be encapsulated.
      */
     constructor(event: E) {
-        eventMap.set(this, event);
+        eventsMap.set(this, event);
     }
 
     /**
