@@ -61,8 +61,8 @@ type MyTuple = [number, string];
 const onReceive = fromEmitterArgs<MyTuple>(e, 'receive'); // creating 'receive' event
 
 const sub = onReceive.subscribe(data => {
-    // data[0] = 123, and is type "number"
-    // data[1] = 'hello' and type "string"
+    // data[0] = 123, strongly-typed
+    // data[1] = 'hello', strongly-typed
 });
 
 e.emit('receive', 123, 'hello'); // source emitter sends multiple arguments
