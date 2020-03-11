@@ -49,7 +49,7 @@ sub.cancel(); // cancel subscription when no longer needed
 ```
 
 For multi-argument events, use `fromEmitterArgs` instead, which accepts
-an optional tuple type for the list of event arguments:
+an optional tuple type for the event arguments:
 
 ```ts
 import {fromEmitterArgs} from 'sub-events/ext';
