@@ -28,7 +28,7 @@ export function fromEmitter<T = unknown>(target: EventEmitter, event: string | s
  *
  * The emitted arguments are passed into the handler as an array or as a tuple.
  */
-export function fromEmitterArgs<T extends any[] = any[]>(target: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<T> {
+export function fromEmitterArgs<T extends unknown[]>(target: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<T> {
     const sec: SubEventCount<T> = new SubEventCount();
     const handler = (...args: any[]) => sec.emit(args as T, options);
     sec.onCount.subscribe(info => {

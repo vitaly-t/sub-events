@@ -48,8 +48,8 @@ e.emit('receive', 'hello!'); // source emitter sends data
 sub.cancel(); // cancel subscription when no longer needed
 ```
 
-For multi-argument events, use `fromEmitterArgs` instead, which accepts
-an optional tuple type for the event arguments:
+For multi-argument events, use `fromEmitterArgs` instead, which accepts a tuple
+type for the event arguments:
 
 ```ts
 import {fromEmitterArgs} from 'sub-events/ext';
@@ -60,17 +60,15 @@ type MyTuple = [number, string];
 
 const onReceive = fromEmitterArgs<MyTuple>(e, 'receive'); // creating 'receive' event
 
-const sub = onReceive.subscribe((data: MyTuple) => {
-    // data is strongly-typed here:
-    const s = data[0].toFixed(2); // 123.00
+const sub = onReceive.subscribe(data => {
+    // data[0] = 123, and is type "number"
+    // data[1] = 'hello' and type "string"
 });
 
 e.emit('receive', 123, 'hello'); // source emitter sends multiple arguments
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
-
-Without specifying any tuple type, `fromEmitterArgs` will use `any[]` as default.
 
 </details>
 
