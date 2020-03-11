@@ -141,7 +141,7 @@ export interface ISubOptions {
     /**
      * Unique subscription name. It helps with diagnosing subscription leaks,
      * via method [[getStat]], and provides additional details during error handling.
-     * The name should help identify place in the code where the subscription is created.
+     * The name should help identify place in the code where the subscription was created.
      *
      * @see [[getStat]]
      */
