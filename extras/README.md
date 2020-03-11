@@ -70,7 +70,7 @@ e.emit('receive', 123, 'hello'); // source emitter sends multiple arguments
 sub.cancel(); // cancel subscription when no longer needed
 ```
 
-Without specifying the tuple, `fromEmitterArgs` will just use `any[]` as default.
+Without specifying any tuple type, `fromEmitterArgs` will use `any[]` as default.
 
 </details>
 
