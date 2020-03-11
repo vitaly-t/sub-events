@@ -35,7 +35,7 @@ Implemented in [src/from-emitter].
 ```ts
 import {fromEmitter} from 'sub-events/ext';
 
-const e = new EventEmitter(); // our test emitter
+const e = new EventEmitter(); // our source/test emitter
 
 const onReceive = fromEmitter<string>(e, 'receive'); // creating 'receive' event
 
@@ -47,6 +47,30 @@ e.emit('receive', 'hello!'); // source emitter sends data
 
 sub.cancel(); // cancel subscription when no longer needed
 ```
+
+To handle multi-argument events, use `fromEmitterArgs` instead, as it can accept
+an optional tuple type for the list of event arguments:
+
+```ts
+import {fromEmitterArgs} from 'sub-events/ext';
+
+const e = new EventEmitter(); // our source/test emitter
+
+type MyTuple = [number, string];
+
+const onReceive = fromEmitterArgs<MyTuple>(e, 'receive'); // creating 'receive' event
+
+const sub = onReceive.subscribe((data: MyTuple) => {
+    // data is strongly-typed here:
+    const s = data[0].toFixed(2); // 123.00
+});
+
+e.emit('receive', 123, 'hello'); // source emitter sends multiple arguments
+
+sub.cancel(); // cancel subscription when no longer needed
+```
+
+Without specifying the tuple, `fromEmitterArgs` will just use `any[]` as default.
 
 </details>
 

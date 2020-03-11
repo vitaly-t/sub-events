@@ -24,13 +24,13 @@ export function fromEmitter<T = unknown>(target: EventEmitter, event: string | s
 }
 
 /**
- * Creates a named event from emitter, for multi-argument, any-type events.
+ * Creates a named event from emitter, for multi-argument, tuple-type events.
  *
- * The emitted arguments are passed into the handler as an array.
+ * The emitted arguments are passed into the handler as an array or as a tuple.
  */
-export function fromEmitterArgs(target: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<any[]> {
-    const sec: SubEventCount<any[]> = new SubEventCount();
-    const handler = (...args: any[]) => sec.emit(args, options);
+export function fromEmitterArgs<T extends any[] = any[]>(target: EventEmitter, event: string | symbol, options?: IEmitOptions): SubEventCount<T> {
+    const sec: SubEventCount<T> = new SubEventCount();
+    const handler = (...args: any[]) => sec.emit(args as T, options);
     sec.onCount.subscribe(info => {
         const start = info.prevCount === 0; // fresh start
         const stop = info.newCount === 0; // no subscriptions left
