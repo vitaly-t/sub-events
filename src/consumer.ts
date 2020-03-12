@@ -1,17 +1,13 @@
 import {ISubOptions, ISubStat, SubEvent, SubFunction} from './event';
 import {Subscription} from './sub';
+import {Private} from './utils';
 
 /**
- * This is for private property implementation.
+ * Private-property implementation.
  *
  * @hidden
  */
-const eventsMap: WeakMap<object, SubEvent<any>> = new WeakMap();
-
-/**
- * @hidden
- */
-const consume = <T>(obj: EventConsumer) => eventsMap.get(obj) as SubEvent<T>;
+const pp = new Private<EventConsumer, SubEvent<any>>();
 
 /**
  * #### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
@@ -40,7 +36,6 @@ const consume = <T>(obj: EventConsumer) => eventsMap.get(obj) as SubEvent<T>;
  *     }
  * }
  * ```
- *
  */
 export class EventConsumer<T = unknown, E extends SubEvent<T> = SubEvent<T>> {
 
@@ -51,49 +46,49 @@ export class EventConsumer<T = unknown, E extends SubEvent<T> = SubEvent<T>> {
      * Event object to be encapsulated.
      */
     constructor(event: E) {
-        eventsMap.set(this, event);
+        pp.set(this, event);
     }
 
     /**
      * Forwards into [[SubEvent.count]] of the contained event.
      */
     get count(): number {
-        return consume<T>(this).count;
+        return pp.get(this).count;
     }
 
     /**
      * Forwards into [[SubEvent.maxSubs]] of the contained event.
      */
     get maxSubs(): number {
-        return consume<T>(this).maxSubs;
+        return pp.get(this).maxSubs;
     }
 
     /**
      * Forwards into [[SubEvent.subscribe]] of the contained event.
      */
     subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
-        return consume<T>(this).subscribe(cb, options);
+        return pp.get(this).subscribe(cb, options);
     }
 
     /**
      * Forwards into [[SubEvent.once]] of the contained event.
      */
     once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
-        return consume<T>(this).once(cb, options);
+        return pp.get(this).once(cb, options);
     }
 
     /**
      * Forwards into [[SubEvent.toPromise]] of the contained event.
      */
     toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
-        return consume<T>(this).toPromise(options);
+        return pp.get(this).toPromise(options);
     }
 
     /**
      * Forwards into [[SubEvent.getStat]] of the contained event.
      */
     getStat(options?: { minUse?: number }): ISubStat {
-        return consume<T>(this).getStat(options);
+        return pp.get(this).getStat(options);
     }
 
 }
