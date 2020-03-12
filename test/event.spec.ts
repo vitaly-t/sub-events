@@ -1,5 +1,5 @@
 import {chai, dummy, expect} from './';
-import {EmitSchedule, ISubContext, SubEvent} from '../src';
+import {EmitSchedule, EventConsumer, ISubContext, SubEvent} from '../src';
 
 const errInvalidOptions = `Invalid "options" parameter.`;
 
@@ -441,5 +441,16 @@ describe('once', () => {
         }, {thisArg: contextIn});
         a.emit('hello');
         expect(contextOut).to.equal(contextIn);
+    });
+});
+
+describe('toConsumer', () => {
+    it('must return new EventConsumer', () => {
+        const e = new SubEvent<number>();
+        const c = e.toConsumer();
+        expect(c).to.be.instanceOf(EventConsumer);
+        expect(typeof c.subscribe).to.equal('function');
+        expect((c as any).emit).to.be.undefined;
+        expect((c as any).cancelAll).to.be.undefined;
     });
 });

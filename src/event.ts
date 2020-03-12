@@ -1,4 +1,5 @@
 import {Subscription} from './sub';
+import {EventConsumer} from './consumer';
 
 /**
  * Schedule for emitting / broadcasting data to subscribers, to be used by method [[emit]].
@@ -244,6 +245,15 @@ export class SubEvent<T = unknown> {
             throw new TypeError(Stat.errInvalidOptions);
         }
         this.options = options ?? {};
+    }
+
+    /**
+     * Returns a new [[EventConsumer]] for the event, which removes methods [[emit]] and [[cancelAll]].
+     *
+     * This method simplifies creation of a receive-only event object.
+     */
+    public toConsumer<E extends SubEvent<T>>(): EventConsumer<T, E> {
+        return new EventConsumer(this);
     }
 
     /**
