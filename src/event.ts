@@ -248,9 +248,18 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Returns a new [[EventConsumer]] for the event, which removes methods [[emit]] and [[cancelAll]].
+     * Returns a new [[EventConsumer]] for the event, which physically hides methods [[emit]] and [[cancelAll]].
      *
-     * This method simplifies creation of a receive-only event object.
+     * This method simplifies creation of a receive-only event object representation.
+     *
+     * ```ts
+     * const e = new SubEvent<number>(); // full-access, emit-receive event
+     *
+     * const c = e.toConsumer(); // the same "e" event, but with receive-only access
+     *
+     * // It is equivalent to the full syntax of:
+     * // const c = new EventConsumer<number>(e);
+     * ```
      */
     public toConsumer<E extends SubEvent<T>>(): EventConsumer<T, E> {
         return new EventConsumer(this);

@@ -31,6 +31,9 @@ const pp = new Private<EventConsumer, SubEvent<any>>();
  *     constructor() {
  *        this.safeEvent = new EventConsumer(this.event);
  *
+ *        // or even simpler:
+ *        // this.safeEvent = this.event.toConsumer();
+ *
  *        // clients can only receive data from such "safeEvent",
  *        // they cannot emit data or cancel other subscriptions.
  *     }

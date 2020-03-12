@@ -1,5 +1,7 @@
 /**
  * Implements proper private properties.
+ *
+ * @hidden
  */
 export class Private<K extends object, V> {
 
