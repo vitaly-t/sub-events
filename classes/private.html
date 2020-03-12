@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ISubCountChange | SUB-EVENTS v1.8</title>
+	<title>Private | SUB-EVENTS v1.8</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2367,45 +2367,48 @@ img {
 			<a href="../enums/emitschedule.html" class="tsd-kind-icon">Emit<wbr>Schedule</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/eventconsumer.html" class="tsd-kind-icon">Event<wbr>Consumer</a>
+			<a href="eventconsumer.html" class="tsd-kind-icon">Event<wbr>Consumer</a>
 		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
-		</li>
-		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a>
-		</li>
-		<li class=" tsd-kind-class">
-			<a href="../classes/subscription.html" class="tsd-kind-icon">Subscription</a>
-		</li>
-		<li class=" tsd-kind-interface tsd-has-type-parameter">
-			<a href="icountoptions.html" class="tsd-kind-icon">ICount<wbr>Options</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="iemitoptions.html" class="tsd-kind-icon">IEmit<wbr>Options</a>
-		</li>
-		<li class=" tsd-kind-interface tsd-has-type-parameter">
-			<a href="ieventoptions.html" class="tsd-kind-icon">IEvent<wbr>Options</a>
-		</li>
-		<li class=" tsd-kind-interface tsd-has-type-parameter">
-			<a href="isubcontext.html" class="tsd-kind-icon">ISub<wbr>Context</a>
-		</li>
-		<li class="current tsd-kind-interface">
-			<a href="isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
+		<li class="current tsd-kind-class tsd-has-type-parameter">
+			<a href="private.html" class="tsd-kind-icon">Private</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="isubcountchange.html#newcount" class="tsd-kind-icon">new<wbr>Count</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="private.html#get" class="tsd-kind-icon">get</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="isubcountchange.html#prevcount" class="tsd-kind-icon">prev<wbr>Count</a>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="private.html#set" class="tsd-kind-icon">set</a>
 				</li>
 			</ul>
 		</li>
-		<li class=" tsd-kind-interface">
-			<a href="isuboptions.html" class="tsd-kind-icon">ISub<wbr>Options</a>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
+		</li>
+		<li class=" tsd-kind-class tsd-has-type-parameter">
+			<a href="subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="subscription.html" class="tsd-kind-icon">Subscription</a>
+		</li>
+		<li class=" tsd-kind-interface tsd-has-type-parameter">
+			<a href="../interfaces/icountoptions.html" class="tsd-kind-icon">ICount<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="isubstat.html" class="tsd-kind-icon">ISub<wbr>Stat</a>
+			<a href="../interfaces/iemitoptions.html" class="tsd-kind-icon">IEmit<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface tsd-has-type-parameter">
+			<a href="../interfaces/ieventoptions.html" class="tsd-kind-icon">IEvent<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface tsd-has-type-parameter">
+			<a href="../interfaces/isubcontext.html" class="tsd-kind-icon">ISub<wbr>Context</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/isubcountchange.html" class="tsd-kind-icon">ISub<wbr>Count<wbr>Change</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/isuboptions.html" class="tsd-kind-icon">ISub<wbr>Options</a>
+		</li>
+		<li class=" tsd-kind-interface">
+			<a href="../interfaces/isubstat.html" class="tsd-kind-icon">ISub<wbr>Stat</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
 			<a href="../globals.html#subfunction" class="tsd-kind-icon">Sub<wbr>Function</a>
@@ -2416,21 +2419,27 @@ img {
 	<div class="content-wrap">
 		<section class="tsd-panel tsd-comment">
 			<div class="tsd-comment tsd-typography">
-				<dl class="tsd-comment-tags">
-					<dt>interface</dt>
-					<dd><p>ISubCountChange</p>
-					</dd>
-					<dt>description</dt>
-					<dd><p>Represents a change in the number of subscriptions, as used with <a href="../classes/subeventcount.html#oncount">onCount</a> event.</p>
-					</dd>
-				</dl>
+				<div class="lead">
+					<p>Implements proper private properties.</p>
+				</div>
 			</div>
+		</section>
+		<section class="tsd-panel tsd-type-parameters">
+			<h3>Type parameters</h3>
+			<ul class="tsd-type-parameters">
+				<li>
+					<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h4>
+				</li>
+				<li>
+					<h4>V</h4>
+				</li>
+			</ul>
 		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">ISubCountChange</span>
+					<span class="target">Private</span>
 				</li>
 			</ul>
 		</section>
@@ -2439,46 +2448,65 @@ img {
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Properties</h3>
+						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="isubcountchange.html#newcount" class="tsd-kind-icon">new<wbr>Count</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="isubcountchange.html#prevcount" class="tsd-kind-icon">prev<wbr>Count</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="private.html#get" class="tsd-kind-icon">get</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="private.html#set" class="tsd-kind-icon">set</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="newcount" class="tsd-anchor"></a>
-				<h3>new<wbr>Count</h3>
-				<div class="tsd-signature tsd-kind-icon">new<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/9791a5c/src/count.ts#L12">count.ts:12</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>New number of subscriptions.</p>
-					</div>
-				</div>
+			<h2>Methods</h2>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="get" class="tsd-anchor"></a>
+				<h3>get</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5bc121f/src/utils/private.ts#L8">utils/private.ts:8</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>obj: <span class="tsd-signature-type">K</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">V</span></h4>
+					</li>
+				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="prevcount" class="tsd-anchor"></a>
-				<h3>prev<wbr>Count</h3>
-				<div class="tsd-signature tsd-kind-icon">prev<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/9791a5c/src/count.ts#L17">count.ts:17</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Previous number of subscriptions.</p>
-					</div>
-				</div>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="set" class="tsd-anchor"></a>
+				<h3>set</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">set<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, val<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/5bc121f/src/utils/private.ts#L12">utils/private.ts:12</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>obj: <span class="tsd-signature-type">K</span></h5>
+							</li>
+							<li>
+								<h5>val: <span class="tsd-signature-type">V</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+					</li>
+				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">
