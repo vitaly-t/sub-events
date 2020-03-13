@@ -4,8 +4,8 @@ import {SubEventCount, IEmitOptions} from '../../src';
  * Helps supporting any custom Event-like type.
  */
 interface IEventLike {
-    addEventListener: (type: string, callback: (e: Event) => void) => this;
-    removeEventListener: (type: string, callback: (e: Event) => void) => this;
+    addEventListener: (type: string, callback: (e: Event) => void) => void;
+    removeEventListener: (type: string, callback: (e: Event) => void) => void;
 }
 
 /**

@@ -33,7 +33,7 @@ export function fromEmitter<T = unknown>(target: IEmitterLike, event: string | s
 /**
  * Creates a named event from emitter, for multi-argument, tuple-type events.
  *
- * The emitted arguments are passed into the handler as an array or as a tuple.
+ * The emitted arguments are passed into the handler as a tuple array.
  */
 export function fromEmitterArgs<T extends unknown[]>(target: IEmitterLike, event: string | symbol, options?: IEmitOptions): SubEventCount<T> {
     const sec: SubEventCount<T> = new SubEventCount();
