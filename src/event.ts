@@ -294,11 +294,11 @@ export class SubEvent<T = unknown> {
         }
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
         const cancel = () => {
-            if (typeof options?.onCancel === 'function') {
+            if (options && typeof options.onCancel === 'function') {
                 options.onCancel();
             }
         };
-        const name = options?.name;
+        const name = options && options.name;
         const sub: ISubscriber<T> = {event: this, cb, name, cancel};
         if (typeof this.options.onSubscribe === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
@@ -330,7 +330,7 @@ export class SubEvent<T = unknown> {
     public once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         const sub = this.subscribe((data: T) => {
             sub.cancel();
-            return cb.call(options?.thisArg, data);
+            return cb.call(options && options.thisArg, data);
         }, options);
         return sub;
     }
@@ -352,9 +352,9 @@ export class SubEvent<T = unknown> {
         if (typeof (options ?? {}) !== 'object') {
             throw new TypeError(Stat.errInvalidOptions);
         }
-        const schedule: EmitSchedule = options?.schedule ?? EmitSchedule.sync;
-        const onFinished = typeof options?.onFinished === 'function' && options.onFinished;
-        const onError = typeof options?.onError === 'function' && options.onError;
+        const schedule: EmitSchedule = (options && options.schedule) ?? EmitSchedule.sync;
+        const onFinished = options && typeof options.onFinished === 'function' && options.onFinished;
+        const onError = options && typeof options.onError === 'function' && options.onError;
         const start = schedule === EmitSchedule.sync ? Stat.callNow : Stat.callNext;
         const middle = schedule === EmitSchedule.async ? Stat.callNext : Stat.callNow;
         start(() => {
@@ -362,15 +362,15 @@ export class SubEvent<T = unknown> {
             r.forEach((sub, index) => middle(() => {
                 if (onError) {
                     try {
-                        const res = sub.cb?.(data);
-                        if (typeof res?.catch === 'function') {
+                        const res = sub.cb && sub.cb(data);
+                        if (res && typeof res.catch === 'function') {
                             res.catch((err: any) => onError(err, sub.name));
                         }
                     } catch (e) {
                         onError(e, sub.name);
                     }
                 } else {
-                    sub.cb?.(data);
+                    sub.cb && sub.cb(data);
                 }
                 if (onFinished && index === r.length - 1) {
                     onFinished(r.length); // finished sending
@@ -428,7 +428,7 @@ export class SubEvent<T = unknown> {
                 stat.unnamed++;
             }
         });
-        const minUse = options?.minUse ?? 0;
+        const minUse = (options && options.minUse) ?? 0;
         if (minUse > 1) {
             for (const a in stat.named) {
                 if (stat.named[a] < minUse) {
