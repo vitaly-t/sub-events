@@ -41,7 +41,7 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     /**
      * @hidden
      */
-    protected _notify: (data: ISubCountChange) => number;
+    protected _notify: (data: ISubCountChange) => SubEvent<ISubCountChange>;
 
     /**
      * Triggered on any change in the number of subscriptions.

@@ -228,6 +228,10 @@ describe('getStat', () => {
 });
 
 describe('emit', () => {
+    it('must return itself', () => {
+        const e = new SubEvent<void>();
+        expect(e.emit()).to.equal(e);
+    });
     it('must throw on invalid options', () => {
         const s = new SubEvent();
         expect(() => {
@@ -317,20 +321,19 @@ describe('emit', () => {
         });
     });
     describe('next', () => {
-        it('must delay event broadcast', done => {
-            let res: string | null = null;
-            const e = new SubEvent<string>();
-            e.subscribe(data => {
-                res = data;
-            });
-            e.emit('hello', {
-                schedule: EmitSchedule.next,
-                onFinished: () => {
-                    expect(res).to.eql('hello');
-                    done();
-                }
-            });
-            expect(res).to.be.null;
+        it('must delay event broadcast', async () => {
+            const e = new SubEvent<number>();
+            e.emit(123, {schedule: EmitSchedule.next});
+            const data = await e.toPromise({timeout: 0});
+            expect(data).to.equal(123);
+        });
+    });
+    describe('async', () => {
+        it('must delay event broadcast', async () => {
+            const e = new SubEvent<number>();
+            e.emit(123, {schedule: EmitSchedule.async});
+            const data = await e.toPromise({timeout: 0});
+            expect(data).to.equal(123);
         });
     });
 });

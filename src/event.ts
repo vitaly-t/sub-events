@@ -17,12 +17,16 @@ export enum EmitSchedule {
     /**
      * Data broadcast is fully asynchronous: each subscriber will be receiving the event
      * within its own processor tick (under Node.js), or timer tick (in browsers).
+     *
+     * Subscribers are enumerated after the initial delay.
      */
     async = 'async',
 
     /**
      * Wait for the next processor tick (under Node.js), or timer tick (in browsers),
      * and then broadcast data to all subscribers synchronously.
+     *
+     * Subscribers are enumerated after the delay.
      */
     next = 'next'
 }
@@ -342,19 +346,19 @@ export class SubEvent<T = unknown> {
      * Event-emitting options.
      *
      * @returns
-     * Number of subscribers that will receive the data.
+     * The event object itself.
      */
-    public emit(data: T, options?: IEmitOptions): number {
+    public emit(data: T, options?: IEmitOptions): this {
         if (typeof (options ?? {}) !== 'object') {
             throw new TypeError(Stat.errInvalidOptions);
         }
         const schedule: EmitSchedule = options?.schedule ?? EmitSchedule.sync;
         const onFinished = typeof options?.onFinished === 'function' && options.onFinished;
         const onError = typeof options?.onError === 'function' && options.onError;
-        const start = schedule === EmitSchedule.next ? Stat.callNext : Stat.callNow;
+        const start = schedule === EmitSchedule.sync ? Stat.callNow : Stat.callNext;
         const middle = schedule === EmitSchedule.async ? Stat.callNext : Stat.callNow;
-        const r = this._getRecipients();
         start(() => {
+            const r = this._getRecipients();
             r.forEach((sub, index) => middle(() => {
                 if (onError) {
                     try {
@@ -373,7 +377,7 @@ export class SubEvent<T = unknown> {
                 }
             }));
         });
-        return r.length;
+        return this;
     }
 
     /**
