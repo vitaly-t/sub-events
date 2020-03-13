@@ -442,9 +442,12 @@ export class SubEvent<T = unknown> {
     /**
      * Cancels all existing subscriptions for the event.
      *
-     * This is a convenience method for some special cases, when you want to cancel
-     * all subscriptions for the event at once. Usually, subscribers just call
-     * [[cancel]] when they want to cancel their own subscription.
+     * This is a convenience method for some special cases, when you want to cancel all subscriptions
+     * for the event at once. Usually, subscribers just call [[cancel]] when they want to cancel their
+     * own subscription.
+     *
+     * This method will always offer much better performance than cancelling each subscription individually,
+     * which may become increasingly important when working with a large number of subscribers.
      *
      * @returns
      * Number of subscriptions cancelled.
