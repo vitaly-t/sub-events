@@ -2448,7 +2448,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">async<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;async&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/9791a5c/src/event.ts#L21">event.ts:21</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/42cb6ed/src/event.ts#L23">event.ts:23</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2456,6 +2456,7 @@ img {
 						<p>Data broadcast is fully asynchronous: each subscriber will be receiving the event
 						within its own processor tick (under Node.js), or timer tick (in browsers).</p>
 					</div>
+					<p>Subscribers are enumerated after the initial delay.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
@@ -2464,7 +2465,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">next<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;next&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/9791a5c/src/event.ts#L27">event.ts:27</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/42cb6ed/src/event.ts#L31">event.ts:31</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -2472,6 +2473,7 @@ img {
 						<p>Wait for the next processor tick (under Node.js), or timer tick (in browsers),
 						and then broadcast data to all subscribers synchronously.</p>
 					</div>
+					<p>Subscribers are enumerated after the delay.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
@@ -2480,7 +2482,7 @@ img {
 				<div class="tsd-signature tsd-kind-icon">sync<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;sync&quot;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/9791a5c/src/event.ts#L15">event.ts:15</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/42cb6ed/src/event.ts#L15">event.ts:15</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
