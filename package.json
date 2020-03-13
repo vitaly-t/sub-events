@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -45,7 +45,7 @@
     "@types/chai": "4.2.10",
     "@types/chai-spies": "1.0.1",
     "@types/mocha": "7.0.2",
-    "@types/node": "13.9.0",
+    "@types/node": "13.9.1",
     "browserify": "16.5.0",
     "chai": "4.2.0",
     "chai-spies": "1.0.0",
