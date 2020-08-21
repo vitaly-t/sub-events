@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "bugs": {
     "url": "https://github.com/vitaly-t/sub-events/issues"
