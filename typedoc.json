@@ -1,7 +1,6 @@
 {
   "name": "SUB-EVENTS v1.8",
   "readme": "README.md",
-  "mode": "file",
   "out": "docs",
   "theme": "minimal",
   "excludeExternals": true,
