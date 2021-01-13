@@ -5,7 +5,7 @@
   "theme": "minimal",
   "excludeExternals": true,
   "excludePrivate": true,
-  "excludeNotExported": true,
+  "excludeNotDocumented": true,
   "disableOutputCheck": true,
   "exclude": [
     "./extras/**/*.ts",

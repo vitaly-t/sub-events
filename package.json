@@ -9,7 +9,7 @@
     "all": "npm run compile && npm run lint && npm test && npm run build",
     "build": "browserify dist/src/index.js -s subEvents -o dist/index.js && node extras/deploy.js",
     "compile": "tsc -p src && tsc -p extras/src && tsc extras/deploy.ts && tsc -p test",
-    "doc": "typedoc",
+    "doc": "typedoc ./src/index.ts",
     "lint": "tslint --fix ./src/**/*.ts ./extras/src/*.ts ./test/**/*.ts",
     "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
     "travis": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
