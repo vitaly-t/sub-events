@@ -489,7 +489,7 @@ export class SubEvent<T = unknown> {
      * }
      * ```
      *
-     * The method can reject in two cases:
+     * The returned promise can reject in two cases:
      *  - when the timeout has been reached (if set via option `timeout`), it rejects with `Event timed out` error;
      *  - when [[cancelAll]] is called on the event object, it rejects with `Event cancelled` error.
      *
