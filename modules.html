@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EmitSchedule | SUB-EVENTS v1.8</title>
+	<title>SUB-EVENTS v1.8 | SUB-EVENTS v1.8</title>
 	<meta name="description" content="Documentation for SUB-EVENTS v1.8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2646,7 +2646,7 @@ img {
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="../index.html">SUB-EVENTS v1.8</a></strong>
+					<strong><a href="index.html">SUB-EVENTS v1.8</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -2674,115 +2674,186 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-enum">
-			<a href="emitschedule.html" class="tsd-kind-icon">Emit<wbr>Schedule</a>
-			<ul>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="emitschedule.html#async" class="tsd-kind-icon">async</a>
-				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="emitschedule.html#next" class="tsd-kind-icon">next</a>
-				</li>
-				<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-					<a href="emitschedule.html#sync" class="tsd-kind-icon">sync</a>
-				</li>
-			</ul>
+		<li class=" tsd-kind-enum">
+			<a href="enums/emitschedule.html" class="tsd-kind-icon">Emit<wbr>Schedule</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/eventconsumer.html" class="tsd-kind-icon">Event<wbr>Consumer</a>
+			<a href="classes/eventconsumer.html" class="tsd-kind-icon">Event<wbr>Consumer</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
+			<a href="classes/subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a>
 		</li>
 		<li class=" tsd-kind-class tsd-has-type-parameter">
-			<a href="../classes/subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a>
+			<a href="classes/subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="../classes/subscription.html" class="tsd-kind-icon">Subscription</a>
+			<a href="classes/subscription.html" class="tsd-kind-icon">Subscription</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/isubstat.html" class="tsd-kind-icon">ISub<wbr>Stat</a>
+			<a href="interfaces/isubstat.html" class="tsd-kind-icon">ISub<wbr>Stat</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-			<a href="../modules.html#subfunction" class="tsd-kind-icon">Sub<wbr>Function</a>
+			<a href="modules.html#subfunction" class="tsd-kind-icon">Sub<wbr>Function</a>
 		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
-		<section class="tsd-panel tsd-comment">
-			<div class="tsd-comment tsd-typography">
-				<div class="lead">
-					<p>Schedule for emitting / broadcasting data to subscribers, to be used by method <a href="../classes/subevent.html#emit">emit</a>.
-					It represents a concurrency strategy for delivering event to subscribers.</p>
-				</div>
-			</div>
-		</section>
+		<div class="tsd-panel tsd-typography">
+			<a href="#strongly-typed-events" id="strongly-typed-events" style="color: inherit; text-decoration: none;">
+				<h1>Strongly-Typed Events</h1>
+			</a>
+			<p><a href="https://travis-ci.org/vitaly-t/sub-events"><img src="https://travis-ci.org/vitaly-t/sub-events.svg?branch=master" alt="Build Status"></a>
+			<a href="https://coveralls.io/r/vitaly-t/sub-events?branch=master"><img src="https://coveralls.io/repos/vitaly-t/sub-events/badge.svg?branch=master" alt="Coverage Status"></a></p>
+			<p>Lightweight, strongly-typed events, with monitored subscriptions. </p>
+			<ul>
+				<li>Documentation: <a href="https://vitaly-t.github.io/sub-events">API</a> + <a href="https://github.com/vitaly-t/sub-events/wiki">WiKi</a>.</li>
+				<li>Compatible with all existing events - see <a href="https://github.com/vitaly-t/sub-events/tree/master/extras">Extras</a>. </li>
+			</ul>
+			<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+				<h2>Install</h2>
+			</a>
+			<pre><code class="language-sh"><span style="color: #000000">npm i sub-events</span>
+</code></pre>
+			<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+				<h2>Usage</h2>
+			</a>
+			<ul>
+				<li>On event-provider side:</li>
+			</ul>
+			<pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">SubEvent</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;sub-events&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">// creating a strongly-typed event: </span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">e</span><span style="color: #000000">: </span><span style="color: #267F99">SubEvent</span><span style="color: #000000">&lt;</span><span style="color: #267F99">string</span><span style="color: #000000">&gt; = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">SubEvent</span><span style="color: #000000">();</span>
+
+<span style="color: #008000">// triggering the event when needed:</span>
+<span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #795E26">emit</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;hello&#039;</span><span style="color: #000000">);</span>
+</code></pre>
+			<p><strong>API:</strong> <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html#emit">emit</a></p>
+			<ul>
+				<li>On event-consumer side:</li>
+			</ul>
+			<pre><code class="language-ts"><span style="color: #008000">// subscribing to the event:</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">sub</span><span style="color: #000000"> = </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #795E26">subscribe</span><span style="color: #000000">((</span><span style="color: #001080">data</span><span style="color: #000000">: </span><span style="color: #267F99">string</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #008000">// data = &#039;hello&#039;</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #008000">// cancel the subscription when no longer needed:</span>
+<span style="color: #001080">sub</span><span style="color: #000000">.</span><span style="color: #795E26">cancel</span><span style="color: #000000">();</span>
+</code></pre>
+			<p><strong>API:</strong> <a href="https://vitaly-t.github.io/sub-events/classes/subscription.html">Subscription</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html#subscribe">subscribe</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subscription.html#cancel">cancel</a></p>
+			<a href="#monitoring-subscriptions" id="monitoring-subscriptions" style="color: inherit; text-decoration: none;">
+				<h3>Monitoring Subscriptions</h3>
+			</a>
+			<p>Class <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a> extends <a href="https://vitaly-t.github.io/sub-events/classes/subevent.html">SubEvent</a> with event <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a>, to observe the number of subscriptions:</p>
+			<pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">SubEventCount</span><span style="color: #000000">, </span><span style="color: #001080">ISubCountChange</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;sub-events&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #008000">// creating a strongly-typed event:</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">e</span><span style="color: #000000">: </span><span style="color: #267F99">SubEventCount</span><span style="color: #000000">&lt;</span><span style="color: #267F99">string</span><span style="color: #000000">&gt; = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">SubEventCount</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">onCount</span><span style="color: #000000">.</span><span style="color: #795E26">subscribe</span><span style="color: #000000">((</span><span style="color: #001080">info</span><span style="color: #000000">: </span><span style="color: #267F99">ISubCountChange</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// number of subscriptions has changed;</span>
+<span style="color: #000000">    </span><span style="color: #008000">// info = {newCount, prevCount} </span>
+<span style="color: #000000">});</span>
+
+<span style="color: #008000">// any subscription will trigger event onCount:</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">sub</span><span style="color: #000000"> = </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #795E26">subscribe</span><span style="color: #000000">(</span><span style="color: #001080">data</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {});</span>
+
+<span style="color: #008000">// cancelling a subscription will trigger onCount:</span>
+<span style="color: #001080">sub</span><span style="color: #000000">.</span><span style="color: #795E26">cancel</span><span style="color: #000000">();</span>
+</code></pre>
+			<p><strong>API:</strong> <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html">SubEventCount</a>, <a href="https://vitaly-t.github.io/sub-events/classes/subeventcount.html#oncount">onCount</a></p>
+			<a href="#browser" id="browser" style="color: inherit; text-decoration: none;">
+				<h3>Browser</h3>
+			</a>
+			<p>When including directly from HTML, you can access all types under <code>subEvents</code> namespace:</p>
+			<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;./node_modules/sub-events/dist&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+<span style="color: #800000">&lt;script&gt;</span>
+<span style="color: #000000FF">    </span><span style="color: #0000FF">const</span><span style="color: #000000FF"> </span><span style="color: #0070C1">e</span><span style="color: #000000FF"> </span><span style="color: #000000">=</span><span style="color: #000000FF"> </span><span style="color: #0000FF">new</span><span style="color: #000000FF"> </span><span style="color: #267F99">subEvents</span><span style="color: #000000FF">.</span><span style="color: #267F99">SubEvent</span><span style="color: #000000FF">();</span>
+<span style="color: #000000FF">    </span><span style="color: #001080">e</span><span style="color: #000000FF">.</span><span style="color: #795E26">subscribe</span><span style="color: #000000FF">(</span><span style="color: #001080">data</span><span style="color: #000000FF"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> {</span>
+<span style="color: #000000FF">        </span><span style="color: #008000">// data received</span>
+<span style="color: #000000FF">    });</span>
+<span style="color: #800000">&lt;/script&gt;</span>
+</code></pre>
+			<p>Note that pre-built script includes only the core library, without the <a href="https://github.com/vitaly-t/sub-events/tree/master/extras">Extras</a>,
+			which you can bundle yourself as needed. </p>
+		</div>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
-						<h3>Enumeration members</h3>
+						<h3>Enumerations</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="emitschedule.html#async" class="tsd-kind-icon">async</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="emitschedule.html#next" class="tsd-kind-icon">next</a></li>
-							<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="emitschedule.html#sync" class="tsd-kind-icon">sync</a></li>
+							<li class="tsd-kind-enum"><a href="enums/emitschedule.html" class="tsd-kind-icon">Emit<wbr>Schedule</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Classes</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/eventconsumer.html" class="tsd-kind-icon">Event<wbr>Consumer</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/subevent.html" class="tsd-kind-icon">Sub<wbr>Event</a></li>
+							<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/subeventcount.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Count</a></li>
+							<li class="tsd-kind-class"><a href="classes/subscription.html" class="tsd-kind-icon">Subscription</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Interfaces</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-interface"><a href="interfaces/isubstat.html" class="tsd-kind-icon">ISub<wbr>Stat</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
+						<h3>Type aliases</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="modules.html#subfunction" class="tsd-kind-icon">Sub<wbr>Function</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Enumeration members</h2>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="async" class="tsd-anchor"></a>
-				<h3>async</h3>
-				<div class="tsd-signature tsd-kind-icon">async<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;async&quot;</span></div>
+			<h2>Type aliases</h2>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
+				<a name="subfunction" class="tsd-anchor"></a>
+				<h3>Sub<wbr>Function</h3>
+				<div class="tsd-signature tsd-kind-icon">Sub<wbr>Function&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/197d4ac/src/event.ts#L23">event.ts:23</a></li>
+						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/197d4ac/src/event.ts#L199">event.ts:199</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Data broadcast is fully asynchronous: each subscriber will be receiving the event
-						within its own processor tick (under Node.js), or timer tick (in browsers).</p>
+						<p>Subscription callback function type.</p>
 					</div>
-					<p>Subscribers are enumerated after the initial delay.</p>
 				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="next" class="tsd-anchor"></a>
-				<h3>next</h3>
-				<div class="tsd-signature tsd-kind-icon">next<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;next&quot;</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/197d4ac/src/event.ts#L31">event.ts:31</a></li>
+				<h4 class="tsd-type-parameters-title">Type parameters</h4>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
+				</ul>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-signature">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-parameters-title">Parameters</h4>
+									<ul class="tsd-parameters">
+										<li>
+											<h5>data: <span class="tsd-signature-type">T</span></h5>
+										</li>
+									</ul>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+								</li>
+							</ul>
+						</li>
 					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Wait for the next processor tick (under Node.js), or timer tick (in browsers),
-						and then broadcast data to all subscribers synchronously.</p>
-					</div>
-					<p>Subscribers are enumerated after the delay.</p>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-				<a name="sync" class="tsd-anchor"></a>
-				<h3>sync</h3>
-				<div class="tsd-signature tsd-kind-icon">sync<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;sync&quot;</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/vitaly-t/sub-events/blob/197d4ac/src/event.ts#L15">event.ts:15</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Data is sent to all subscribers synchronously / immediately.</p>
-					</div>
-					<p>This is the default schedule.</p>
 				</div>
 			</section>
 		</section>
