@@ -10,7 +10,7 @@ import {Private} from './utils';
 const pp = new Private<EventConsumer, SubEvent<any>>();
 
 /**
- * #### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
+ * ### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
  *
  * Encapsulates an event object, in order to hide its methods [[emit]] and [[cancelAll]], so the event
  * consumer can only receive the event, but cannot emit it, or cancel other subscriptions.

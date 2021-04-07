@@ -1,8 +1,6 @@
 import {IEmitOptions, IEventOptions, ISubscriber, SubEvent} from './event';
 
 /**
- * @interface ISubCountChange
- * @description
  * Represents a change in the number of subscriptions, as used with [[onCount]] event.
  */
 export interface ISubCountChange {
@@ -18,8 +16,6 @@ export interface ISubCountChange {
 }
 
 /**
- * @interface ICountOptions
- * @description
  * Constructor options for [[SubEventCount]] class.
  */
 export interface ICountOptions<T> extends IEventOptions<T> {
@@ -30,10 +26,8 @@ export interface ICountOptions<T> extends IEventOptions<T> {
 }
 
 /**
- * #### class SubEventCount\<T = unknown\> extends SubEvent\<T\>
+ * ### class SubEventCount\<T = unknown\> extends SubEvent\<T\>
  *
- * @class SubEventCount
- * @description
  * Extends [[SubEvent]] with event [[onCount]], to observe the number of subscriptions.
  */
 export class SubEventCount<T = unknown> extends SubEvent<T> {

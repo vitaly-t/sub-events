@@ -32,8 +32,6 @@ export enum EmitSchedule {
 }
 
 /**
- * @interface IEmitOptions
- * @description
  * Options to be used with method [[emit]].
  */
 export interface IEmitOptions {
@@ -73,8 +71,6 @@ export interface IEmitOptions {
 }
 
 /**
- * @interface ISubContext
- * @description
  * Subscription Context Interface, as used with [[onSubscribe]] and [[onCancel]]
  * notification options that can be set during [[SubEvent]] construction.
  */
@@ -97,8 +93,6 @@ export interface ISubContext<T = unknown> {
 }
 
 /**
- * @interface IEventOptions
- * @description
  * Constructor options for [[SubEvent]] class.
  */
 export interface IEventOptions<T> {
@@ -137,8 +131,6 @@ export interface IEventOptions<T> {
 }
 
 /**
- * @interface ISubOptions
- * @description
  * Options that can be passed into method [[subscribe]].
  */
 export interface ISubOptions {
@@ -216,7 +208,7 @@ export interface ISubscriber<T> extends ISubContext<T> {
 }
 
 /**
- * #### class SubEvent\<T = unknown\>
+ * ### class SubEvent\<T = unknown\>
  *
  * @class SubEvent
  * @description

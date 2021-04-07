@@ -1,8 +1,6 @@
 /**
- * #### class Subscription
+ * ### class Subscription
  *
- * @class Subscription
- * @description
  * Represents an event subscription, and a safe way to cancel it.
  *
  * @see [[cancel]]
