@@ -361,7 +361,7 @@ describe('toPromise', () => {
     });
     it('must reject on timeout', async () => {
         const a = new SubEvent<number>();
-        let err;
+        let err: any;
         try {
             await a.toPromise({timeout: 0});
         } catch (e) {
@@ -371,7 +371,7 @@ describe('toPromise', () => {
     });
     it('must reject on timeout, with name', async () => {
         const a = new SubEvent<number>();
-        let err;
+        let err: any;
         try {
             await a.toPromise({name: 'first', timeout: 10});
         } catch (e) {
@@ -381,7 +381,7 @@ describe('toPromise', () => {
     });
     it('must reject when cancelled with timer', async () => {
         const a = new SubEvent<number>();
-        let err;
+        let err: any;
         try {
             setTimeout(() => {
                 a.cancelAll();
@@ -394,7 +394,7 @@ describe('toPromise', () => {
     });
     it('must reject when cancelled without timer', async () => {
         const a = new SubEvent<number>();
-        let err;
+        let err: any;
         try {
             setTimeout(() => {
                 a.cancelAll();
@@ -408,7 +408,7 @@ describe('toPromise', () => {
 
     it('must reject when cancelled, with name', async () => {
         const a = new SubEvent();
-        let err;
+        let err: any;
         try {
             setTimeout(() => {
                 a.cancelAll();

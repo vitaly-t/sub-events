@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "1.8.9",
+  "version": "1.9.0",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -11,8 +11,7 @@
     "compile": "tsc -p src && tsc -p extras/src && tsc extras/deploy.ts && tsc -p test",
     "doc": "typedoc ./src/index.ts",
     "lint": "tslint --fix ./src/**/*.ts ./extras/src/*.ts ./test/**/*.ts",
-    "test": "nyc mocha -r ts-node/register test/**/*.spec.ts",
-    "travis": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "test": "nyc mocha -r ts-node/register test/**/*.spec.ts"
   },
   "files": [
     "dist/src",
@@ -42,21 +41,20 @@
     "typescript"
   ],
   "devDependencies": {
-    "@types/chai": "4.2.16",
+    "@types/chai": "4.3.3",
     "@types/chai-spies": "1.0.3",
-    "@types/mocha": "8.2.2",
-    "@types/node": "14.14.37",
+    "@types/mocha": "9.1.1",
+    "@types/node": "18.7.22",
     "browserify": "17.0.0",
-    "chai": "4.3.4",
+    "chai": "4.3.6",
     "chai-spies": "1.0.0",
-    "coveralls": "3.1.0",
-    "mocha": "8.3.2",
+    "mocha": "10.0.0",
     "mocha-lcov-reporter": "1.3.0",
     "nyc": "15.1.0",
-    "ts-node": "9.1.1",
-    "tslib": "2.2.0",
+    "ts-node": "10.9.1",
+    "tslib": "2.4.0",
     "tslint": "6.1.3",
-    "typedoc": "0.20.35",
-    "typescript": "4.2.3"
+    "typedoc": "0.20.37",
+    "typescript": "4.2.4"
   }
 }
