@@ -218,7 +218,8 @@ export class SubEvent<T = unknown> {
     /**
      * Last emitted event, if there was any, or `undefined` otherwise.
      *
-     * It is set after all subscribers have received the event.
+     * It is set after all subscribers have received the event, but just before
+     * optional {@link IEmitOptions.onFinished} callback is invoked.
      */
     get lastEvent(): T | undefined {
         return this._lastEvent;
@@ -377,10 +378,10 @@ export class SubEvent<T = unknown> {
                 }
                 if (index === r.length - 1) {
                     // the end of emission reached;
+                    this._lastEvent = data; // save the last event
                     if (onFinished) {
                         onFinished(r.length); // notify
                     }
-                    this._lastEvent = data; // save the last event
                 }
             }));
         });
