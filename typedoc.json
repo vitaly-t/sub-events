@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "name": "SUB-EVENTS v1.9.1",
+  "name": "SUB-EVENTS v2.0.0-beta.1",
   "out": "./docs",
   "excludeExternals": true,
   "excludePrivate": true,
