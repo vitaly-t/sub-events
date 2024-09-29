@@ -216,6 +216,16 @@ export interface ISubscriber<T> extends ISubContext<T> {
 export class SubEvent<T = unknown> {
 
     /**
+     * Last emitted event, if there was any, or `undefined` otherwise.
+     *
+     * It is set after all subscribers have received the event, but just before
+     * optional {@link IEmitOptions.onFinished} callback is invoked.
+     */
+    get lastEvent(): T | undefined {
+        return this._lastEvent;
+    }
+
+    /**
      * @hidden
      */
     readonly options: IEventOptions<T>;
@@ -225,6 +235,12 @@ export class SubEvent<T = unknown> {
      * @hidden
      */
     protected _subs: ISubscriber<T>[] = [];
+
+    /**
+     * Last emitted event container.
+     * @private
+     */
+    private _lastEvent?: T;
 
     /**
      * Event constructor.
@@ -282,11 +298,11 @@ export class SubEvent<T = unknown> {
         }
         cb = options && 'thisArg' in options ? cb.bind(options.thisArg) : cb;
         const cancel = () => {
-            if (options && typeof options.onCancel === 'function') {
+            if (typeof options?.onCancel === 'function') {
                 options.onCancel();
             }
         };
-        const name = options && options.name;
+        const name = options?.name;
         const sub: ISubscriber<T> = {event: this, cb, name, cancel};
         if (typeof this.options.onSubscribe === 'function') {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
@@ -318,7 +334,7 @@ export class SubEvent<T = unknown> {
     public once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         const sub = this.subscribe((data: T) => {
             sub.cancel();
-            return cb.call(options && options.thisArg, data);
+            return cb.call(options?.thisArg, data);
         }, options);
         return sub;
     }
@@ -328,7 +344,7 @@ export class SubEvent<T = unknown> {
      * which is synchronous by default.
      *
      * @param data
-     * Data to be sent, according to the template type.
+     * Event data to be sent, according to the template type.
      *
      * @param options
      * Event-emitting options.
@@ -340,9 +356,9 @@ export class SubEvent<T = unknown> {
         if (typeof (options ?? {}) !== 'object') {
             throw new TypeError(Stat.errInvalidOptions);
         }
-        const schedule: EmitSchedule = (options && options.schedule) ?? EmitSchedule.sync;
-        const onFinished = options && typeof options.onFinished === 'function' && options.onFinished;
-        const onError = options && typeof options.onError === 'function' && options.onError;
+        const schedule: EmitSchedule = options?.schedule ?? EmitSchedule.sync;
+        const onFinished = typeof options?.onFinished === 'function' && options.onFinished;
+        const onError = typeof options?.onError === 'function' && options.onError;
         const start = schedule === EmitSchedule.sync ? Stat.callNow : Stat.callNext;
         const middle = schedule === EmitSchedule.async ? Stat.callNext : Stat.callNow;
         start(() => {
@@ -360,8 +376,12 @@ export class SubEvent<T = unknown> {
                 } else {
                     sub.cb && sub.cb(data);
                 }
-                if (onFinished && index === r.length - 1) {
-                    onFinished(r.length); // finished sending
+                if (index === r.length - 1) {
+                    // the end of emission reached;
+                    this._lastEvent = data; // save the last event
+                    if (onFinished) {
+                        onFinished(r.length); // notify
+                    }
                 }
             }));
         });

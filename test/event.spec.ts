@@ -457,3 +457,23 @@ describe('toConsumer', () => {
         expect((c as any).cancelAll).to.be.undefined;
     });
 });
+
+describe('lastEvent', () => {
+    it('must be set once emission finished', done => {
+        const e = new SubEvent<number>();
+        e.subscribe(dummy); // TODO: Should not be needed with #33 is resolved?
+
+        const onFinished = (count: number) => {
+            expect(e.lastEvent).to.eq(123);
+        };
+
+        const handler = chai.spy(onFinished);
+        e.emit(123, {onFinished: handler, schedule: EmitSchedule.async});
+        expect(e.lastEvent).to.be.undefined;
+
+        setTimeout(() => {
+            expect(handler).to.have.been.called.with(1);
+            done();
+        });
+    });
+});
