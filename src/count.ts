@@ -16,17 +16,16 @@ export interface ISubCountChange {
 }
 
 /**
- * Constructor options for [[SubEventCount]] class.
+ * Constructor options for {@link SubEventCount} class.
  */
 export interface ICountOptions<T> extends IEventOptions<T> {
     /**
-     * Emit options for event [[onCount]].
+     * Emit options for event {@link SubEventCount.onCount}.
      */
     emitOptions?: IEmitOptions;
 }
 
 /**
- * @class
  * Extends {@link SubEvent} with event {@link onCount}, to observe the number of subscriptions.
  */
 export class SubEventCount<T = unknown> extends SubEvent<T> {
@@ -57,13 +56,13 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     /**
      * Cancels all existing subscriptions for the event.
      *
-     * It overrides the base implementation, to trigger event [[onCount]]
+     * It overrides the base implementation, to trigger event {@link onCount}
      * when there was at least one subscription.
      *
      * @returns
      * Number of subscriptions cancelled.
      *
-     * @see [[cancel]]
+     * @see {@link Subscription.cancel}
      */
     public cancelAll(): number {
         const prevCount = this.count;
@@ -75,8 +74,9 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     }
 
     /**
-     * Overrides base implementation, to trigger event [[onCount]] during
+     * Overrides base implementation, to trigger event {@link onCount} during
      * `subscribe` and `cancel` calls.
+     *
      * @hidden
      */
     protected _createCancel(sub: ISubscriber<T>): () => void {

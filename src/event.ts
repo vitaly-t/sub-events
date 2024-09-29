@@ -2,7 +2,7 @@ import {Subscription} from './sub';
 import {EventConsumer} from './consumer';
 
 /**
- * Schedule for emitting / broadcasting data to subscribers, to be used by method [[emit]].
+ * Schedule for emitting / broadcasting data to subscribers, to be used by method {@link SubEvent.emit}.
  * It represents a concurrency strategy for delivering event to subscribers.
  */
 export enum EmitSchedule {
@@ -32,7 +32,7 @@ export enum EmitSchedule {
 }
 
 /**
- * Options to be used with method [[emit]].
+ * Options to be used with method {@link SubEvent.emit}.
  */
 export interface IEmitOptions {
     /**
@@ -44,7 +44,7 @@ export interface IEmitOptions {
      * Callback for catching all unhandled errors from subscribers,
      * from both synchronous and asynchronous subscription functions.
      *
-     * ```js
+     * ```ts
      * (err: any, name?: string) => void;
      * ```
      *
@@ -52,7 +52,7 @@ export interface IEmitOptions {
      * `err`: The error that was thrown or rejected.
      *
      * @param name
-     * `name`: The subscription `name`, if set during [[subscribe]] call.
+     * `name`: The subscription `name`, if set during {@link SubEvent.subscribe} call.
      */
     onError?: (err: any, name?: string) => void;
 
@@ -60,7 +60,7 @@ export interface IEmitOptions {
      * Notification callback of when the last recipient has received the data.
      * Note that asynchronous subscribers may still be processing the data at this point.
      *
-     * ```js
+     * ```ts
      * (count: number) => void;
      * ```
      *
@@ -71,8 +71,8 @@ export interface IEmitOptions {
 }
 
 /**
- * Subscription Context Interface, as used with [[onSubscribe]] and [[onCancel]]
- * notification options that can be set during [[SubEvent]] construction.
+ * Subscription Context Interface, as used with {@link IEventOptions.onSubscribe} and {@link IEventOptions.onCancel}
+ * notification options that can be set during {@link SubEvent} construction.
  */
 export interface ISubContext<T = unknown> {
     /**
@@ -81,7 +81,7 @@ export interface ISubContext<T = unknown> {
     readonly event: SubEvent<T>;
 
     /**
-     * Subscription name, if one was specified with method [[subscribe]].
+     * Subscription name, if one was specified with method {@link SubEvent.subscribe}.
      */
     readonly name?: string;
 
@@ -93,14 +93,14 @@ export interface ISubContext<T = unknown> {
 }
 
 /**
- * Constructor options for [[SubEvent]] class.
+ * Constructor options for {@link SubEvent} class.
  */
 export interface IEventOptions<T> {
     /**
      * Maximum number of subscribers that can receive events.
      * Default is 0, meaning `no limit applies`.
      *
-     * Newer subscriptions outside of the maximum quota will start
+     * Newer subscriptions outside the maximum quota will start
      * receiving events when the older subscriptions get cancelled.
      */
     maxSubs?: number;
@@ -108,7 +108,7 @@ export interface IEventOptions<T> {
     /**
      * Notification of a new subscriber being registered.
      *
-     * ```js
+     * ```ts
      * (ctx: ISubContext<T>) => void;
      * ```
      *
@@ -125,22 +125,22 @@ export interface IEventOptions<T> {
      * ```
      *
      * @param ctx
-     * `ctx`: [[ISubContext]] - Subscription Context.
+     * `ctx`: {@link ISubContext} - Subscription Context.
      */
     onCancel?: (ctx: ISubContext<T>) => void;
 }
 
 /**
- * Options that can be passed into method [[subscribe]].
+ * Options that can be passed into method {@link SubEvent.subscribe}.
  */
 export interface ISubOptions {
 
     /**
      * Unique subscription name. It helps with diagnosing subscription leaks,
-     * via method [[getStat]], and provides additional details during error handling.
+     * via method {@link SubEvent.getStat}, and provides additional details during error handling.
      * The name should help identify place in the code where the subscription was created.
      *
-     * @see [[getStat]]
+     * @see {@link SubEvent.getStat}
      */
     name?: string;
 
@@ -151,6 +151,7 @@ export interface ISubOptions {
      * ```ts
      * event.subscribe(func.bind(this))
      * ```
+     *
      * With this option you can also do it this way:
      * ```ts
      * event.subscribe(func, {thisArg: this})
@@ -160,7 +161,7 @@ export interface ISubOptions {
 
     /**
      * Subscription-cancel callback, to be notified on subscription explicit
-     * [[cancel]] call, or when cancelled implicitly via [[cancelAll]].
+     * {@link Subscription.cancel} call, or when cancelled implicitly via {@link SubEvent.cancelAll}.
      *
      * This is mostly for internal usage, and has no protection against
      * errors, should the handler throw any.
@@ -169,13 +170,13 @@ export interface ISubOptions {
 }
 
 /**
- * Subscriptions statistics, as returned by method [[getStat]].
+ * Subscriptions statistics, as returned by method {@link SubEvent.getStat}.
  */
 export interface ISubStat {
 
     /**
      * Map of subscription names to their usage counters. It consists of only
-     * subscriptions for which option `name` was set when calling [[subscribe]].
+     * subscriptions for which option `name` was set when calling {@link SubEvent.subscribe}.
      */
     named: { [name: string]: number };
 
@@ -208,7 +209,6 @@ export interface ISubscriber<T> extends ISubContext<T> {
 }
 
 /**
- * @class SubEvent
  * Core class, implementing event subscription + emitting the event.
  *
  * @see {@link subscribe}, {@link emit}
@@ -240,7 +240,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Returns a new [[EventConsumer]] for the event, which physically hides methods [[emit]] and [[cancelAll]].
+     * Returns a new {@link EventConsumer} for the event, which physically hides methods {@link SubEvent.emit} and {@link SubEvent.cancelAll}.
      *
      * This method simplifies creation of a receive-only event object representation.
      *
@@ -260,10 +260,10 @@ export class SubEvent<T = unknown> {
     /**
      * Subscribes to the event.
      *
-     * When subscription is no longer needed, method [[cancel]] should be called on the
+     * When subscription is no longer needed, method {@link Subscription.cancel} should be called on the
      * returned object, to avoid performance degradation caused by abandoned subscribers.
      *
-     * Method [[getStat]] can help with diagnosing leaked subscriptions.
+     * Method {@link SubEvent.getStat} can help with diagnosing leaked subscriptions.
      *
      * @param cb
      * Event notification callback function.
@@ -274,7 +274,7 @@ export class SubEvent<T = unknown> {
      * @returns
      * Object for cancelling the subscription safely.
      *
-     * @see [[once]]
+     * @see {@link once}
      */
     public subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         if (typeof (options ?? {}) !== 'object') {
@@ -300,7 +300,7 @@ export class SubEvent<T = unknown> {
     /**
      * Subscribes to receive just one event, and cancel the subscription immediately.
      *
-     * You may still want to call [[cancel]] on the returned [[Subscription]] object,
+     * You may still want to call {@link Subscription.cancel} on the returned object,
      * if you suddenly need to prevent the first event, or to avoid dead once-off
      * subscriptions that never received their event, and thus were not cancelled.
      *
@@ -313,7 +313,7 @@ export class SubEvent<T = unknown> {
      * @returns
      * Object for cancelling the subscription safely.
      *
-     * @see [[toPromise]]
+     * @see {@link toPromise}
      */
     public once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         const sub = this.subscribe((data: T) => {
@@ -324,7 +324,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Broadcasts data to all subscribers, according to the emit schedule,
+     * Broadcasts data to all subscribers, according to the `emit` schedule,
      * which is synchronous by default.
      *
      * @param data
@@ -379,10 +379,10 @@ export class SubEvent<T = unknown> {
      * Maximum number of subscribers that can receive events.
      * Default is 0, meaning `no limit applies`.
      *
-     * Newer subscriptions outside of the maximum quota will start
+     * Newer subscriptions outside the maximum quota will start
      * receiving events when the older subscriptions get cancelled.
      *
-     * It can only be set with the [[constructor]].
+     * It can only be set with the constructor.
      */
     public get maxSubs(): number {
         return this.options.maxSubs ?? 0;
@@ -391,7 +391,7 @@ export class SubEvent<T = unknown> {
     /**
      * Retrieves subscriptions statistics, to help with diagnosing subscription leaks.
      *
-     * For this method to be useful, you need to set option `name` when calling [[subscribe]].
+     * For this method to be useful, you need to set option `name` when calling {@link SubEvent.subscribe}.
      *
      * See also: {@link https://github.com/vitaly-t/sub-events/wiki/Diagnostics Diagnostics}
      *
@@ -399,9 +399,9 @@ export class SubEvent<T = unknown> {
      * Statistics Options:
      *
      *  - `minUse: number` - Minimum subscription usage/count to be included into the list of named
-     *     subscriptions. If subscription is used less times, it will be excluded from the `named` list.
+     *     subscriptions. If subscription is used fewer times, it will be excluded from the `named` list.
      *
-     * @see [[ISubStat]]
+     * @see {@link ISubStat}
      */
     public getStat(options?: { minUse?: number }): ISubStat {
         const stat: ISubStat = {named: {}, unnamed: 0};
@@ -431,7 +431,7 @@ export class SubEvent<T = unknown> {
      * Cancels all existing subscriptions for the event.
      *
      * This is a convenience method for some special cases, when you want to cancel all subscriptions
-     * for the event at once. Usually, subscribers just call [[cancel]] when they want to cancel their
+     * for the event at once. Usually, subscribers just call {@link Subscription cancel} when they want to cancel their
      * own subscription.
      *
      * This method will always offer much better performance than cancelling each subscription individually,
@@ -440,7 +440,7 @@ export class SubEvent<T = unknown> {
      * @returns
      * Number of subscriptions cancelled.
      *
-     * @see [[cancel]]
+     * @see {@link Subscription.cancel}
      */
     public cancelAll(): number {
         const onCancel = typeof this.options.onCancel === 'function' && this.options.onCancel;
@@ -479,7 +479,7 @@ export class SubEvent<T = unknown> {
      *
      * The returned promise can reject in two cases:
      *  - when the timeout has been reached (if set via option `timeout`), it rejects with `Event timed out` error;
-     *  - when [[cancelAll]] is called on the event object, it rejects with `Event cancelled` error.
+     *  - when {@link cancelAll} is called on the event object, it rejects with `Event cancelled` error.
      *
      * Note that if you use this method consecutively, you can miss events in between,
      * because the subscription is auto-cancelled after receiving the first event.
@@ -487,13 +487,13 @@ export class SubEvent<T = unknown> {
      * @param options
      * Subscription Options:
      *
-     * - `name` - for the internal subscription name. See `name` in [[ISubOptions]].
+     * - `name` - for the internal subscription name. See `name` in {@link ISubOptions}.
      *    In this context, it is also included within any rejection error.
      *
      * - `timeout` - sets timeout in ms (when `timeout` >= 0), to auto-reject with
      *    `Event timed out` error.
      *
-     * @see [[once]]
+     * @see {@link once}
      */
     public toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
         if (typeof (options ?? {}) !== 'object') {
@@ -531,8 +531,8 @@ export class SubEvent<T = unknown> {
     /**
      * Gets all recipients that must receive data.
      *
-     * It returns a copy of subscribers array for safe iteration, while applying the
-     * maximum limit when it is set with the [[maxSubs]] option.
+     * It returns a copy of subscribers' array for safe iteration, while applying the
+     * maximum limit when it is set with the {@link IEventOptions.maxSubs} option.
      *
      * @hidden
      */
@@ -549,7 +549,7 @@ export class SubEvent<T = unknown> {
      * Subscriber details.
      *
      * @returns
-     * Function that implements the [[unsubscribe]] request.
+     * Function that implements the `unsubscribe` request.
      */
     protected _createCancel(sub: ISubscriber<T>): () => void {
         return () => {

@@ -1,9 +1,8 @@
 /**
- * ### class Subscription
- *
+ * @class
  * Represents an event subscription, and a safe way to cancel it.
  *
- * @see [[cancel]]
+ * @see {@link cancel}
  */
 export class Subscription {
     /**
@@ -12,7 +11,7 @@ export class Subscription {
     private _cancel: null | (() => void);
 
     /**
-     * Subscription's `name` option, if it was set with method [[subscribe]].
+     * Subscription's `name` option, if it was set with method {@link SubEvent.subscribe}.
      */
     readonly name?: string;
 
@@ -32,7 +31,7 @@ export class Subscription {
     /**
      * Indicates whether the subscription is live / active.
      *
-     * It can be useful to subscribers when [[cancelAll]] is used without their knowledge.
+     * It can be useful to subscribers when {@link SubEvent.cancelAll} is used without their knowledge.
      */
     public get live(): boolean {
         return !!this._cancel;
@@ -41,13 +40,13 @@ export class Subscription {
     /**
      * Cancels the live subscription. The subscriber won't receive any more events.
      *
-     * It also sets flag [[live]] to `false`.
+     * It also sets flag {@link live} to `false`.
      *
      * @returns
      * - `true` - subscription has been successfully cancelled
      * - `false` - nothing happened, as subscription wasn't live
      *
-     * @see [[cancelAll]]
+     * @see {@link SubEvent.cancelAll}
      */
     public cancel(): boolean {
         if (this._cancel) {
