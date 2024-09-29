@@ -149,6 +149,8 @@ export interface ISubOptions {
      * immediately (before `subscribe` function returns).
      *
      * It is to allow for stateful subscribers that need to know the last event-state.
+     *
+     * If the last emitted event was `undefined`, it won't be sent to the subscriber.
      */
     emitLast?: boolean;
 
@@ -235,10 +237,10 @@ export class SubEvent<T = unknown> {
     protected _subs: ISubscriber<T>[] = [];
 
     /**
-     * Last emitted value, if there was any.
+     * Last emitted event, if there was any.
      * @private
      */
-    private lastValue;
+    private lastEvent?: T;
 
     /**
      * Event constructor.
@@ -306,6 +308,9 @@ export class SubEvent<T = unknown> {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
             this.options.onSubscribe(ctx);
             sub.data = ctx.data;
+        }
+        if (this.lastEvent !== undefined) {
+            cb(this.lastEvent);
         }
         this._subs.push(sub);
         return new Subscription({cancel: this._createCancel(sub), sub});
@@ -379,7 +384,7 @@ export class SubEvent<T = unknown> {
                     if (onFinished) {
                         onFinished(r.length); // notify
                     }
-                    this.lastValue = data; // save the last emitted value
+                    this.lastEvent = data; // save the last emitted value
                 }
             }));
         });
