@@ -145,18 +145,6 @@ export interface ISubOptions {
     name?: string;
 
     /**
-     * **Added in v2.0.0-beta.1**
-     *
-     * Make `subscribe` callback receive the last emitted event (if there was any),
-     * immediately (before `subscribe` function returns).
-     *
-     * It is to allow for stateful subscribers that need to know the last event-state.
-     *
-     * If the last emitted event was `undefined`, it won't be sent to the subscriber.
-     */
-    emitLast?: boolean;
-
-    /**
      * Calling / `this` context for the subscription callback function.
      *
      * Standard way of passing in context is this way:
@@ -228,6 +216,15 @@ export interface ISubscriber<T> extends ISubContext<T> {
 export class SubEvent<T = unknown> {
 
     /**
+     * Last emitted event, if there was any, or `undefined` otherwise.
+     *
+     * It is set after all subscribers have received the event.
+     */
+    get lastEvent(): T | undefined {
+        return this._lastEvent;
+    }
+
+    /**
      * @hidden
      */
     readonly options: IEventOptions<T>;
@@ -239,10 +236,10 @@ export class SubEvent<T = unknown> {
     protected _subs: ISubscriber<T>[] = [];
 
     /**
-     * Last emitted event, if there was any.
+     * Last emitted event container.
      * @private
      */
-    private lastEvent?: T;
+    private _lastEvent?: T;
 
     /**
      * Event constructor.
@@ -310,9 +307,6 @@ export class SubEvent<T = unknown> {
             const ctx: ISubContext<T> = {event: sub.event, name: sub.name, data: sub.data};
             this.options.onSubscribe(ctx);
             sub.data = ctx.data;
-        }
-        if (options?.emitLast && this.lastEvent !== undefined) {
-            cb(this.lastEvent); // provide the last event immediately
         }
         this._subs.push(sub);
         return new Subscription({cancel: this._createCancel(sub), sub});
@@ -386,7 +380,7 @@ export class SubEvent<T = unknown> {
                     if (onFinished) {
                         onFinished(r.length); // notify
                     }
-                    this.lastEvent = data; // save the last event
+                    this._lastEvent = data; // save the last event
                 }
             }));
         });
