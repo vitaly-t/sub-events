@@ -145,6 +145,12 @@ export interface ISubOptions {
     name?: string;
 
     /**
+     * Make `subscribe` immediately receive the last emitted event, if there was any.
+     * It is to allow for stateful subscribers that need to know the last event-state.
+     */
+    emitLast?: boolean;
+
+    /**
      * Calling / `this` context for the subscription callback function.
      *
      * Standard way of passing in context is this way:
