@@ -1,7 +1,7 @@
 import {IEmitOptions, IEventOptions, ISubscriber, SubEvent} from './event';
 
 /**
- * Represents a change in the number of subscriptions, as used with [[onCount]] event.
+ * Represents a change in the number of subscriptions, as used with {@link SubEventCount.onCount} event.
  */
 export interface ISubCountChange {
     /**

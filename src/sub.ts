@@ -1,5 +1,4 @@
 /**
- * @class
  * Represents an event subscription, and a safe way to cancel it.
  *
  * @see {@link cancel}

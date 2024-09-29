@@ -1,6 +1,6 @@
 {
   "name": "sub-events",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "Lightweight, strongly-typed events, with monitored subscriptions.",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -28,7 +28,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=14.0.0"
   },
   "bugs": {
     "url": "https://github.com/vitaly-t/sub-events/issues"

@@ -113,7 +113,7 @@ export interface IEventOptions<T> {
      * ```
      *
      * @param ctx
-     * `ctx`: [[ISubContext]] - Subscription Context.
+     * `ctx`: {@link ISubContext} - Subscription Context.
      */
     onSubscribe?: (ctx: ISubContext<T>) => void;
 
@@ -542,7 +542,7 @@ export class SubEvent<T = unknown> {
     }
 
     /**
-     * Creates unsubscribe callback function for the [[Subscription]] class.
+     * Creates unsubscribe callback function for the {@link Subscription} class.
      * @hidden
      *
      * @param sub
