@@ -1,4 +1,5 @@
 import {chai, expect} from './';
+
 import {EmitSchedule, ISubCountChange, SubEventCount} from '../src';
 
 const dummy = () => {

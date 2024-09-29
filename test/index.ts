@@ -1,11 +1,11 @@
-import chai from 'chai';
+import * as ch from 'chai';
 import spies from 'chai-spies';
 import {describe} from 'mocha';
 
-chai.use(spies);
+const chai = ch.use(spies);
 
-const expect = chai.expect;
-const should = chai.should();
+const expect = ch.expect;
+const should = ch.should();
 
 const dummy = () => {
 };

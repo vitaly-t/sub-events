@@ -10,12 +10,10 @@ import {Private} from './utils';
 const pp = new Private<EventConsumer, SubEvent<any>>();
 
 /**
- * ### class EventConsumer\<T = unknown, E extends SubEvent\<T\> = SubEvent\<T\>>
+ * Encapsulates an event object, in order to hide its methods {@link SubEvent.emit} and {@link SubEvent.cancelAll},
+ * so the event consumer can only receive the event, but cannot emit it, or cancel other subscriptions.
  *
- * Encapsulates an event object, in order to hide its methods [[emit]] and [[cancelAll]], so the event
- * consumer can only receive the event, but cannot emit it, or cancel other subscriptions.
- *
- * It is a non-extendable class, with the same signature as [[SubEvent]], minus methods [[emit]] and [[cancelAll]].
+ * It is a non-extendable class, with the same signature as {@link SubEvent}, minus {@link SubEvent.emit emit} and {@link SubEvent.cancelAll cancelAll}.
  *
  * ```ts
  * // Example of using EventConsumer inside a component.
@@ -53,42 +51,42 @@ export class EventConsumer<T = unknown, E extends SubEvent<T> = SubEvent<T>> {
     }
 
     /**
-     * Forwards into [[SubEvent.count]] of the contained event.
+     * Forwards into {@link SubEvent.count} of the contained event.
      */
     get count(): number {
         return pp.get(this).count;
     }
 
     /**
-     * Forwards into [[SubEvent.maxSubs]] of the contained event.
+     * Forwards into {@link SubEvent.maxSubs} of the contained event.
      */
     get maxSubs(): number {
         return pp.get(this).maxSubs;
     }
 
     /**
-     * Forwards into [[SubEvent.subscribe]] of the contained event.
+     * Forwards into {@link SubEvent.subscribe} of the contained event.
      */
     subscribe(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         return pp.get(this).subscribe(cb, options);
     }
 
     /**
-     * Forwards into [[SubEvent.once]] of the contained event.
+     * Forwards into {@link SubEvent.once} of the contained event.
      */
     once(cb: SubFunction<T>, options?: ISubOptions): Subscription {
         return pp.get(this).once(cb, options);
     }
 
     /**
-     * Forwards into [[SubEvent.toPromise]] of the contained event.
+     * Forwards into {@link SubEvent.toPromise} of the contained event.
      */
     toPromise(options?: { name?: string, timeout?: number }): Promise<T> {
         return pp.get(this).toPromise(options);
     }
 
     /**
-     * Forwards into [[SubEvent.getStat]] of the contained event.
+     * Forwards into {@link SubEvent.getStat} of the contained event.
      */
     getStat(options?: { minUse?: number }): ISubStat {
         return pp.get(this).getStat(options);
