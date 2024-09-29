@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node-version: [14.x, 20.x]
+        node-version: [16.x, 20.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -23,4 +23,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - run: npm install
+      - run: npm run lint
       - run: npm test
