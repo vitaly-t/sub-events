@@ -26,9 +26,8 @@ export interface ICountOptions<T> extends IEventOptions<T> {
 }
 
 /**
- * ### class SubEventCount\<T = unknown\> extends SubEvent\<T\>
- *
- * Extends [[SubEvent]] with event [[onCount]], to observe the number of subscriptions.
+ * @class
+ * Extends {@link SubEvent} with event {@link onCount}, to observe the number of subscriptions.
  */
 export class SubEventCount<T = unknown> extends SubEvent<T> {
 
@@ -44,7 +43,6 @@ export class SubEventCount<T = unknown> extends SubEvent<T> {
     readonly onCount: SubEvent<ISubCountChange> = new SubEvent();
 
     /**
-     * @constructor
      * Event constructor.
      *
      * @param options

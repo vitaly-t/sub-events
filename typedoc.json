@@ -1,12 +1,16 @@
 {
+  "$schema": "https://typedoc.org/schema.json",
   "name": "SUB-EVENTS v1.9",
-  "readme": "README.md",
-  "out": "docs",
-  "theme": "minimal",
+  "out": "./docs",
   "excludeExternals": true,
   "excludePrivate": true,
-  "excludeNotDocumented": true,
-  "disableOutputCheck": true,
+  "cleanOutputDir": false,
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "entryPointStrategy": "resolve",
+  "hideGenerator": true,
+  "customCss": "./typedoc.css",
   "exclude": [
     "./extras/**/*.ts",
     "./test/**/*.ts"

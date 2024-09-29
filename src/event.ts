@@ -208,13 +208,10 @@ export interface ISubscriber<T> extends ISubContext<T> {
 }
 
 /**
- * ### class SubEvent\<T = unknown\>
- *
  * @class SubEvent
- * @description
  * Core class, implementing event subscription + emitting the event.
  *
- * @see [[subscribe]], [[emit]]
+ * @see {@link subscribe}, {@link emit}
  */
 export class SubEvent<T = unknown> {
 
@@ -230,7 +227,6 @@ export class SubEvent<T = unknown> {
     protected _subs: ISubscriber<T>[] = [];
 
     /**
-     * @constructor
      * Event constructor.
      *
      * @param options

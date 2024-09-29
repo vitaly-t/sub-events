@@ -1,0 +1,11 @@
+p > code {
+    padding: 4px 8px;
+    border: 1px solid var(--color-accent);
+    border-radius: 5px;
+}
+
+li > code {
+    padding: 2px 6px;
+    border: 1px solid var(--color-accent);
+    border-radius: 5px;
+}
