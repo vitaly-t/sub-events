@@ -145,7 +145,9 @@ export interface ISubOptions {
     name?: string;
 
     /**
-     * Make `subscribe` immediately receive the last emitted event, if there was any.
+     * Make `subscribe` callback receive the last emitted event (if there was any),
+     * immediately (before `subscribe` function returns).
+     *
      * It is to allow for stateful subscribers that need to know the last event-state.
      */
     emitLast?: boolean;
@@ -231,6 +233,12 @@ export class SubEvent<T = unknown> {
      * @hidden
      */
     protected _subs: ISubscriber<T>[] = [];
+
+    /**
+     * Last emitted value, if there was any.
+     * @private
+     */
+    private lastValue;
 
     /**
      * Event constructor.
@@ -334,7 +342,7 @@ export class SubEvent<T = unknown> {
      * which is synchronous by default.
      *
      * @param data
-     * Data to be sent, according to the template type.
+     * Data/value to be sent, according to the template type.
      *
      * @param options
      * Event-emitting options.
@@ -366,8 +374,12 @@ export class SubEvent<T = unknown> {
                 } else {
                     sub.cb && sub.cb(data);
                 }
-                if (onFinished && index === r.length - 1) {
-                    onFinished(r.length); // finished sending
+                if (index === r.length - 1) {
+                    // the end of emission reached;
+                    if (onFinished) {
+                        onFinished(r.length); // notify
+                    }
+                    this.lastValue = data; // save the last emitted value
                 }
             }));
         });
