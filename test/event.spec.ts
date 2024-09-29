@@ -461,7 +461,7 @@ describe('toConsumer', () => {
 describe('lastEvent', () => {
     it('must be set once emission finished', done => {
         const e = new SubEvent<number>();
-        e.subscribe(dummy);
+        e.subscribe(dummy); // TODO: Should not be needed with #33 is resolved?
 
         const onFinished = (count: number) => {
             expect(e.lastEvent).to.eq(123);
