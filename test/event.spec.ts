@@ -461,9 +461,8 @@ describe('toConsumer', () => {
 describe('lastEvent', () => {
     it('must be set once emission finished', done => {
         const e = new SubEvent<number>();
-        e.subscribe(dummy); // TODO: Should not be needed with #33 is resolved?
 
-        const onFinished = (count: number) => {
+        const onFinished = () => {
             expect(e.lastEvent).to.eq(123);
         };
 
@@ -472,7 +471,7 @@ describe('lastEvent', () => {
         expect(e.lastEvent).to.be.undefined;
 
         setTimeout(() => {
-            expect(handler).to.have.been.called.with(1);
+            expect(handler).to.have.been.called.with(0);
             done();
         });
     });

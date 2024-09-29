@@ -361,6 +361,12 @@ export class SubEvent<T = unknown> {
         const onError = typeof options?.onError === 'function' && options.onError;
         const start = schedule === EmitSchedule.sync ? Stat.callNow : Stat.callNext;
         const middle = schedule === EmitSchedule.async ? Stat.callNext : Stat.callNow;
+        const onLast = (count: number) => {
+            this._lastEvent = data; // save the last event
+            if (onFinished) {
+                onFinished(count); // notify
+            }
+        };
         start(() => {
             const r = this._getRecipients();
             r.forEach((sub, index) => middle(() => {
@@ -378,12 +384,12 @@ export class SubEvent<T = unknown> {
                 }
                 if (index === r.length - 1) {
                     // the end of emission reached;
-                    this._lastEvent = data; // save the last event
-                    if (onFinished) {
-                        onFinished(r.length); // notify
-                    }
+                    onLast(r.length);
                 }
             }));
+            if (!r.length) {
+                onLast(0);
+            }
         });
         return this;
     }
