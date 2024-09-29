@@ -1,5 +1,7 @@
 # Strongly-Typed Events
 
+[![Build Status](https://github.com/vitaly-t/sub-events/workflows/ci/badge.svg?branch=master)](https://github.com/vitaly-t/sub-events/actions?query=workflow%3Aci+branch%3Amaster)
+
 Lightweight, strongly-typed events, with monitored subscriptions. 
 
 * Documentation: [API] + [WiKi].
