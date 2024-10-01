@@ -123,4 +123,4 @@ const onTimeout = new TimeoutEvent(1000); // the same result
 [src/from-interval]:./src/from-interval.ts
 [src/from-emitter]:./src/from-emitter.ts
 [src/from-event]:./src/from-event.ts
-[SubEvent]:https://vitaly-t.github.io/sub-events/classes/subevent.html
+[SubEvent]:https://vitaly-t.github.io/sub-events/classes/SubEvent.html
